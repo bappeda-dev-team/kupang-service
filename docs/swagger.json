@@ -22,7 +22,7 @@
     "host": "${PROD_HOSTNAME}",
     "basePath": "/",
     "paths": {
-        "/pokinopd": {
+        "/api/v1/pokin-opd": {
             "get": {
                 "description": "Get list of all Pokin Opd",
                 "consumes": [
@@ -122,7 +122,7 @@
                 }
             }
         },
-        "/pokinopd/{id}": {
+        "/api/v1/pokin-opd/{id}": {
             "get": {
                 "description": "Get Pokin Opd detail by ID",
                 "consumes": [
@@ -309,3 +309,6 @@
         }
     }
 }
+
+
+

@@ -25,7 +25,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/pokinopd": {
+        "/api/v1/pokin-opd": {
             "get": {
                 "description": "Get list of all Pokin Opd",
                 "consumes": [
@@ -125,7 +125,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/pokinopd/{id}": {
+        "/api/v1/pokin-opd/{id}": {
             "get": {
                 "description": "Get Pokin Opd detail by ID",
                 "consumes": [
@@ -328,3 +328,4 @@ var SwaggerInfo = &swag.Spec{
 func init() {
 	swag.Register(SwaggerInfo.InstanceName(), SwaggerInfo)
 }
+

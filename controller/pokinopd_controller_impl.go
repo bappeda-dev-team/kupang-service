@@ -28,7 +28,7 @@ func NewPokinOpdControllerImpl(pokinOpdService service.PokinOpdService) *PokinOp
 // @Success 201 {object} web.WebResponse{data=web.PokinOpdResponse} "Created"
 // @Failure 400 {object} web.WebResponse "Bad Request"
 // @Failure 500 {object} web.WebResponse "Internal Server Error"
-// @Router /pokinopd [post]
+// @Router /api/v1/pokin-opd [post]
 func (controller *PokinOpdControllerImpl) Create(c echo.Context) error {
 	pokinOpdCreateRequest := web.PokinOpdCreateRequest{}
 	err := c.Bind(&pokinOpdCreateRequest)
@@ -64,7 +64,7 @@ func (controller *PokinOpdControllerImpl) Create(c echo.Context) error {
 // @Success 200 {object} web.WebResponse{data=web.PokinOpdResponse} "OK"
 // @Failure 400 {object} web.WebResponse "Bad Request"
 // @Failure 500 {object} web.WebResponse "Internal Server Error"
-// @Router /pokinopd/{id} [put]
+// @Router /api/v1/pokin-opd/{id} [put]
 func (controller *PokinOpdControllerImpl) Update(c echo.Context) error {
 	pokinOpdUpdateRequest := web.PokinOpdUpdateRequest{}
 	err := c.Bind(&pokinOpdUpdateRequest)
@@ -108,7 +108,7 @@ func (controller *PokinOpdControllerImpl) Update(c echo.Context) error {
 // @Success 200 {object} web.WebResponse{data=web.PokinOpdResponse} "OK"
 // @Failure 400 {object} web.WebResponse "Bad Request"
 // @Failure 500 {object} web.WebResponse "Internal Server Error"
-// @Router /pokinopd/{id} [put]
+// @Router /api/v1/pokin-opd/{id} [put]
 func (controller *PokinOpdControllerImpl) Delete(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
@@ -141,7 +141,7 @@ func (controller *PokinOpdControllerImpl) Delete(c echo.Context) error {
 // @Success 200 {object} web.WebResponse{data=web.PokinOpdResponse} "OK"
 // @Failure 400 {object} web.WebResponse "Bad Request"
 // @Failure 500 {object} web.WebResponse "Internal Server Error"
-// @Router /pokinopd/{id} [get]
+// @Router /api/v1/pokin-opd/{id} [get]
 func (controller *PokinOpdControllerImpl) FindById(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
@@ -173,7 +173,7 @@ func (controller *PokinOpdControllerImpl) FindById(c echo.Context) error {
 // @Produce json
 // @Success 200 {object} web.WebResponse{data=[]web.PokinOpdResponse} "OK"
 // @Failure 500 {object} web.WebResponse "Internal Server Error"
-// @Router /pokinopd [get]
+// @Router /api/v1/pokin-opd [get]
 func (controller *PokinOpdControllerImpl) FindAll(c echo.Context) error {
 	pokinOpdResponses, err := controller.PokinOpdService.FindAll(c.Request().Context())
 	if err != nil {

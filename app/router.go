@@ -11,17 +11,20 @@ import (
 func NewRouter(pokinOpdController controller.PokinOpdController) *echo.Echo {
 	e := echo.New()
 
+	const apiVersion = "/api/v1"
+	const pokinOpdBase = apiVersion + "/pokin-opds"
+
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 	// e.Use(middleware.CORS())
 
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 
-	e.POST("/pokinopd", pokinOpdController.Create)
-	e.PUT("/pokinopd/:id", pokinOpdController.Update)
-	e.DELETE("/pokinopd/:id", pokinOpdController.Delete)
-	e.GET("/pokinopd/:id", pokinOpdController.FindById)
-	e.GET("/pokinopd", pokinOpdController.FindAll)
+	e.POST(pokinOpdBase, pokinOpdController.Create)
+	e.PUT(pokinOpdBase+"/:id", pokinOpdController.Update)
+	e.DELETE(pokinOpdBase+"/:id", pokinOpdController.Delete)
+	e.GET(pokinOpdBase+"/:id", pokinOpdController.FindById)
+	e.GET(pokinOpdBase, pokinOpdController.FindAll)
 
 	return e
 }

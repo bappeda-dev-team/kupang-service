@@ -56,7 +56,7 @@ info:
   title: Kupang Service API
   version: "1.0"
 paths:
-  /pokinopd:
+  /api/v1/pokin-opd:
     get:
       consumes:
       - application/json
@@ -116,7 +116,7 @@ paths:
       summary: Create Pokin Opd
       tags:
       - Pokin Opd
-  /pokinopd/{id}:
+  /api/v1/pokin-opd/{id}:
     get:
       consumes:
       - application/json
