@@ -36,3 +36,22 @@ func ToIndikatorPokinOpdResponses(indikatorPokinOpds []domain.IndikatorPokinOpd)
 	}
 	return responses
 }
+
+func ToTujuanPokinOpdResponse(tujuanPokinOpd domain.TujuanPokinOpd) web.TujuanPokinOpdResponse {
+	return web.TujuanPokinOpdResponse{
+		Id:                tujuanPokinOpd.Id,
+		KodeOpd:           tujuanPokinOpd.KodeOpd,
+		NamaTujuan:        tujuanPokinOpd.NamaTujuan,
+		BidangUrusan:      tujuanPokinOpd.BidangUrusan,
+		TahunAwalPeriode:  tujuanPokinOpd.TahunAwalPeriode,
+		TahunAkhirPeriode: tujuanPokinOpd.TahunAkhirPeriode,
+	}
+}
+
+func ToTujuanPokinOpdResponses(tujuanPokinOpds []domain.TujuanPokinOpd) []web.TujuanPokinOpdResponse {
+	var responses []web.TujuanPokinOpdResponse
+	for _, tujuanPokinOpd := range tujuanPokinOpds {
+		responses = append(responses, ToTujuanPokinOpdResponse(tujuanPokinOpd))
+	}
+	return responses
+}

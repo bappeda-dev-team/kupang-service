@@ -54,6 +54,45 @@ definitions:
     required:
     - id
     type: object
+  web.TujuanPokinOpdCreateRequest:
+    properties:
+      bidang_urusan:
+        type: string
+      kode_opd:
+        type: string
+      tahun_akhir_periode:
+        type: integer
+      tahun_awal_periode:
+        type: integer
+      tujuan:
+        type: string
+    type: object
+  web.TujuanPokinOpdResponse:
+    properties:
+      bidang_urusan:
+        type: string
+      kode_opd:
+        type: string
+      tahun_akhir_periode:
+        type: integer
+      tahun_awal_periode:
+        type: integer
+      tujuan:
+        type: string
+    type: object
+  web.TujuanPokinOpdUpdateRequest:
+    properties:
+      bidang_urusan:
+        type: string
+      kode_opd:
+        type: string
+      tahun_akhir_periode:
+        type: integer
+      tahun_awal_periode:
+        type: integer
+      tujuan:
+        type: string
+    type: object
   web.WebResponse:
     description: Web Response
     properties:
@@ -409,6 +448,173 @@ paths:
       summary: Update Pokin Opd
       tags:
       - Pokin Opd
+  /api/v1/tujan-pokin-opd/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Update existing Tujuan Pokin Opd by ID
+      parameters:
+      - description: Tujuan Pokin Opd ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Tujuan Pokin Opd Update Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.TujuanPokinOpdUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.TujuanPokinOpdResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Tujuan Update Pokin Opd
+      tags:
+      - Tujuan Pokin Opd
+  /api/v1/tujuan-pokin-opd:
+    get:
+      consumes:
+      - application/json
+      description: Get list of all Tujuan Pokin Opd
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/web.TujuanPokinOpdResponse'
+                  type: array
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: List All Tujuan Pokin Opd
+      tags:
+      - Tujuan Pokin Opd
+    post:
+      consumes:
+      - application/json
+      description: Create new Tujuan Pokin Opd
+      parameters:
+      - description: Tujuan Pokin Opd Create Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.TujuanPokinOpdCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.TujuanPokinOpdResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Create Tujuan Pokin Opd
+      tags:
+      - Tujuan Pokin Opd
+  /api/v1/tujuan-pokin-opd/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete existing Tujuan Pokin Opd by ID
+      parameters:
+      - description: Tujuan Pokin Opd ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.TujuanPokinOpdResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Delete Tujuan Pokin Opd
+      tags:
+      - Tujuan Pokin Opd
+    get:
+      consumes:
+      - application/json
+      description: Get Tujuan Pokin Opd detail by ID
+      parameters:
+      - description: Tujuan Pokin Opd ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.TujuanPokinOpdResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Get Tujuan Pokin Opd by ID
+      tags:
+      - Tujuan Pokin Opd
 schemes:
 - http
 - https

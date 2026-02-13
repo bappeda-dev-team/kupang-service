@@ -569,6 +569,373 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/api/v1/tujuan-pokin-opd": {
+            "get": {
+                "description": "Get list of all Tujuan Pokin Opd",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tujuan Pokin Opd"
+                ],
+                "summary": "List All Tujuan Pokin Opd",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "kode_opd": {
+                                                        "type": "string"
+                                                    },
+                                                    "tujuan": {
+                                                        "type": "string"
+                                                    },
+                                                    "bidang_urusan": {
+                                                        "type": "string"
+                                                    },
+                                                    "tahun_awal_periode": {
+                                                        "type": "integer"
+                                                    },
+                                                    "tahun_akhir_periode": {
+                                                        "type": "integer"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create new Tujuan Pokin Opd",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tujuan Pokin Opd"
+                ],
+                "summary": "Create Tujuan Pokin Opd",
+                "parameters": [
+                    {
+                        "description": "Tujuan Pokin Opd Create Request",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "kode_opd": {
+                                    "type": "string"
+                                },
+                                "tujuan": {
+                                    "type": "string"
+                                },
+                                "bidang_urusan": {
+                                    "type": "string"
+                                },
+                                "tahun_awal_periode": {
+                                    "type": "integer"
+                                },
+                                "tahun_akhir_periode": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "kode_opd": {
+                                                    "type": "string"
+                                                },
+                                                "tujuan": {
+                                                    "type": "string"
+                                                },
+                                                "bidang_urusan": {
+                                                    "type": "string"
+                                                },
+                                                "tahun_awal_periode": {
+                                                    "type": "integer"
+                                                },
+                                                "tahun_akhir_periode": {
+                                                    "type": "integer"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/tujuan-pokin-opd/{id}": {
+            "put": {
+                "description": "Update existing Tujuan Pokin Opd by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tujuan Pokin Opd"
+                ],
+                "summary": "Tujuan Update Pokin Opd",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Tujuan Pokin Opd ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Tujuan Pokin Opd Update Request",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "id"
+                            ],
+                            "properties": {
+                                "id": {
+                                    "type": "integer"
+                                },
+                                "kode_opd": {
+                                    "type": "string"
+                                },
+                                "tujuan": {
+                                    "type": "string"
+                                },
+                                "bidang_urusan": {
+                                    "type": "string"
+                                },
+                                "tahun_awal_periode": {
+                                    "type": "integer"
+                                },
+                                "tahun_akhir_periode": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer"
+                                                },
+                                                "kode_opd": {
+                                                    "type": "string"
+                                                },
+                                                "tujuan": {
+                                                    "type": "string"
+                                                },
+                                                "bidang_urusan": {
+                                                    "type": "string"
+                                                },
+                                                "tahun_awal_periode": {
+                                                    "type": "integer"
+                                                },
+                                                "tahun_akhir_periode": {
+                                                    "type": "integer"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "description": "Get Tujuan Pokin Opd detail by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tujuan Pokin Opd"
+                ],
+                "summary": "Get Tujuan Pokin Opd by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Tujuan Pokin Opd ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.TujuanPokinOpdResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete existing Tujuan Pokin Opd by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tujuan Pokin Opd"
+                ],
+                "summary": "Delete Tujuan Pokin Opd",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Tujuan Pokin Opd ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.TujuanPokinOpdResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -652,6 +1019,49 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "tahun": {
+                    "type": "integer"
+                }
+            }
+        },
+        "web.TujuanPokinOpdCreateRequest": {
+            "type": "object",
+            "properties": {
+                "kode_opd": {
+                    "type": "string"
+                },
+                "tujuan": {
+                    "type": "string"
+                },
+                "bidang_urusan": {
+                    "type": "string"
+                },
+                "tahun_awal_periode": {
+                    "type": "integer"
+                },
+                "tahun_akhir_periode": {
+                    "type": "integer"
+                }
+            }
+        },
+        "web.TujuanPokinOpdResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "kode_opd": {
+                    "type": "string"
+                },
+                "tujuan": {
+                    "type": "string"
+                },
+                "bidang_urusan": {
+                    "type": "string"
+                },
+                "tahun_awal_periode": {
+                    "type": "integer"
+                },
+                "tahun_akhir_periode": {
                     "type": "integer"
                 }
             }

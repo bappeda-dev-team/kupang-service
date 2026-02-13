@@ -28,7 +28,10 @@ func InitializedServer() *echo.Echo {
 	indikatorPokinOpdRepositoryImpl := repository.NewIndikatorPokinOpdRepositoryImpl()
 	indikatorPokinOpdServiceImpl := service.NewIndikatorPokinOpdServiceImpl(indikatorPokinOpdRepositoryImpl, db, validate)
 	indikatorPokinOpdControllerImpl := controller.NewIndikatorPokinOpdControllerImpl(indikatorPokinOpdServiceImpl)
-	echoEcho := app.NewRouter(pokinOpdControllerImpl, indikatorPokinOpdControllerImpl)
+	tujuanPokinOpdRepositoryImpl := repository.NewTujuanPokinOpdRepositoryImpl()
+	tujuanPokinOpdServiceImpl := service.NewTujuanPokinOpdServiceImpl(tujuanPokinOpdRepositoryImpl, db, validate)
+	tujuanPokinOpdControllerImpl := controller.NewTujuanPokinOpdControllerImpl(tujuanPokinOpdServiceImpl)
+	echoEcho := app.NewRouter(pokinOpdControllerImpl, indikatorPokinOpdControllerImpl, tujuanPokinOpdControllerImpl)
 	return echoEcho
 }
 
@@ -41,3 +44,5 @@ var (
 var pokinOpdSet = wire.NewSet(repository.NewPokinOpdRepositoryImpl, wire.Bind(new(repository.PokinOpdRepository), new(*repository.PokinOpdRepositoryImpl)), service.NewPokinOpdServiceImpl, wire.Bind(new(service.PokinOpdService), new(*service.PokinOpdServiceImpl)), controller.NewPokinOpdControllerImpl, wire.Bind(new(controller.PokinOpdController), new(*controller.PokinOpdControllerImpl)))
 
 var indikatorPokinOpdSet = wire.NewSet(repository.NewIndikatorPokinOpdRepositoryImpl, wire.Bind(new(repository.IndikatorPokinOpdRepository), new(*repository.IndikatorPokinOpdRepositoryImpl)), service.NewIndikatorPokinOpdServiceImpl, wire.Bind(new(service.IndikatorPokinOpdService), new(*service.IndikatorPokinOpdServiceImpl)), controller.NewIndikatorPokinOpdControllerImpl, wire.Bind(new(controller.IndikatorPokinOpdController), new(*controller.IndikatorPokinOpdControllerImpl)))
+
+var tujuanPokinOpdSet = wire.NewSet(repository.NewTujuanPokinOpdRepositoryImpl, wire.Bind(new(repository.TujuanPokinOpdRepository), new(*repository.TujuanPokinOpdRepositoryImpl)), service.NewTujuanPokinOpdServiceImpl, wire.Bind(new(service.TujuanPokinOpdService), new(*service.TujuanPokinOpdServiceImpl)), controller.NewTujuanPokinOpdControllerImpl, wire.Bind(new(controller.TujuanPokinOpdController), new(*controller.TujuanPokinOpdControllerImpl)))
