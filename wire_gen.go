@@ -25,7 +25,10 @@ func InitializedServer() *echo.Echo {
 	validate := validator.New(v...)
 	pokinOpdServiceImpl := service.NewPokinOpdServiceImpl(pokinOpdRepositoryImpl, db, validate)
 	pokinOpdControllerImpl := controller.NewPokinOpdControllerImpl(pokinOpdServiceImpl)
-	echoEcho := app.NewRouter(pokinOpdControllerImpl)
+	indikatorPokinOpdRepositoryImpl := repository.NewIndikatorPokinOpdRepositoryImpl()
+	indikatorPokinOpdServiceImpl := service.NewIndikatorPokinOpdServiceImpl(indikatorPokinOpdRepositoryImpl, db, validate)
+	indikatorPokinOpdControllerImpl := controller.NewIndikatorPokinOpdControllerImpl(indikatorPokinOpdServiceImpl)
+	echoEcho := app.NewRouter(pokinOpdControllerImpl, indikatorPokinOpdControllerImpl)
 	return echoEcho
 }
 
@@ -36,3 +39,5 @@ var (
 // injector.go:
 
 var pokinOpdSet = wire.NewSet(repository.NewPokinOpdRepositoryImpl, wire.Bind(new(repository.PokinOpdRepository), new(*repository.PokinOpdRepositoryImpl)), service.NewPokinOpdServiceImpl, wire.Bind(new(service.PokinOpdService), new(*service.PokinOpdServiceImpl)), controller.NewPokinOpdControllerImpl, wire.Bind(new(controller.PokinOpdController), new(*controller.PokinOpdControllerImpl)))
+
+var indikatorPokinOpdSet = wire.NewSet(repository.NewIndikatorPokinOpdRepositoryImpl, wire.Bind(new(repository.IndikatorPokinOpdRepository), new(*repository.IndikatorPokinOpdRepositoryImpl)), service.NewIndikatorPokinOpdServiceImpl, wire.Bind(new(service.IndikatorPokinOpdService), new(*service.IndikatorPokinOpdServiceImpl)), controller.NewIndikatorPokinOpdControllerImpl, wire.Bind(new(controller.IndikatorPokinOpdController), new(*controller.IndikatorPokinOpdControllerImpl)))

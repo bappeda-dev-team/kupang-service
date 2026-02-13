@@ -21,3 +21,18 @@ func ToPokinOpdResponses(pokinOpds []domain.PokinOpd) []web.PokinOpdResponse {
 	}
 	return responses
 }
+
+func ToIndikatorPokinOpdResponse(indikatorPokinOpd domain.IndikatorPokinOpd) web.IndikatorPokinOpdResponse {
+	return web.IndikatorPokinOpdResponse{
+		Id:            indikatorPokinOpd.Id,
+		NamaIndikator: indikatorPokinOpd.NamaIndikator,
+	}
+}
+
+func ToIndikatorPokinOpdResponses(indikatorPokinOpds []domain.IndikatorPokinOpd) []web.IndikatorPokinOpdResponse {
+	var responses []web.IndikatorPokinOpdResponse
+	for _, indikatorPokinOpd := range indikatorPokinOpds {
+		responses = append(responses, ToIndikatorPokinOpdResponse(indikatorPokinOpd))
+	}
+	return responses
+}

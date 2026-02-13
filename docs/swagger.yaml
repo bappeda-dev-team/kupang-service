@@ -1,5 +1,26 @@
 basePath: /
 definitions:
+  web.IndikatorPokinOpdCreateRequest:
+    properties:
+      indikator:
+        type: string
+    type: object
+  web.IndikatorPokinOpdResponse:
+    properties:
+      id:
+        type: integer
+      indikator:
+        type: string
+    type: object
+  web.IndikatorPokinOpdUpdateRequest:
+    properties:
+      id:
+        type: integer
+      indikator:
+        type: string
+    required:
+    - id
+    type: object
   web.PokinOpdCreateRequest:
     properties:
       kode_opd:
@@ -48,14 +69,180 @@ info:
     email: support@swagger.io
     name: API Support
     url: http://www.swagger.io/support
-  description: API For Kupang Service
+  description: API For Alur Kerja Services
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: http://swagger.io/terms/
-  title: Kupang Service API
+  title: Alur Kerja Service API
   version: "1.0"
 paths:
+  /api/v1/indikator-pokin-opd:
+    get:
+      consumes:
+      - application/json
+      description: Get list of all Indikator Pokin Opd
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/web.IndikatorPokinOpdResponse'
+                  type: array
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: List All Indikator Pokin Opd
+      tags:
+      - Indikator Pokin Opd
+    post:
+      consumes:
+      - application/json
+      description: Create new Indikator Pokin Opd
+      parameters:
+      - description: Indikator Pokin Opd Create Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.IndikatorPokinOpdCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.IndikatorPokinOpdResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Create Indikator Pokin Opd
+      tags:
+      - Indikator Pokin Opd
+  /api/v1/indikator-pokin-opd/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete existing Indikator Pokin Opd by ID
+      parameters:
+      - description: Indikator Pokin Opd ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.IndikatorPokinOpdResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Delete Indikator Pokin Opd
+      tags:
+      - Indikator Pokin Opd
+    get:
+      consumes:
+      - application/json
+      description: Get Indikator Pokin Opd detail by ID
+      parameters:
+      - description: Indikator Pokin Opd ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.IndikatorPokinOpdResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Get Indikator Pokin Opd by ID
+      tags:
+      - Indikator Pokin Opd
+    put:
+      consumes:
+      - application/json
+      description: Update existing Indikator Pokin Opd by ID
+      parameters:
+      - description: Indikator Pokin Opd ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Indikator Pokin Opd Update Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.IndikatorPokinOpdUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.IndikatorPokinOpdResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Update Indikator Pokin Opd
+      tags:
+      - Indikator Pokin Opd
   /api/v1/pokin-opd:
     get:
       consumes:
@@ -117,6 +304,39 @@ paths:
       tags:
       - Pokin Opd
   /api/v1/pokin-opd/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete existing Pokin Opd by ID
+      parameters:
+      - description: Pokin Opd ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.PokinOpdResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Delete Pokin Opd
+      tags:
+      - Pokin Opd
     get:
       consumes:
       - application/json

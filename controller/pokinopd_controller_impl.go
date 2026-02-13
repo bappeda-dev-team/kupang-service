@@ -98,17 +98,16 @@ func (controller *PokinOpdControllerImpl) Update(c echo.Context) error {
 	})
 }
 
-// @Summary Update Pokin Opd
-// @Description Update existing Pokin Opd by ID
+// @Summary Delete Pokin Opd
+// @Description Delete existing Pokin Opd by ID
 // @Tags Pokin Opd
 // @Accept json
 // @Produce json
 // @Param id path int true "Pokin Opd ID"
-// @Param data body web.PokinOpdUpdateRequest true "Pokin Opd Update Request"
 // @Success 200 {object} web.WebResponse{data=web.PokinOpdResponse} "OK"
 // @Failure 400 {object} web.WebResponse "Bad Request"
 // @Failure 500 {object} web.WebResponse "Internal Server Error"
-// @Router /api/v1/pokin-opd/{id} [put]
+// @Router /api/v1/pokin-opd/{id} [delete]
 func (controller *PokinOpdControllerImpl) Delete(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {

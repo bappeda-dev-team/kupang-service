@@ -8,11 +8,12 @@ import (
 	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
-func NewRouter(pokinOpdController controller.PokinOpdController) *echo.Echo {
+func NewRouter(pokinOpdController controller.PokinOpdController, indikatorPokinOpdController controller.IndikatorPokinOpdController) *echo.Echo {
 	e := echo.New()
 
 	const apiVersion = "/api/v1"
 	const pokinOpdBase = apiVersion + "/pokin-opds"
+	const indikatorPokinOpdBase = apiVersion + "/indikator-pokin-opd"
 
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
@@ -25,6 +26,12 @@ func NewRouter(pokinOpdController controller.PokinOpdController) *echo.Echo {
 	e.DELETE(pokinOpdBase+"/:id", pokinOpdController.Delete)
 	e.GET(pokinOpdBase+"/:id", pokinOpdController.FindById)
 	e.GET(pokinOpdBase, pokinOpdController.FindAll)
+
+	e.POST(indikatorPokinOpdBase, indikatorPokinOpdController.Create)
+	e.PUT(indikatorPokinOpdBase+"/:id", indikatorPokinOpdController.Update)
+	e.DELETE(indikatorPokinOpdBase+"/:id", indikatorPokinOpdController.Delete)
+	e.GET(indikatorPokinOpdBase+"/:id", indikatorPokinOpdController.FindById)
+	e.GET(indikatorPokinOpdBase, indikatorPokinOpdController.FindAll)
 
 	return e
 }
