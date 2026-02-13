@@ -1,0 +1,4 @@
+./pokinopd_create_request.go
+./pokinopd_response.go
+./pokinopd_update_request.go
+./web_response.go

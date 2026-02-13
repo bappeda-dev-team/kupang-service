@@ -1,0 +1,195 @@
+basePath: /
+definitions:
+  web.PokinOpdCreateRequest:
+    properties:
+      kode_opd:
+        type: string
+      nama_opd:
+        type: string
+      tahun:
+        type: integer
+    type: object
+  web.PokinOpdResponse:
+    properties:
+      id:
+        type: integer
+      kode_opd:
+        type: string
+      nama_opd:
+        type: string
+      tahun:
+        type: integer
+    type: object
+  web.PokinOpdUpdateRequest:
+    properties:
+      id:
+        type: integer
+      kode_opd:
+        type: string
+      nama_opd:
+        type: string
+      tahun:
+        type: integer
+    required:
+    - id
+    type: object
+  web.WebResponse:
+    description: Web Response
+    properties:
+      code:
+        type: integer
+      data: {}
+      status:
+        type: string
+    type: object
+host: ${PROD_HOSTNAME}
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: API For Kupang Service
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Kupang Service API
+  version: "1.0"
+paths:
+  /pokinopd:
+    get:
+      consumes:
+      - application/json
+      description: Get list of all Pokin Opd
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/web.PokinOpdResponse'
+                  type: array
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: List All Pokin Opd
+      tags:
+      - Pokin Opd
+    post:
+      consumes:
+      - application/json
+      description: Create new Pokin Opd
+      parameters:
+      - description: Pokin Opd Create Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.PokinOpdCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.PokinOpdResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Create Pokin Opd
+      tags:
+      - Pokin Opd
+  /pokinopd/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get Pokin Opd detail by ID
+      parameters:
+      - description: Pokin Opd ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.PokinOpdResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Get Pokin Opd by ID
+      tags:
+      - Pokin Opd
+    put:
+      consumes:
+      - application/json
+      description: Update existing Pokin Opd by ID
+      parameters:
+      - description: Pokin Opd ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Pokin Opd Update Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.PokinOpdUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.PokinOpdResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Update Pokin Opd
+      tags:
+      - Pokin Opd
+schemes:
+- http
+- https
+swagger: "2.0"

@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS pokin_opd (
+    id BIGSERIAL PRIMARY KEY,
+    kode_opd VARCHAR(255),
+    nama_opd VARCHAR(255),
+    tahun INTEGER,
+    created_date TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    last_modified_date TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
+);
