@@ -41,6 +41,15 @@ var tujuanPokinOpdSet = wire.NewSet(
 	wire.Bind(new(controller.TujuanPokinOpdController), new(*controller.TujuanPokinOpdControllerImpl)),
 )
 
+var targetPokinOpdSet = wire.NewSet(
+	repository.NewTargetPokinOpdRepositoryImpl,
+	wire.Bind(new(repository.TargetPokinOpdRepository), new(*repository.TargetPokinOpdRepositoryImpl)),
+	service.NewTargetPokinOpdServiceImpl,
+	wire.Bind(new(service.TargetPokinOpdService), new(*service.TargetPokinOpdServiceImpl)),
+	controller.NewTargetPokinOpdControllerImpl,
+	wire.Bind(new(controller.TargetPokinOpdController), new(*controller.TargetPokinOpdControllerImpl)),
+)
+
 func InitializedServer() *echo.Echo {
 	wire.Build(
 		app.GetConnection,
@@ -49,6 +58,7 @@ func InitializedServer() *echo.Echo {
 		pokinOpdSet,
 		indikatorPokinOpdSet,
 		tujuanPokinOpdSet,
+		targetPokinOpdSet,
 		app.NewRouter,
 	)
 	return nil

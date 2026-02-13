@@ -55,3 +55,19 @@ func ToTujuanPokinOpdResponses(tujuanPokinOpds []domain.TujuanPokinOpd) []web.Tu
 	}
 	return responses
 }
+
+func ToTargetPokinOpdResponse(targetPokinOpd domain.TargetPokinOpd) web.TargetPokinOpdResponse {
+	return web.TargetPokinOpdResponse{
+		Id:         targetPokinOpd.Id,
+		NamaTarget: targetPokinOpd.NilaiTarget,
+		Satuan:     targetPokinOpd.Satuan,
+	}
+}
+
+func ToTargetPokinOpdResponses(targetPokinOpds []domain.TargetPokinOpd) []web.TargetPokinOpdResponse {
+	var responses []web.TargetPokinOpdResponse
+	for _, targetPokinOpd := range targetPokinOpds {
+		responses = append(responses, ToTargetPokinOpdResponse(targetPokinOpd))
+	}
+	return responses
+}

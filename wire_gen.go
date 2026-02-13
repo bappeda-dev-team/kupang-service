@@ -31,7 +31,10 @@ func InitializedServer() *echo.Echo {
 	tujuanPokinOpdRepositoryImpl := repository.NewTujuanPokinOpdRepositoryImpl()
 	tujuanPokinOpdServiceImpl := service.NewTujuanPokinOpdServiceImpl(tujuanPokinOpdRepositoryImpl, db, validate)
 	tujuanPokinOpdControllerImpl := controller.NewTujuanPokinOpdControllerImpl(tujuanPokinOpdServiceImpl)
-	echoEcho := app.NewRouter(pokinOpdControllerImpl, indikatorPokinOpdControllerImpl, tujuanPokinOpdControllerImpl)
+	targetPokinOpdRepositoryImpl := repository.NewTargetPokinOpdRepositoryImpl()
+	targetPokinOpdServiceImpl := service.NewTargetPokinOpdServiceImpl(targetPokinOpdRepositoryImpl, db, validate)
+	targetPokinOpdControllerImpl := controller.NewTargetPokinOpdControllerImpl(targetPokinOpdServiceImpl)
+	echoEcho := app.NewRouter(pokinOpdControllerImpl, indikatorPokinOpdControllerImpl, tujuanPokinOpdControllerImpl, targetPokinOpdControllerImpl)
 	return echoEcho
 }
 
@@ -46,3 +49,5 @@ var pokinOpdSet = wire.NewSet(repository.NewPokinOpdRepositoryImpl, wire.Bind(ne
 var indikatorPokinOpdSet = wire.NewSet(repository.NewIndikatorPokinOpdRepositoryImpl, wire.Bind(new(repository.IndikatorPokinOpdRepository), new(*repository.IndikatorPokinOpdRepositoryImpl)), service.NewIndikatorPokinOpdServiceImpl, wire.Bind(new(service.IndikatorPokinOpdService), new(*service.IndikatorPokinOpdServiceImpl)), controller.NewIndikatorPokinOpdControllerImpl, wire.Bind(new(controller.IndikatorPokinOpdController), new(*controller.IndikatorPokinOpdControllerImpl)))
 
 var tujuanPokinOpdSet = wire.NewSet(repository.NewTujuanPokinOpdRepositoryImpl, wire.Bind(new(repository.TujuanPokinOpdRepository), new(*repository.TujuanPokinOpdRepositoryImpl)), service.NewTujuanPokinOpdServiceImpl, wire.Bind(new(service.TujuanPokinOpdService), new(*service.TujuanPokinOpdServiceImpl)), controller.NewTujuanPokinOpdControllerImpl, wire.Bind(new(controller.TujuanPokinOpdController), new(*controller.TujuanPokinOpdControllerImpl)))
+
+var targetPokinOpdSet = wire.NewSet(repository.NewTargetPokinOpdRepositoryImpl, wire.Bind(new(repository.TargetPokinOpdRepository), new(*repository.TargetPokinOpdRepositoryImpl)), service.NewTargetPokinOpdServiceImpl, wire.Bind(new(service.TargetPokinOpdService), new(*service.TargetPokinOpdServiceImpl)), controller.NewTargetPokinOpdControllerImpl, wire.Bind(new(controller.TargetPokinOpdController), new(*controller.TargetPokinOpdControllerImpl)))
