@@ -937,6 +937,69 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/v1/pohon-kinerja-opd/{kode_opd}/{tahun}": {
+            "get": {
+                "description": "Get pohon kinerja opd by kode opd and tahun",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pohon Kinerja Opd"
+                ],
+                "summary": "Get Pohon Kinerja Opd",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Kode OPD",
+                        "name": "kode_opd",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Tahun",
+                        "name": "tahun",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.PohonKinerjaResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/target-pokin-opd": {
             "get": {
                 "description": "Get list of all Target Pokin Opd",
@@ -1215,8 +1278,95 @@ const docTemplate = `{
         "web.IndikatorPokinOpdCreateRequest": {
             "type": "object",
             "properties": {
+                "tujuan_pokin_opd_id": {
+                    "type": "integer"
+                },
                 "indikator": {
                     "type": "string"
+                }
+            }
+        },
+        "web.PohonKinerjaIndikatorResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "indikator": {
+                    "type": "string"
+                },
+                "targets": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/web.PohonKinerjaTargetResponse"
+                    }
+                }
+            }
+        },
+        "web.PohonKinerjaResponse": {
+            "type": "object",
+            "properties": {
+                "kode_opd": {
+                    "type": "string"
+                },
+                "nama_opd": {
+                    "type": "string"
+                },
+                "tahun": {
+                    "type": "integer"
+                },
+                "tujuan_opd": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/web.PohonKinerjaTujuanResponse"
+                    }
+                },
+                "childs": {
+                    "type": "array",
+                    "items": {}
+                }
+            }
+        },
+        "web.PohonKinerjaTargetResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "target": {
+                    "type": "integer"
+                },
+                "satuan": {
+                    "type": "string"
+                }
+            }
+        },
+        "web.PohonKinerjaTujuanResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "kode_opd": {
+                    "type": "string"
+                },
+                "tujuan": {
+                    "type": "string"
+                },
+                "bidang_urusan": {
+                    "type": "string"
+                },
+                "tahun_awal_periode": {
+                    "type": "integer"
+                },
+                "tahun_akhir_periode": {
+                    "type": "integer"
+                },
+                "indikator": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/web.PohonKinerjaIndikatorResponse"
+                    }
                 }
             }
         },
@@ -1299,6 +1449,9 @@ const docTemplate = `{
         "web.TujuanPokinOpdCreateRequest": {
             "type": "object",
             "properties": {
+                "pokin_opd_id": {
+                    "type": "integer"
+                },
                 "kode_opd": {
                     "type": "string"
                 },
@@ -1342,6 +1495,9 @@ const docTemplate = `{
         "web.TargetPokinOpdCreateRequest": {
             "type": "object",
             "properties": {
+                "indikator_pokin_opd_id": {
+                    "type": "integer"
+                },
                 "target": {
                     "type": "integer"
                 },

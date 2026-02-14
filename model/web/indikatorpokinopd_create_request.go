@@ -1,5 +1,6 @@
 package web
 
 type IndikatorPokinOpdCreateRequest struct {
-	NamaIndikator string `json:"indikator"`
+	TujuanPokinOpdId int    `json:"tujuan_pokin_opd_id"`
+	NamaIndikator   string `json:"indikator"`
 }

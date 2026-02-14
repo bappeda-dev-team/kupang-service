@@ -14,8 +14,8 @@ func NewTargetPokinOpdRepositoryImpl() *TargetPokinOpdRepositoryImpl {
 }
 
 func (repository *TargetPokinOpdRepositoryImpl) Create(ctx context.Context, tx *sql.Tx, targetPokinOpd domain.TargetPokinOpd) (domain.TargetPokinOpd, error) {
-	query := "INSERT INTO target_pokin_opd (nilai_target, satuan) VALUES ($1, $2) RETURNING id"
-	err := tx.QueryRowContext(ctx, query, targetPokinOpd.NilaiTarget, targetPokinOpd.Satuan).Scan(&targetPokinOpd.Id)
+	query := "INSERT INTO target_pokin_opd (indikator_pokin_opd_id, nilai_target, satuan) VALUES ($1, $2, $3) RETURNING id"
+	err := tx.QueryRowContext(ctx, query, targetPokinOpd.IndikatorPokinOpdId, targetPokinOpd.NilaiTarget, targetPokinOpd.Satuan).Scan(&targetPokinOpd.Id)
 	if err != nil {
 		return domain.TargetPokinOpd{}, err
 	}
@@ -44,11 +44,11 @@ func (repository *TargetPokinOpdRepositoryImpl) Delete(ctx context.Context, tx *
 }
 
 func (repository *TargetPokinOpdRepositoryImpl) FindById(ctx context.Context, tx *sql.Tx, id int) (domain.TargetPokinOpd, error) {
-	query := "SELECT id, nilai_target, satuan FROM target_pokin_opd WHERE id = $1"
+	query := "SELECT id, indikator_pokin_opd_id, nilai_target, satuan FROM target_pokin_opd WHERE id = $1"
 	row := tx.QueryRowContext(ctx, query, id)
 
 	var targetPokinOpd domain.TargetPokinOpd
-	err := row.Scan(&targetPokinOpd.Id, &targetPokinOpd.NilaiTarget, &targetPokinOpd.Satuan)
+	err := row.Scan(&targetPokinOpd.Id, &targetPokinOpd.IndikatorPokinOpdId, &targetPokinOpd.NilaiTarget, &targetPokinOpd.Satuan)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return domain.TargetPokinOpd{}, errors.New("id tidak ditemukan")
@@ -60,7 +60,7 @@ func (repository *TargetPokinOpdRepositoryImpl) FindById(ctx context.Context, tx
 }
 
 func (repository *TargetPokinOpdRepositoryImpl) FindAll(ctx context.Context, tx *sql.Tx) ([]domain.TargetPokinOpd, error) {
-	query := "SELECT id, nilai_target, satuan FROM target_pokin_opd ORDER BY id ASC"
+	query := "SELECT id, indikator_pokin_opd_id, nilai_target, satuan FROM target_pokin_opd ORDER BY id ASC"
 	rows, err := tx.QueryContext(ctx, query)
 	if err != nil {
 		return []domain.TargetPokinOpd{}, err
@@ -70,7 +70,29 @@ func (repository *TargetPokinOpdRepositoryImpl) FindAll(ctx context.Context, tx 
 	var targetPokinOpdList []domain.TargetPokinOpd
 	for rows.Next() {
 		var targetPokinOpd domain.TargetPokinOpd
-		err := rows.Scan(&targetPokinOpd.Id, &targetPokinOpd.NilaiTarget, &targetPokinOpd.Satuan)
+		err := rows.Scan(&targetPokinOpd.Id, &targetPokinOpd.IndikatorPokinOpdId, &targetPokinOpd.NilaiTarget, &targetPokinOpd.Satuan)
+		if err != nil {
+			return []domain.TargetPokinOpd{}, err
+		}
+
+		targetPokinOpdList = append(targetPokinOpdList, targetPokinOpd)
+	}
+
+	return targetPokinOpdList, nil
+}
+
+func (repository *TargetPokinOpdRepositoryImpl) FindByIndikatorPokinOpdId(ctx context.Context, tx *sql.Tx, indikatorPokinOpdId int) ([]domain.TargetPokinOpd, error) {
+	query := "SELECT id, indikator_pokin_opd_id, nilai_target, satuan FROM target_pokin_opd WHERE indikator_pokin_opd_id = $1 ORDER BY id ASC"
+	rows, err := tx.QueryContext(ctx, query, indikatorPokinOpdId)
+	if err != nil {
+		return []domain.TargetPokinOpd{}, err
+	}
+	defer rows.Close()
+
+	var targetPokinOpdList []domain.TargetPokinOpd
+	for rows.Next() {
+		var targetPokinOpd domain.TargetPokinOpd
+		err := rows.Scan(&targetPokinOpd.Id, &targetPokinOpd.IndikatorPokinOpdId, &targetPokinOpd.NilaiTarget, &targetPokinOpd.Satuan)
 		if err != nil {
 			return []domain.TargetPokinOpd{}, err
 		}

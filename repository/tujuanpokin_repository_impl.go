@@ -15,8 +15,8 @@ func NewTujuanPokinOpdRepositoryImpl() *TujuanPokinOpdRepositoryImpl {
 }
 
 func (repository *TujuanPokinOpdRepositoryImpl) Create(ctx context.Context, tx *sql.Tx, tujuanPokinOpd domain.TujuanPokinOpd) (domain.TujuanPokinOpd, error) {
-	query := "INSERT INTO tujuan_pokin_opd (kode_opd, nama_tujuan, bidang_urusan, tahun_awal_periode, tahun_akhir_periode) VALUES ($1, $2, $3, $4, $5) RETURNING id"
-	err := tx.QueryRowContext(ctx, query, tujuanPokinOpd.KodeOpd, tujuanPokinOpd.NamaTujuan, tujuanPokinOpd.BidangUrusan, tujuanPokinOpd.TahunAwalPeriode, tujuanPokinOpd.TahunAkhirPeriode).Scan(&tujuanPokinOpd.Id)
+	query := "INSERT INTO tujuan_pokin_opd (pokin_opd_id, kode_opd, nama_tujuan, bidang_urusan, tahun_awal_periode, tahun_akhir_periode) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id"
+	err := tx.QueryRowContext(ctx, query, tujuanPokinOpd.PokinOpdId, tujuanPokinOpd.KodeOpd, tujuanPokinOpd.NamaTujuan, tujuanPokinOpd.BidangUrusan, tujuanPokinOpd.TahunAwalPeriode, tujuanPokinOpd.TahunAkhirPeriode).Scan(&tujuanPokinOpd.Id)
 	if err != nil {
 		return domain.TujuanPokinOpd{}, err
 	}
@@ -35,11 +35,11 @@ func (repository *TujuanPokinOpdRepositoryImpl) Update(ctx context.Context, tx *
 }
 
 func (repository *TujuanPokinOpdRepositoryImpl) FindById(ctx context.Context, tx *sql.Tx, id int) (domain.TujuanPokinOpd, error) {
-	query := "SELECT id, kode_opd, nama_tujuan, bidang_urusan, tahun_awal_periode, tahun_akhir_periode FROM tujuan_pokin_opd WHERE id = $1"
+	query := "SELECT id, pokin_opd_id, kode_opd, nama_tujuan, bidang_urusan, tahun_awal_periode, tahun_akhir_periode FROM tujuan_pokin_opd WHERE id = $1"
 	row := tx.QueryRowContext(ctx, query, id)
 
 	var tujuanPokinOpd domain.TujuanPokinOpd
-	err := row.Scan(&tujuanPokinOpd.Id, &tujuanPokinOpd.KodeOpd, &tujuanPokinOpd.NamaTujuan, &tujuanPokinOpd.BidangUrusan, &tujuanPokinOpd.TahunAwalPeriode, &tujuanPokinOpd.TahunAkhirPeriode)
+	err := row.Scan(&tujuanPokinOpd.Id, &tujuanPokinOpd.PokinOpdId, &tujuanPokinOpd.KodeOpd, &tujuanPokinOpd.NamaTujuan, &tujuanPokinOpd.BidangUrusan, &tujuanPokinOpd.TahunAwalPeriode, &tujuanPokinOpd.TahunAkhirPeriode)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return domain.TujuanPokinOpd{}, errors.New("id tidak ditemukan")
@@ -51,7 +51,7 @@ func (repository *TujuanPokinOpdRepositoryImpl) FindById(ctx context.Context, tx
 }
 
 func (repository *TujuanPokinOpdRepositoryImpl) FindAll(ctx context.Context, tx *sql.Tx) ([]domain.TujuanPokinOpd, error) {
-	query := "SELECT id, kode_opd, nama_tujuan, bidang_urusan, tahun_awal_periode, tahun_akhir_periode FROM tujuan_pokin_opd ORDER BY id ASC"
+	query := "SELECT id, pokin_opd_id, kode_opd, nama_tujuan, bidang_urusan, tahun_awal_periode, tahun_akhir_periode FROM tujuan_pokin_opd ORDER BY id ASC"
 	rows, err := tx.QueryContext(ctx, query)
 	if err != nil {
 		return []domain.TujuanPokinOpd{}, err
@@ -61,7 +61,29 @@ func (repository *TujuanPokinOpdRepositoryImpl) FindAll(ctx context.Context, tx 
 	var tujuanPokinOpdList []domain.TujuanPokinOpd
 	for rows.Next() {
 		var tujuanPokinOpd domain.TujuanPokinOpd
-		err := rows.Scan(&tujuanPokinOpd.Id, &tujuanPokinOpd.KodeOpd, &tujuanPokinOpd.NamaTujuan, &tujuanPokinOpd.BidangUrusan, &tujuanPokinOpd.TahunAwalPeriode, &tujuanPokinOpd.TahunAkhirPeriode)
+		err := rows.Scan(&tujuanPokinOpd.Id, &tujuanPokinOpd.PokinOpdId, &tujuanPokinOpd.KodeOpd, &tujuanPokinOpd.NamaTujuan, &tujuanPokinOpd.BidangUrusan, &tujuanPokinOpd.TahunAwalPeriode, &tujuanPokinOpd.TahunAkhirPeriode)
+		if err != nil {
+			return []domain.TujuanPokinOpd{}, err
+		}
+
+		tujuanPokinOpdList = append(tujuanPokinOpdList, tujuanPokinOpd)
+	}
+
+	return tujuanPokinOpdList, nil
+}
+
+func (repository *TujuanPokinOpdRepositoryImpl) FindByPokinOpdId(ctx context.Context, tx *sql.Tx, pokinOpdId int) ([]domain.TujuanPokinOpd, error) {
+	query := "SELECT id, pokin_opd_id, kode_opd, nama_tujuan, bidang_urusan, tahun_awal_periode, tahun_akhir_periode FROM tujuan_pokin_opd WHERE pokin_opd_id = $1 ORDER BY id ASC"
+	rows, err := tx.QueryContext(ctx, query, pokinOpdId)
+	if err != nil {
+		return []domain.TujuanPokinOpd{}, err
+	}
+	defer rows.Close()
+
+	var tujuanPokinOpdList []domain.TujuanPokinOpd
+	for rows.Next() {
+		var tujuanPokinOpd domain.TujuanPokinOpd
+		err := rows.Scan(&tujuanPokinOpd.Id, &tujuanPokinOpd.PokinOpdId, &tujuanPokinOpd.KodeOpd, &tujuanPokinOpd.NamaTujuan, &tujuanPokinOpd.BidangUrusan, &tujuanPokinOpd.TahunAwalPeriode, &tujuanPokinOpd.TahunAkhirPeriode)
 		if err != nil {
 			return []domain.TujuanPokinOpd{}, err
 		}

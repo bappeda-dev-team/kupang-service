@@ -50,6 +50,13 @@ var targetPokinOpdSet = wire.NewSet(
 	wire.Bind(new(controller.TargetPokinOpdController), new(*controller.TargetPokinOpdControllerImpl)),
 )
 
+var pohonKinerjaSet = wire.NewSet(
+	service.NewPohonKinerjaServiceImpl,
+	wire.Bind(new(service.PohonKinerjaService), new(*service.PohonKinerjaServiceImpl)),
+	controller.NewPohonKinerjaControllerImpl,
+	wire.Bind(new(controller.PohonKinerjaController), new(*controller.PohonKinerjaControllerImpl)),
+)
+
 func InitializedServer() *echo.Echo {
 	wire.Build(
 		app.GetConnection,
@@ -59,6 +66,7 @@ func InitializedServer() *echo.Echo {
 		indikatorPokinOpdSet,
 		tujuanPokinOpdSet,
 		targetPokinOpdSet,
+		pohonKinerjaSet,
 		app.NewRouter,
 	)
 	return nil

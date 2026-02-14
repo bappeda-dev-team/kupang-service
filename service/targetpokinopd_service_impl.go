@@ -39,8 +39,9 @@ func (service *TargetPokinOpdServiceImpl) Create(ctx context.Context, targetPoki
 	defer helper.CommitOrRollback(tx)
 
 	targetPokinOpdDomain := domain.TargetPokinOpd{
-		NilaiTarget: targetPokinOpd.NilaiTarget,
-		Satuan:      targetPokinOpd.Satuan,
+		IndikatorPokinOpdId: targetPokinOpd.IndikatorPokinOpdId,
+		NilaiTarget:         targetPokinOpd.NilaiTarget,
+		Satuan:              targetPokinOpd.Satuan,
 	}
 
 	targetPokinOpdDomain, err = service.TargetPokinOpdRepository.Create(ctx, tx, targetPokinOpdDomain)

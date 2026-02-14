@@ -8,7 +8,7 @@ import (
 	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
-func NewRouter(pokinOpdController controller.PokinOpdController, indikatorPokinOpdController controller.IndikatorPokinOpdController, tujuanPokinOpdController controller.TujuanPokinOpdController, targetPokinOpdController controller.TargetPokinOpdController) *echo.Echo {
+func NewRouter(pokinOpdController controller.PokinOpdController, indikatorPokinOpdController controller.IndikatorPokinOpdController, tujuanPokinOpdController controller.TujuanPokinOpdController, targetPokinOpdController controller.TargetPokinOpdController, pohonKinerjaController controller.PohonKinerjaController) *echo.Echo {
 	e := echo.New()
 
 	const apiVersion = "/api/v1"
@@ -16,6 +16,7 @@ func NewRouter(pokinOpdController controller.PokinOpdController, indikatorPokinO
 	const indikatorPokinOpdBase = apiVersion + "/indikator-pokin-opd"
 	const tujuanPokinOpdBase = apiVersion + "/tujuan-pokin-opd"
 	const targetPokinOpdBase = apiVersion + "/target-pokin-opd"
+	const pohonKinerjaBase = apiVersion + "/pohon-kinerja-opd"
 
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
@@ -46,6 +47,8 @@ func NewRouter(pokinOpdController controller.PokinOpdController, indikatorPokinO
 	e.DELETE(targetPokinOpdBase+"/:id", targetPokinOpdController.Delete)
 	e.GET(targetPokinOpdBase+"/:id", targetPokinOpdController.FindById)
 	e.GET(targetPokinOpdBase, targetPokinOpdController.FindAll)
+
+	e.GET(pohonKinerjaBase+"/:kode_opd/:tahun", pohonKinerjaController.FindByKodeOpdAndTahun)
 
 	return e
 }

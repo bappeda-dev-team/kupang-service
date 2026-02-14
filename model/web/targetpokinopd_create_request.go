@@ -1,6 +1,7 @@
 package web
 
 type TargetPokinOpdCreateRequest struct {
-	NilaiTarget int    `json:"target"`
-	Satuan      string `json:"satuan"`
+	IndikatorPokinOpdId int    `json:"indikator_pokin_opd_id"`
+	NilaiTarget         int    `json:"target"`
+	Satuan              string `json:"satuan"`
 }

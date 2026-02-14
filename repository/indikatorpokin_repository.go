@@ -12,4 +12,5 @@ type IndikatorPokinOpdRepository interface {
 	Delete(ctx context.Context, tx *sql.Tx, id int) error
 	FindById(ctx context.Context, tx *sql.Tx, id int) (domain.IndikatorPokinOpd, error)
 	FindAll(ctx context.Context, tx *sql.Tx) ([]domain.IndikatorPokinOpd, error)
+	FindByTujuanPokinOpdId(ctx context.Context, tx *sql.Tx, tujuanPokinOpdId int) ([]domain.IndikatorPokinOpd, error)
 }

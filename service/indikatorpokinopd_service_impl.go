@@ -39,7 +39,8 @@ func (service *IndikatorPokinOpdServiceImpl) Create(ctx context.Context, indikat
 	defer helper.CommitOrRollback(tx)
 
 	indikatorPokinOpdDomain := domain.IndikatorPokinOpd{
-		NamaIndikator: indikatorPokinOpd.NamaIndikator,
+		TujuanPokinOpdId: indikatorPokinOpd.TujuanPokinOpdId,
+		NamaIndikator:   indikatorPokinOpd.NamaIndikator,
 	}
 
 	indikatorPokinOpdDomain, err = service.IndikatorPokinOpdRepository.Create(ctx, tx, indikatorPokinOpdDomain)

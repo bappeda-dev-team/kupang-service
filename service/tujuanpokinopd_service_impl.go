@@ -39,6 +39,7 @@ func (service *TujuanPokinOpdServiceImpl) Create(ctx context.Context, tujuanPoki
 	defer helper.CommitOrRollback(tx)
 
 	tujuanPokinOpdDomain := domain.TujuanPokinOpd{
+		PokinOpdId:         tujuanPokinOpd.PokinOpdId,
 		KodeOpd:           tujuanPokinOpd.KodeOpd,
 		NamaTujuan:        tujuanPokinOpd.NamaTujuan,
 		BidangUrusan:      tujuanPokinOpd.BidangUrusan,

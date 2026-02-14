@@ -72,6 +72,22 @@ func (repository *PokinOpdRepositoryImpl) FindAll(ctx context.Context, tx *sql.T
 	return pokinOpdList, nil
 }
 
+func (repository *PokinOpdRepositoryImpl) FindByKodeOpdAndTahun(ctx context.Context, tx *sql.Tx, kodeOpd string, tahun int) (domain.PokinOpd, error) {
+	query := "SELECT id, kode_opd, nama_opd, tahun FROM pokin_opd WHERE kode_opd = $1 AND tahun = $2"
+	row := tx.QueryRowContext(ctx, query, kodeOpd, tahun)
+
+	var pokinOpd domain.PokinOpd
+	err := row.Scan(&pokinOpd.Id, &pokinOpd.KodeOpd, &pokinOpd.NamaOpd, &pokinOpd.Tahun)
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return domain.PokinOpd{}, errors.New("data tidak ditemukan")
+		}
+		return domain.PokinOpd{}, err
+	}
+
+	return pokinOpd, nil
+}
+
 func (repository *PokinOpdRepositoryImpl) Delete(ctx context.Context, tx *sql.Tx, id int) error {
 	query := "DELETE FROM pokin_opd WHERE id = $1"
 	_, err := tx.ExecContext(ctx, query, id)

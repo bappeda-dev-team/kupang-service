@@ -34,7 +34,9 @@ func InitializedServer() *echo.Echo {
 	targetPokinOpdRepositoryImpl := repository.NewTargetPokinOpdRepositoryImpl()
 	targetPokinOpdServiceImpl := service.NewTargetPokinOpdServiceImpl(targetPokinOpdRepositoryImpl, db, validate)
 	targetPokinOpdControllerImpl := controller.NewTargetPokinOpdControllerImpl(targetPokinOpdServiceImpl)
-	echoEcho := app.NewRouter(pokinOpdControllerImpl, indikatorPokinOpdControllerImpl, tujuanPokinOpdControllerImpl, targetPokinOpdControllerImpl)
+	pohonKinerjaServiceImpl := service.NewPohonKinerjaServiceImpl(pokinOpdRepositoryImpl, tujuanPokinOpdRepositoryImpl, indikatorPokinOpdRepositoryImpl, targetPokinOpdRepositoryImpl, db)
+	pohonKinerjaControllerImpl := controller.NewPohonKinerjaControllerImpl(pohonKinerjaServiceImpl)
+	echoEcho := app.NewRouter(pokinOpdControllerImpl, indikatorPokinOpdControllerImpl, tujuanPokinOpdControllerImpl, targetPokinOpdControllerImpl, pohonKinerjaControllerImpl)
 	return echoEcho
 }
 
@@ -51,3 +53,5 @@ var indikatorPokinOpdSet = wire.NewSet(repository.NewIndikatorPokinOpdRepository
 var tujuanPokinOpdSet = wire.NewSet(repository.NewTujuanPokinOpdRepositoryImpl, wire.Bind(new(repository.TujuanPokinOpdRepository), new(*repository.TujuanPokinOpdRepositoryImpl)), service.NewTujuanPokinOpdServiceImpl, wire.Bind(new(service.TujuanPokinOpdService), new(*service.TujuanPokinOpdServiceImpl)), controller.NewTujuanPokinOpdControllerImpl, wire.Bind(new(controller.TujuanPokinOpdController), new(*controller.TujuanPokinOpdControllerImpl)))
 
 var targetPokinOpdSet = wire.NewSet(repository.NewTargetPokinOpdRepositoryImpl, wire.Bind(new(repository.TargetPokinOpdRepository), new(*repository.TargetPokinOpdRepositoryImpl)), service.NewTargetPokinOpdServiceImpl, wire.Bind(new(service.TargetPokinOpdService), new(*service.TargetPokinOpdServiceImpl)), controller.NewTargetPokinOpdControllerImpl, wire.Bind(new(controller.TargetPokinOpdController), new(*controller.TargetPokinOpdControllerImpl)))
+
+var pohonKinerjaSet = wire.NewSet(service.NewPohonKinerjaServiceImpl, wire.Bind(new(service.PohonKinerjaService), new(*service.PohonKinerjaServiceImpl)), controller.NewPohonKinerjaControllerImpl, wire.Bind(new(controller.PohonKinerjaController), new(*controller.PohonKinerjaControllerImpl)))
