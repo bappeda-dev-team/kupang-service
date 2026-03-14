@@ -24,7 +24,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/api/v1/indikator-pokin-opd": {
+        "/indikator-pokin-opd": {
             "get": {
                 "description": "Get list of all Indikator Pokin Opd",
                 "consumes": [
@@ -124,7 +124,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/indikator-pokin-opd/{id}": {
+        "/indikator-pokin-opd/{id}": {
             "get": {
                 "description": "Get Indikator Pokin Opd detail by ID",
                 "consumes": [
@@ -297,7 +297,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/pokin-opd": {
+        "/pokin-opd": {
             "get": {
                 "description": "Get list of all Pokin Opd",
                 "consumes": [
@@ -397,7 +397,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/pokin-opd/{id}": {
+        "/pokin-opd/{id}": {
             "get": {
                 "description": "Get Pokin Opd detail by ID",
                 "consumes": [
@@ -570,7 +570,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/tujuan-pokin-opd": {
+        "/tujuan-pokin-opd": {
             "get": {
                 "description": "Get list of all Tujuan Pokin Opd",
                 "consumes": [
@@ -721,7 +721,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/tujuan-pokin-opd/{id}": {
+        "/tujuan-pokin-opd/{id}": {
             "put": {
                 "description": "Update existing Tujuan Pokin Opd by ID",
                 "consumes": [
@@ -937,7 +937,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/pohon-kinerja-opd/{kode_opd}/{tahun}": {
+        "/pohon-kinerja-opd/{kode_opd}/{tahun}": {
             "get": {
                 "description": "Get pohon kinerja opd by kode opd and tahun",
                 "consumes": [
@@ -1000,7 +1000,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/target-pokin-opd": {
+        "/target-pokin-opd": {
             "get": {
                 "description": "Get list of all Target Pokin Opd",
                 "consumes": [
@@ -1100,7 +1100,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/target-pokin-opd/{id}": {
+        "/target-pokin-opd/{id}": {
             "get": {
                 "description": "Get Target Pokin Opd detail by ID",
                 "consumes": [

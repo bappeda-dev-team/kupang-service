@@ -11,12 +11,11 @@ import (
 func NewRouter(pokinOpdController controller.PokinOpdController, indikatorPokinOpdController controller.IndikatorPokinOpdController, tujuanPokinOpdController controller.TujuanPokinOpdController, targetPokinOpdController controller.TargetPokinOpdController, pohonKinerjaController controller.PohonKinerjaController) *echo.Echo {
 	e := echo.New()
 
-	const apiVersion = "/api/v1"
-	const pokinOpdBase = apiVersion + "/pokin-opds"
-	const indikatorPokinOpdBase = apiVersion + "/indikator-pokin-opd"
-	const tujuanPokinOpdBase = apiVersion + "/tujuan-pokin-opd"
-	const targetPokinOpdBase = apiVersion + "/target-pokin-opd"
-	const pohonKinerjaBase = apiVersion + "/pohon-kinerja-opd"
+	const pokinOpdBase = "/pokin-opds"
+	const indikatorPokinOpdBase = "/indikator-pokin-opd"
+	const tujuanPokinOpdBase = "/tujuan-pokin-opd"
+	const targetPokinOpdBase = "/target-pokin-opd"
+	const pohonKinerjaBase = "/pohon-kinerja-opd"
 
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())

@@ -116,7 +116,7 @@ info:
   title: Alur Kerja Service API
   version: "1.0"
 paths:
-  /api/v1/indikator-pokin-opd:
+  /indikator-pokin-opd:
     get:
       consumes:
       - application/json
@@ -176,7 +176,7 @@ paths:
       summary: Create Indikator Pokin Opd
       tags:
       - Indikator Pokin Opd
-  /api/v1/indikator-pokin-opd/{id}:
+  /indikator-pokin-opd/{id}:
     delete:
       consumes:
       - application/json
@@ -282,7 +282,7 @@ paths:
       summary: Update Indikator Pokin Opd
       tags:
       - Indikator Pokin Opd
-  /api/v1/pokin-opd:
+  /pokin-opd:
     get:
       consumes:
       - application/json
@@ -342,7 +342,7 @@ paths:
       summary: Create Pokin Opd
       tags:
       - Pokin Opd
-  /api/v1/pokin-opd/{id}:
+  /pokin-opd/{id}:
     delete:
       consumes:
       - application/json
@@ -448,7 +448,7 @@ paths:
       summary: Update Pokin Opd
       tags:
       - Pokin Opd
-  /api/v1/tujan-pokin-opd/{id}:
+  /tujan-pokin-opd/{id}:
     put:
       consumes:
       - application/json
@@ -488,7 +488,7 @@ paths:
       summary: Tujuan Update Pokin Opd
       tags:
       - Tujuan Pokin Opd
-  /api/v1/tujuan-pokin-opd:
+  /tujuan-pokin-opd:
     get:
       consumes:
       - application/json
@@ -548,7 +548,7 @@ paths:
       summary: Create Tujuan Pokin Opd
       tags:
       - Tujuan Pokin Opd
-  /api/v1/tujuan-pokin-opd/{id}:
+  /tujuan-pokin-opd/{id}:
     delete:
       consumes:
       - application/json
