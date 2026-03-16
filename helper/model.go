@@ -37,6 +37,22 @@ func ToIndikatorPokinOpdResponses(indikatorPokinOpds []domain.IndikatorPokinOpd)
 	return responses
 }
 
+func ToIndikatorPokinOpdStrategicResponse(indikator domain.IndikatorPokinOpdStrategic) web.IndikatorPokinOpdStrategicResponse {
+	return web.IndikatorPokinOpdStrategicResponse{
+		Id:                  indikator.Id,
+		PokinOpdStrategicId: indikator.PokinOpdStrategicId,
+		NamaIndikator:       indikator.NamaIndikator,
+	}
+}
+
+func ToIndikatorPokinOpdStrategicResponses(indikators []domain.IndikatorPokinOpdStrategic) []web.IndikatorPokinOpdStrategicResponse {
+	var responses []web.IndikatorPokinOpdStrategicResponse
+	for _, indikator := range indikators {
+		responses = append(responses, ToIndikatorPokinOpdStrategicResponse(indikator))
+	}
+	return responses
+}
+
 func ToTujuanPokinOpdResponse(tujuanPokinOpd domain.TujuanPokinOpd) web.TujuanPokinOpdResponse {
 	return web.TujuanPokinOpdResponse{
 		Id:                tujuanPokinOpd.Id,
@@ -68,6 +84,23 @@ func ToTargetPokinOpdResponses(targetPokinOpds []domain.TargetPokinOpd) []web.Ta
 	var responses []web.TargetPokinOpdResponse
 	for _, targetPokinOpd := range targetPokinOpds {
 		responses = append(responses, ToTargetPokinOpdResponse(targetPokinOpd))
+	}
+	return responses
+}
+
+func ToTargetPokinOpdStrategicResponse(target domain.TargetPokinOpdStrategic) web.TargetPokinOpdStrategicResponse {
+	return web.TargetPokinOpdStrategicResponse{
+		Id:                  target.Id,
+		IdPokinOpdStrategic: target.IndikatorPokinOpdStrategicId,
+		NamaTarget:          target.NilaiTarget,
+		Satuan:              target.Satuan,
+	}
+}
+
+func ToTargetPokinOpdStrategicResponses(targets []domain.TargetPokinOpdStrategic) []web.TargetPokinOpdStrategicResponse {
+	var responses []web.TargetPokinOpdStrategicResponse
+	for _, target := range targets {
+		responses = append(responses, ToTargetPokinOpdStrategicResponse(target))
 	}
 	return responses
 }

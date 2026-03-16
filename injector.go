@@ -23,6 +23,15 @@ var pokinOpdSet = wire.NewSet(
 	wire.Bind(new(controller.PokinOpdController), new(*controller.PokinOpdControllerImpl)),
 )
 
+var pokinOpdStrategicSet = wire.NewSet(
+	repository.NewPokinOpdStrategicRepositoryImpl,
+	wire.Bind(new(repository.PokinOpdStrategicRepository), new(*repository.PokinOpdStrategicRepositoryImpl)),
+	service.NewPokinOpdStrategicServiceImpl,
+	wire.Bind(new(service.PokinOpdStrategicService), new(*service.PokinOpdStrategicServiceImpl)),
+	controller.NewPokinOpdStrategicControllerImpl,
+	wire.Bind(new(controller.PokinOpdStrategicController), new(*controller.PokinOpdStrategicControllerImpl)),
+)
+
 var indikatorPokinOpdSet = wire.NewSet(
 	repository.NewIndikatorPokinOpdRepositoryImpl,
 	wire.Bind(new(repository.IndikatorPokinOpdRepository), new(*repository.IndikatorPokinOpdRepositoryImpl)),
@@ -30,6 +39,15 @@ var indikatorPokinOpdSet = wire.NewSet(
 	wire.Bind(new(service.IndikatorPokinOpdService), new(*service.IndikatorPokinOpdServiceImpl)),
 	controller.NewIndikatorPokinOpdControllerImpl,
 	wire.Bind(new(controller.IndikatorPokinOpdController), new(*controller.IndikatorPokinOpdControllerImpl)),
+)
+
+var indikatorPokinOpdStrategicSet = wire.NewSet(
+	repository.NewIndikatorPokinOpdStrategicRepositoryImpl,
+	wire.Bind(new(repository.IndikatorPokinOpdStrategicRepository), new(*repository.IndikatorPokinOpdStrategicRepositoryImpl)),
+	service.NewIndikatorPokinOpdStrategicServiceImpl,
+	wire.Bind(new(service.IndikatorPokinOpdStrategicService), new(*service.IndikatorPokinOpdStrategicServiceImpl)),
+	controller.NewIndikatorPokinOpdStrategicControllerImpl,
+	wire.Bind(new(controller.IndikatorPokinOpdStrategicController), new(*controller.IndikatorPokinOpdStrategicControllerImpl)),
 )
 
 var tujuanPokinOpdSet = wire.NewSet(
@@ -50,6 +68,15 @@ var targetPokinOpdSet = wire.NewSet(
 	wire.Bind(new(controller.TargetPokinOpdController), new(*controller.TargetPokinOpdControllerImpl)),
 )
 
+var targetPokinOpdStrategicSet = wire.NewSet(
+	repository.NewTargetPokinOpdStrategicRepositoryImpl,
+	wire.Bind(new(repository.TargetPokinOpdStrategicRepository), new(*repository.TargetPokinOpdStrategicRepositoryImpl)),
+	service.NewTargetPokinOpdStrategicServiceImpl,
+	wire.Bind(new(service.TargetPokinOpdStrategicService), new(*service.TargetPokinOpdStrategicServiceImpl)),
+	controller.NewTargetPokinOpdStrategicControllerImpl,
+	wire.Bind(new(controller.TargetPokinOpdStrategicController), new(*controller.TargetPokinOpdStrategicControllerImpl)),
+)
+
 var pohonKinerjaSet = wire.NewSet(
 	service.NewPohonKinerjaServiceImpl,
 	wire.Bind(new(service.PohonKinerjaService), new(*service.PohonKinerjaServiceImpl)),
@@ -63,9 +90,12 @@ func InitializedServer() *echo.Echo {
 		wire.Value([]validator.Option{}),
 		validator.New,
 		pokinOpdSet,
+		pokinOpdStrategicSet,
 		indikatorPokinOpdSet,
+		indikatorPokinOpdStrategicSet,
 		tujuanPokinOpdSet,
 		targetPokinOpdSet,
+		targetPokinOpdStrategicSet,
 		pohonKinerjaSet,
 		app.NewRouter,
 	)
