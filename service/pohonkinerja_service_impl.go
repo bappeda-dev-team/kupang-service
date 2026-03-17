@@ -16,6 +16,9 @@ type PohonKinerjaServiceImpl struct {
 	PokinOpdStrategicRepository          repository.PokinOpdStrategicRepository
 	IndikatorPokinOpdStrategicRepository repository.IndikatorPokinOpdStrategicRepository
 	TargetPokinOpdStrategicRepository    repository.TargetPokinOpdStrategicRepository
+	PokinOpdTacticalRepository           repository.PokinOpdTacticalRepository
+	IndikatorPokinOpdTacticalRepository  repository.IndikatorPokinOpdTacticalRepository
+	TargetPokinOpdTacticalRepository     repository.TargetPokinOpdTacticalRepository
 	DB                                   *sql.DB
 }
 
@@ -27,6 +30,9 @@ func NewPohonKinerjaServiceImpl(
 	pokinOpdStrategicRepository repository.PokinOpdStrategicRepository,
 	indikatorPokinOpdStrategicRepository repository.IndikatorPokinOpdStrategicRepository,
 	targetPokinOpdStrategicRepository repository.TargetPokinOpdStrategicRepository,
+	pokinOpdTacticalRepository repository.PokinOpdTacticalRepository,
+	indikatorPokinOpdTacticalRepository repository.IndikatorPokinOpdTacticalRepository,
+	targetPokinOpdTacticalRepository repository.TargetPokinOpdTacticalRepository,
 	db *sql.DB,
 ) *PohonKinerjaServiceImpl {
 	return &PohonKinerjaServiceImpl{
@@ -37,6 +43,9 @@ func NewPohonKinerjaServiceImpl(
 		PokinOpdStrategicRepository:          pokinOpdStrategicRepository,
 		IndikatorPokinOpdStrategicRepository: indikatorPokinOpdStrategicRepository,
 		TargetPokinOpdStrategicRepository:    targetPokinOpdStrategicRepository,
+		PokinOpdTacticalRepository:           pokinOpdTacticalRepository,
+		IndikatorPokinOpdTacticalRepository:  indikatorPokinOpdTacticalRepository,
+		TargetPokinOpdTacticalRepository:     targetPokinOpdTacticalRepository,
 		DB:                                   db,
 	}
 }
@@ -104,14 +113,19 @@ func (service *PohonKinerjaServiceImpl) FindByKodeOpdAndTahun(ctx context.Contex
 		return web.PohonKinerjaResponse{}, err
 	}
 
-	childResponses := make([]web.PokinOpdStrategicResponse, 0, len(strategicDomains))
+	childResponses := make([]web.PohonKinerjaStrategicResponse, 0, len(strategicDomains))
 	for _, strategic := range strategicDomains {
 		indikatorResponses, err := service.buildStrategicIndikatorResponses(ctx, tx, strategic.Id)
 		if err != nil {
 			return web.PohonKinerjaResponse{}, err
 		}
 
-		childResponses = append(childResponses, web.PokinOpdStrategicResponse{
+		tacticalResponses, err := service.buildTacticalChildResponses(ctx, tx, strategic.Id)
+		if err != nil {
+			return web.PohonKinerjaResponse{}, err
+		}
+
+		childResponses = append(childResponses, web.PohonKinerjaStrategicResponse{
 			Id:           strategic.Id,
 			Parent:       strategic.Parent,
 			NamaPohon:    strategic.NamaPohon,
@@ -126,6 +140,7 @@ func (service *PohonKinerjaServiceImpl) FindByKodeOpdAndTahun(ctx context.Contex
 			Pelaksana:    strategic.Pelaksana,
 			UpdatedBy:    strategic.UpdatedBy,
 			Indikator:    indikatorResponses,
+			Childs:       tacticalResponses,
 		})
 	}
 
@@ -165,6 +180,85 @@ func (service *PohonKinerjaServiceImpl) buildStrategicIndikatorResponses(ctx con
 		}
 
 		indikatorResponses = append(indikatorResponses, web.PokinOpdStrategicIndikatorResponse{
+			IdIndikator:   indikator.Id,
+			NamaIndikator: indikator.NamaIndikator,
+			Targets:       targetResponses,
+		})
+	}
+
+	return indikatorResponses, nil
+}
+
+func (service *PohonKinerjaServiceImpl) buildTacticalChildResponses(ctx context.Context, tx *sql.Tx, strategicId int) ([]web.WebResponse, error) {
+	tacticalDomains, err := service.PokinOpdTacticalRepository.FindByParent(ctx, tx, strategicId)
+	if err != nil {
+		return nil, err
+	}
+	if len(tacticalDomains) == 0 {
+		return []web.WebResponse{}, nil
+	}
+
+	responses := make([]web.WebResponse, 0, len(tacticalDomains))
+	for _, tactical := range tacticalDomains {
+		indikatorResponses, err := service.buildTacticalIndikatorResponses(ctx, tx, tactical.Id)
+		if err != nil {
+			return nil, err
+		}
+
+		tacticalResponse := web.PokinOpdTacticalResponse{
+			Id:           tactical.Id,
+			Parent:       tactical.Parent,
+			NamaPohon:    tactical.NamaPohon,
+			JenisPohon:   tactical.JenisPohon,
+			LevelPohon:   tactical.LevelPohon,
+			KodeOpd:      tactical.KodeOpd,
+			NamaOpd:      tactical.NamaOpd,
+			Keterangan:   tactical.Keterangan,
+			Tahun:        tactical.Tahun,
+			JumlahReview: tactical.JumlahReview,
+			Status:       tactical.Status,
+			Pelaksana:    tactical.Pelaksana,
+			UpdatedBy:    tactical.UpdatedBy,
+			Indikator:    indikatorResponses,
+		}
+
+		responses = append(responses, web.WebResponse{
+			Code:   200,
+			Status: "OK",
+			Data:   tacticalResponse,
+		})
+	}
+
+	return responses, nil
+}
+
+func (service *PohonKinerjaServiceImpl) buildTacticalIndikatorResponses(ctx context.Context, tx *sql.Tx, pokinOpdTacticalId int) ([]web.PokinOpdTacticalIndikatorResponse, error) {
+	indikatorDomains, err := service.IndikatorPokinOpdTacticalRepository.FindByPokinOpdTacticalId(ctx, tx, pokinOpdTacticalId)
+	if err != nil {
+		return nil, err
+	}
+	if len(indikatorDomains) == 0 {
+		return nil, nil
+	}
+
+	indikatorResponses := make([]web.PokinOpdTacticalIndikatorResponse, 0, len(indikatorDomains))
+	for _, indikator := range indikatorDomains {
+		targetDomains, err := service.TargetPokinOpdTacticalRepository.FindByIndikatorId(ctx, tx, indikator.Id)
+		if err != nil {
+			return nil, err
+		}
+
+		targetResponses := make([]web.PokinOpdTacticalTargetResponse, 0, len(targetDomains))
+		for _, target := range targetDomains {
+			targetResponses = append(targetResponses, web.PokinOpdTacticalTargetResponse{
+				IdTarget:    target.Id,
+				IndikatorId: target.IndikatorPokinOpdTacticalId,
+				Target:      target.NilaiTarget,
+				Satuan:      target.Satuan,
+			})
+		}
+
+		indikatorResponses = append(indikatorResponses, web.PokinOpdTacticalIndikatorResponse{
 			IdIndikator:   indikator.Id,
 			NamaIndikator: indikator.NamaIndikator,
 			Targets:       targetResponses,

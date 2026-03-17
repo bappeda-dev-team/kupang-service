@@ -53,6 +53,8 @@ var indikatorPokinOpdSet = wire.NewSet(
 var indikatorPokinOpdStrategicSet = wire.NewSet(
 	repository.NewIndikatorPokinOpdStrategicRepositoryImpl,
 	wire.Bind(new(repository.IndikatorPokinOpdStrategicRepository), new(*repository.IndikatorPokinOpdStrategicRepositoryImpl)),
+	repository.NewPokinOpdStrategicRepositoryImpl,
+	wire.Bind(new(repository.PokinOpdStrategicRepository), new(*repository.PokinOpdStrategicRepositoryImpl)),
 	service.NewIndikatorPokinOpdStrategicServiceImpl,
 	wire.Bind(new(service.IndikatorPokinOpdStrategicService), new(*service.IndikatorPokinOpdStrategicServiceImpl)),
 	controller.NewIndikatorPokinOpdStrategicControllerImpl,
@@ -62,6 +64,8 @@ var indikatorPokinOpdStrategicSet = wire.NewSet(
 var indikatorPokinOpdTacticalSet = wire.NewSet(
 	repository.NewIndikatorPokinOpdTacticalRepositoryImpl,
 	wire.Bind(new(repository.IndikatorPokinOpdTacticalRepository), new(*repository.IndikatorPokinOpdTacticalRepositoryImpl)),
+	repository.NewPokinOpdTacticalRepositoryImpl,
+	wire.Bind(new(repository.PokinOpdTacticalRepository), new(*repository.PokinOpdTacticalRepositoryImpl)),
 	service.NewIndikatorPokinOpdTacticalServiceImpl,
 	wire.Bind(new(service.IndikatorPokinOpdTacticalService), new(*service.IndikatorPokinOpdTacticalServiceImpl)),
 	controller.NewIndikatorPokinOpdTacticalControllerImpl,

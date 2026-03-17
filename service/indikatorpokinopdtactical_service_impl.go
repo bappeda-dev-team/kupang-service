@@ -14,13 +14,20 @@ import (
 
 type IndikatorPokinOpdTacticalServiceImpl struct {
 	IndikatorPokinOpdTacticalRepository repository.IndikatorPokinOpdTacticalRepository
+	PokinOpdTacticalRepository          repository.PokinOpdTacticalRepository
 	DB                                  *sql.DB
 	Validator                           *validator.Validate
 }
 
-func NewIndikatorPokinOpdTacticalServiceImpl(indikatorRepository repository.IndikatorPokinOpdTacticalRepository, db *sql.DB, validator *validator.Validate) *IndikatorPokinOpdTacticalServiceImpl {
+func NewIndikatorPokinOpdTacticalServiceImpl(
+	indikatorRepository repository.IndikatorPokinOpdTacticalRepository,
+	pokinOpdTacticalRepository repository.PokinOpdTacticalRepository,
+	db *sql.DB,
+	validator *validator.Validate,
+) *IndikatorPokinOpdTacticalServiceImpl {
 	return &IndikatorPokinOpdTacticalServiceImpl{
 		IndikatorPokinOpdTacticalRepository: indikatorRepository,
+		PokinOpdTacticalRepository:          pokinOpdTacticalRepository,
 		DB:                                  db,
 		Validator:                           validator,
 	}
@@ -37,6 +44,10 @@ func (service *IndikatorPokinOpdTacticalServiceImpl) Create(ctx context.Context,
 		return web.IndikatorPokinOpdTacticalResponse{}, err
 	}
 	defer helper.CommitOrRollback(tx)
+
+	if _, err := service.PokinOpdTacticalRepository.FindById(ctx, tx, indikator.PokinOpdTacticalId); err != nil {
+		return web.IndikatorPokinOpdTacticalResponse{}, errors.New("pokin_opd_tactical_id tidak ditemukan")
+	}
 
 	domainIndikator := domain.IndikatorPokinOpdTactical{
 		PokinOpdTacticalId: indikator.PokinOpdTacticalId,
@@ -56,11 +67,19 @@ func (service *IndikatorPokinOpdTacticalServiceImpl) Create(ctx context.Context,
 }
 
 func (service *IndikatorPokinOpdTacticalServiceImpl) Update(ctx context.Context, indikator web.IndikatorPokinOpdTacticalUpdateRequest) (web.IndikatorPokinOpdTacticalResponse, error) {
+	if err := service.Validator.Struct(indikator); err != nil {
+		return web.IndikatorPokinOpdTacticalResponse{}, err
+	}
+
 	tx, err := service.DB.BeginTx(ctx, nil)
 	if err != nil {
 		return web.IndikatorPokinOpdTacticalResponse{}, err
 	}
 	defer helper.CommitOrRollback(tx)
+
+	if _, err := service.PokinOpdTacticalRepository.FindById(ctx, tx, indikator.PokinOpdTacticalId); err != nil {
+		return web.IndikatorPokinOpdTacticalResponse{}, errors.New("pokin_opd_tactical_id tidak ditemukan")
+	}
 
 	domainIndikator := domain.IndikatorPokinOpdTactical{
 		Id:                 indikator.Id,

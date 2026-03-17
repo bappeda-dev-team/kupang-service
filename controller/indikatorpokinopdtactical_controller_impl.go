@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"kupang-service/helper"
 	"kupang-service/model/web"
 	"kupang-service/service"
 	"net/http"
@@ -41,6 +42,20 @@ func (controller *IndikatorPokinOpdTacticalControllerImpl) Create(c echo.Context
 
 	response, err := controller.IndikatorPokinOpdTacticalService.Create(c.Request().Context(), createRequest)
 	if err != nil {
+		if err.Error() == "pokin_opd_tactical_id tidak ditemukan" {
+			return c.JSON(http.StatusBadRequest, web.WebResponse{
+				Code:   http.StatusBadRequest,
+				Status: "BAD_REQUEST",
+				Data:   err.Error(),
+			})
+		}
+		if helper.IsValidationError(err) {
+			return c.JSON(http.StatusBadRequest, web.WebResponse{
+				Code:   http.StatusBadRequest,
+				Status: "BAD_REQUEST",
+				Data:   err.Error(),
+			})
+		}
 		return c.JSON(http.StatusInternalServerError, web.WebResponse{
 			Code:   http.StatusInternalServerError,
 			Status: "INTERNAL_SERVER_ERROR",
@@ -85,6 +100,20 @@ func (controller *IndikatorPokinOpdTacticalControllerImpl) Update(c echo.Context
 
 	response, err := controller.IndikatorPokinOpdTacticalService.Update(c.Request().Context(), updateRequest)
 	if err != nil {
+		if err.Error() == "pokin_opd_tactical_id tidak ditemukan" {
+			return c.JSON(http.StatusBadRequest, web.WebResponse{
+				Code:   http.StatusBadRequest,
+				Status: "BAD_REQUEST",
+				Data:   err.Error(),
+			})
+		}
+		if helper.IsValidationError(err) {
+			return c.JSON(http.StatusBadRequest, web.WebResponse{
+				Code:   http.StatusBadRequest,
+				Status: "BAD_REQUEST",
+				Data:   err.Error(),
+			})
+		}
 		return c.JSON(http.StatusInternalServerError, web.WebResponse{
 			Code:   http.StatusInternalServerError,
 			Status: "INTERNAL_SERVER_ERROR",

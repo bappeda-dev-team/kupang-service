@@ -138,3 +138,38 @@ func (repository *PokinOpdTacticalRepositoryImpl) FindAll(ctx context.Context, t
 
 	return pokins, nil
 }
+
+func (repository *PokinOpdTacticalRepositoryImpl) FindByParent(ctx context.Context, tx *sql.Tx, parent int) ([]domain.PokinOpdTactical, error) {
+	query := "SELECT id, parent, nama_pohon, jenis_pohon, level_pohon, kode_opd, nama_opd, keterangan, tahun, jumlah_review, status, pelaksana, updated_by FROM pokin_opd_tactical WHERE parent = $1 ORDER BY id ASC"
+	rows, err := tx.QueryContext(ctx, query, parent)
+	if err != nil {
+		return []domain.PokinOpdTactical{}, err
+	}
+	defer rows.Close()
+
+	var pokins []domain.PokinOpdTactical
+	for rows.Next() {
+		var pokin domain.PokinOpdTactical
+		err := rows.Scan(
+			&pokin.Id,
+			&pokin.Parent,
+			&pokin.NamaPohon,
+			&pokin.JenisPohon,
+			&pokin.LevelPohon,
+			&pokin.KodeOpd,
+			&pokin.NamaOpd,
+			&pokin.Keterangan,
+			&pokin.Tahun,
+			&pokin.JumlahReview,
+			&pokin.Status,
+			&pokin.Pelaksana,
+			&pokin.UpdatedBy,
+		)
+		if err != nil {
+			return []domain.PokinOpdTactical{}, err
+		}
+		pokins = append(pokins, pokin)
+	}
+
+	return pokins, nil
+}

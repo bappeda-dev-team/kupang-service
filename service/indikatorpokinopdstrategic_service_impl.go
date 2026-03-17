@@ -14,13 +14,20 @@ import (
 
 type IndikatorPokinOpdStrategicServiceImpl struct {
 	IndikatorPokinOpdStrategicRepository repository.IndikatorPokinOpdStrategicRepository
+	PokinOpdStrategicRepository          repository.PokinOpdStrategicRepository
 	DB                                   *sql.DB
 	Validator                            *validator.Validate
 }
 
-func NewIndikatorPokinOpdStrategicServiceImpl(indikatorRepository repository.IndikatorPokinOpdStrategicRepository, db *sql.DB, validator *validator.Validate) *IndikatorPokinOpdStrategicServiceImpl {
+func NewIndikatorPokinOpdStrategicServiceImpl(
+	indikatorRepository repository.IndikatorPokinOpdStrategicRepository,
+	pokinOpdStrategicRepository repository.PokinOpdStrategicRepository,
+	db *sql.DB,
+	validator *validator.Validate,
+) *IndikatorPokinOpdStrategicServiceImpl {
 	return &IndikatorPokinOpdStrategicServiceImpl{
 		IndikatorPokinOpdStrategicRepository: indikatorRepository,
+		PokinOpdStrategicRepository:          pokinOpdStrategicRepository,
 		DB:                                   db,
 		Validator:                            validator,
 	}
@@ -37,6 +44,10 @@ func (service *IndikatorPokinOpdStrategicServiceImpl) Create(ctx context.Context
 		return web.IndikatorPokinOpdStrategicResponse{}, err
 	}
 	defer helper.CommitOrRollback(tx)
+
+	if _, err := service.PokinOpdStrategicRepository.FindById(ctx, tx, indikator.PokinOpdStrategicId); err != nil {
+		return web.IndikatorPokinOpdStrategicResponse{}, errors.New("pokin_opd_strategic_id tidak ditemukan")
+	}
 
 	domainIndikator := domain.IndikatorPokinOpdStrategic{
 		PokinOpdStrategicId: indikator.PokinOpdStrategicId,
@@ -56,11 +67,19 @@ func (service *IndikatorPokinOpdStrategicServiceImpl) Create(ctx context.Context
 }
 
 func (service *IndikatorPokinOpdStrategicServiceImpl) Update(ctx context.Context, indikator web.IndikatorPokinOpdStrategicUpdateRequest) (web.IndikatorPokinOpdStrategicResponse, error) {
+	if err := service.Validator.Struct(indikator); err != nil {
+		return web.IndikatorPokinOpdStrategicResponse{}, err
+	}
+
 	tx, err := service.DB.BeginTx(ctx, nil)
 	if err != nil {
 		return web.IndikatorPokinOpdStrategicResponse{}, err
 	}
 	defer helper.CommitOrRollback(tx)
+
+	if _, err := service.PokinOpdStrategicRepository.FindById(ctx, tx, indikator.PokinOpdStrategicId); err != nil {
+		return web.IndikatorPokinOpdStrategicResponse{}, errors.New("pokin_opd_strategic_id tidak ditemukan")
+	}
 
 	domainIndikator := domain.IndikatorPokinOpdStrategic{
 		Id:                  indikator.Id,

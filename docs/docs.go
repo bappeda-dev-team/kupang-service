@@ -3019,7 +3019,65 @@ const docTemplate = `{
                 },
                 "childs": {
                     "type": "array",
-                    "items": {}
+                    "items": {
+                        "$ref": "#/definitions/web.PohonKinerjaStrategicResponse"
+                    }
+                }
+            }
+        },
+        "web.PohonKinerjaStrategicResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "parent": {
+                    "type": "integer"
+                },
+                "nama_pohon": {
+                    "type": "string"
+                },
+                "jenis_pohon": {
+                    "type": "string"
+                },
+                "level_pohon": {
+                    "type": "integer"
+                },
+                "kode_opd": {
+                    "type": "string"
+                },
+                "nama_opd": {
+                    "type": "string"
+                },
+                "keterangan": {
+                    "type": "string"
+                },
+                "tahun": {
+                    "type": "integer"
+                },
+                "jumlah_review": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "pelaksana": {
+                    "type": "string"
+                },
+                "updated_by": {
+                    "type": "string"
+                },
+                "indikator": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/web.PokinOpdStrategicIndikatorResponse"
+                    }
+                },
+                "childs": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/web.WebResponse"
+                    }
                 }
             }
         },

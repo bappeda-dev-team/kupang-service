@@ -12,4 +12,5 @@ type PokinOpdTacticalRepository interface {
 	Delete(ctx context.Context, tx *sql.Tx, id int) error
 	FindById(ctx context.Context, tx *sql.Tx, id int) (domain.PokinOpdTactical, error)
 	FindAll(ctx context.Context, tx *sql.Tx) ([]domain.PokinOpdTactical, error)
+	FindByParent(ctx context.Context, tx *sql.Tx, parent int) ([]domain.PokinOpdTactical, error)
 }

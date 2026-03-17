@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"kupang-service/helper"
 	"kupang-service/model/web"
 	"kupang-service/service"
 	"net/http"
@@ -41,6 +42,13 @@ func (controller *TujuanPokinOpdControllerImpl) Create(c echo.Context) error {
 
 	tujuanPokinOpdResponse, err := controller.TujuanPokinOpdService.Create(c.Request().Context(), tujuanPokinOpdCreateRequest)
 	if err != nil {
+		if helper.IsValidationError(err) {
+			return c.JSON(http.StatusBadRequest, web.WebResponse{
+				Code:   http.StatusBadRequest,
+				Status: "BAD_REQUEST",
+				Data:   err.Error(),
+			})
+		}
 		return c.JSON(http.StatusInternalServerError, web.WebResponse{
 			Code:   http.StatusInternalServerError,
 			Status: "INTERNAL_SERVER_ERROR",
@@ -85,6 +93,13 @@ func (controller *TujuanPokinOpdControllerImpl) Update(c echo.Context) error {
 
 	tujuanPokinOpdResponse, err := controller.TujuanPokinOpdService.Update(c.Request().Context(), tujuanPokinOpdUpdateRequest)
 	if err != nil {
+		if helper.IsValidationError(err) {
+			return c.JSON(http.StatusBadRequest, web.WebResponse{
+				Code:   http.StatusBadRequest,
+				Status: "BAD_REQUEST",
+				Data:   err.Error(),
+			})
+		}
 		return c.JSON(http.StatusInternalServerError, web.WebResponse{
 			Code:   http.StatusInternalServerError,
 			Status: "INTERNAL_SERVER_ERROR",

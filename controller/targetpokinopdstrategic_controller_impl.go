@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"kupang-service/helper"
 	"kupang-service/model/web"
 	"kupang-service/service"
 	"net/http"
@@ -40,6 +41,13 @@ func (controller *TargetPokinOpdStrategicControllerImpl) Create(c echo.Context) 
 
 	response, err := controller.TargetPokinOpdStrategicService.Create(c.Request().Context(), request)
 	if err != nil {
+		if helper.IsValidationError(err) {
+			return c.JSON(http.StatusBadRequest, web.WebResponse{
+				Code:   http.StatusBadRequest,
+				Status: "BAD_REQUEST",
+				Data:   err.Error(),
+			})
+		}
 		return c.JSON(http.StatusInternalServerError, web.WebResponse{
 			Code:   http.StatusInternalServerError,
 			Status: "INTERNAL_SERVER_ERROR",
@@ -84,6 +92,13 @@ func (controller *TargetPokinOpdStrategicControllerImpl) Update(c echo.Context) 
 
 	response, err := controller.TargetPokinOpdStrategicService.Update(c.Request().Context(), request)
 	if err != nil {
+		if helper.IsValidationError(err) {
+			return c.JSON(http.StatusBadRequest, web.WebResponse{
+				Code:   http.StatusBadRequest,
+				Status: "BAD_REQUEST",
+				Data:   err.Error(),
+			})
+		}
 		return c.JSON(http.StatusInternalServerError, web.WebResponse{
 			Code:   http.StatusInternalServerError,
 			Status: "INTERNAL_SERVER_ERROR",
@@ -137,6 +152,7 @@ func (controller *TargetPokinOpdStrategicControllerImpl) Delete(c echo.Context) 
 // @Param id path int true "Target Pokin OPD Strategic ID"
 // @Success 200 {object} web.WebResponse{data=web.TargetPokinOpdStrategicResponse} "OK"
 // @Failure 400 {object} web.WebResponse "Bad Request"
+// @Failure 404 {object} web.WebResponse "Not Found"
 // @Failure 500 {object} web.WebResponse "Internal Server Error"
 // @Router /target-pokin-opd-strategics/{id} [get]
 func (controller *TargetPokinOpdStrategicControllerImpl) FindById(c echo.Context) error {
@@ -150,6 +166,13 @@ func (controller *TargetPokinOpdStrategicControllerImpl) FindById(c echo.Context
 
 	response, err := controller.TargetPokinOpdStrategicService.FindById(c.Request().Context(), id)
 	if err != nil {
+		if err.Error() == "id tidak ditemukan" {
+			return c.JSON(http.StatusNotFound, web.WebResponse{
+				Code:   http.StatusNotFound,
+				Status: "NOT_FOUND",
+				Data:   err.Error(),
+			})
+		}
 		return c.JSON(http.StatusInternalServerError, web.WebResponse{
 			Code:   http.StatusInternalServerError,
 			Status: "INTERNAL_SERVER_ERROR",
