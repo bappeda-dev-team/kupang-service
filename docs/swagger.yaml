@@ -4,6 +4,8 @@ definitions:
     properties:
       indikator:
         type: string
+      tujuan_pokin_opd_id:
+        type: integer
     type: object
   web.IndikatorPokinOpdResponse:
     properties:
@@ -11,6 +13,59 @@ definitions:
         type: integer
       indikator:
         type: string
+    type: object
+  web.IndikatorPokinOpdStrategicCreateRequest:
+    properties:
+      indikator:
+        type: string
+      pokin_opd_strategic_id:
+        type: integer
+    required:
+    - pokin_opd_strategic_id
+    type: object
+  web.IndikatorPokinOpdStrategicResponse:
+    properties:
+      id:
+        type: integer
+      indikator:
+        type: string
+      pokin_opd_strategic_id:
+        type: integer
+    type: object
+  web.IndikatorPokinOpdStrategicUpdateRequest:
+    properties:
+      id:
+        type: integer
+      indikator:
+        type: string
+      pokin_opd_strategic_id:
+        type: integer
+    required:
+    - id
+    - pokin_opd_strategic_id
+    type: object
+  web.IndikatorPokinOpdTacticalCreateRequest:
+    properties:
+      indikator:
+        type: string
+    required:
+    - indikator
+    type: object
+  web.IndikatorPokinOpdTacticalResponse:
+    properties:
+      id:
+        type: integer
+      indikator:
+        type: string
+    type: object
+  web.IndikatorPokinOpdTacticalUpdateRequest:
+    properties:
+      id:
+        type: integer
+      indikator:
+        type: string
+    required:
+    - id
     type: object
   web.IndikatorPokinOpdUpdateRequest:
     properties:
@@ -20,6 +75,62 @@ definitions:
         type: string
     required:
     - id
+    type: object
+  web.PohonKinerjaIndikatorResponse:
+    properties:
+      id:
+        type: integer
+      indikator:
+        type: string
+      targets:
+        items:
+          $ref: '#/definitions/web.PohonKinerjaTargetResponse'
+        type: array
+    type: object
+  web.PohonKinerjaResponse:
+    properties:
+      childs:
+        items:
+          $ref: '#/definitions/web.PokinOpdStrategicResponse'
+        type: array
+      kode_opd:
+        type: string
+      nama_opd:
+        type: string
+      tahun:
+        type: integer
+      tujuan_opd:
+        items:
+          $ref: '#/definitions/web.PohonKinerjaTujuanResponse'
+        type: array
+    type: object
+  web.PohonKinerjaTargetResponse:
+    properties:
+      id:
+        type: integer
+      satuan:
+        type: string
+      target:
+        type: integer
+    type: object
+  web.PohonKinerjaTujuanResponse:
+    properties:
+      bidang_urusan:
+        type: string
+      id:
+        type: integer
+      indikator:
+        items:
+          $ref: '#/definitions/web.PohonKinerjaIndikatorResponse'
+        type: array
+      kode_opd:
+        type: string
+      tahun_akhir_periode:
+        type: integer
+      tahun_awal_periode:
+        type: integer
+      tujuan:
+        type: string
     type: object
   web.PokinOpdCreateRequest:
     properties:
@@ -41,6 +152,119 @@ definitions:
       tahun:
         type: integer
     type: object
+  web.PokinOpdStrategicCreateRequest:
+    properties:
+      jenis_pohon:
+        type: string
+      jumlah_review:
+        type: integer
+      keterangan:
+        type: string
+      kode_opd:
+        type: string
+      level_pohon:
+        type: integer
+      nama_opd:
+        type: string
+      nama_pohon:
+        type: string
+      parent:
+        type: integer
+      pelaksana:
+        type: string
+      status:
+        type: string
+      tahun:
+        type: integer
+      updated_by:
+        type: string
+    type: object
+  web.PokinOpdStrategicIndikatorResponse:
+    properties:
+      id_indikator:
+        type: integer
+      nama_indikator:
+        type: string
+      targets:
+        items:
+          $ref: '#/definitions/web.PokinOpdStrategicTargetResponse'
+        type: array
+    type: object
+  web.PokinOpdStrategicResponse:
+    properties:
+      id:
+        type: integer
+      indikator:
+        items:
+          $ref: '#/definitions/web.PokinOpdStrategicIndikatorResponse'
+        type: array
+      jenis_pohon:
+        type: string
+      jumlah_review:
+        type: integer
+      keterangan:
+        type: string
+      kode_opd:
+        type: string
+      level_pohon:
+        type: integer
+      nama_opd:
+        type: string
+      nama_pohon:
+        type: string
+      parent:
+        type: integer
+      pelaksana:
+        type: string
+      status:
+        type: string
+      tahun:
+        type: integer
+      updated_by:
+        type: string
+    type: object
+  web.PokinOpdStrategicTargetResponse:
+    properties:
+      id_target:
+        type: integer
+      indikator_id:
+        type: integer
+      satuan:
+        type: string
+      target:
+        type: integer
+    type: object
+  web.PokinOpdStrategicUpdateRequest:
+    properties:
+      id:
+        type: integer
+      jenis_pohon:
+        type: string
+      jumlah_review:
+        type: integer
+      keterangan:
+        type: string
+      kode_opd:
+        type: string
+      level_pohon:
+        type: integer
+      nama_opd:
+        type: string
+      nama_pohon:
+        type: string
+      parent:
+        type: integer
+      pelaksana:
+        type: string
+      status:
+        type: string
+      tahun:
+        type: integer
+      updated_by:
+        type: string
+    required:
+    - id
+    type: object
   web.PokinOpdUpdateRequest:
     properties:
       id:
@@ -54,12 +278,121 @@ definitions:
     required:
     - id
     type: object
+  web.TargetPokinOpdCreateRequest:
+    properties:
+      indikator_pokin_opd_id:
+        type: integer
+      satuan:
+        type: string
+      target:
+        type: integer
+    type: object
+  web.TargetPokinOpdResponse:
+    properties:
+      id:
+        type: integer
+      satuan:
+        type: string
+      target:
+        type: integer
+    type: object
+  web.TargetPokinOpdStrategicCreateRequest:
+    properties:
+      indikator_pokin_opd_strategic_id:
+        type: integer
+      satuan:
+        type: string
+      target:
+        type: integer
+    required:
+    - indikator_pokin_opd_strategic_id
+    - satuan
+    - target
+    type: object
+  web.TargetPokinOpdStrategicResponse:
+    properties:
+      id:
+        type: integer
+      id_pokin_opd_strategic:
+        type: integer
+      satuan:
+        type: string
+      target:
+        type: integer
+    type: object
+  web.TargetPokinOpdStrategicUpdateRequest:
+    properties:
+      id:
+        type: integer
+      indikator_pokin_opd_strategic_id:
+        type: integer
+      satuan:
+        type: string
+      target:
+        type: integer
+    required:
+    - id
+    - indikator_pokin_opd_strategic_id
+    - satuan
+    - target
+    type: object
+  web.TargetPokinOpdTacticalCreateRequest:
+    properties:
+      indikator_pokin_opd_tactical_id:
+        type: integer
+      satuan:
+        type: string
+      target:
+        type: integer
+    required:
+    - indikator_pokin_opd_tactical_id
+    - satuan
+    - target
+    type: object
+  web.TargetPokinOpdTacticalResponse:
+    properties:
+      indikator_pokin_opd_tactical_id:
+        type: integer
+      satuan:
+        type: string
+      target:
+        type: integer
+    type: object
+  web.TargetPokinOpdTacticalUpdateRequest:
+    properties:
+      id:
+        type: integer
+      indikator_pokin_opd_tactical_id:
+        type: integer
+      satuan:
+        type: string
+      target:
+        type: integer
+    required:
+    - id
+    - indikator_pokin_opd_tactical_id
+    - satuan
+    - target
+    type: object
+  web.TargetPokinOpdUpdateRequest:
+    properties:
+      id:
+        type: integer
+      satuan:
+        type: string
+      target:
+        type: integer
+    required:
+    - id
+    type: object
   web.TujuanPokinOpdCreateRequest:
     properties:
       bidang_urusan:
         type: string
       kode_opd:
         type: string
+      pokin_opd_id:
+        type: integer
       tahun_akhir_periode:
         type: integer
       tahun_awal_periode:
@@ -71,6 +404,8 @@ definitions:
     properties:
       bidang_urusan:
         type: string
+      id:
+        type: integer
       kode_opd:
         type: string
       tahun_akhir_periode:
@@ -84,6 +419,8 @@ definitions:
     properties:
       bidang_urusan:
         type: string
+      id:
+        type: integer
       kode_opd:
         type: string
       tahun_akhir_periode:
@@ -92,6 +429,8 @@ definitions:
         type: integer
       tujuan:
         type: string
+    required:
+    - id
     type: object
   web.WebResponse:
     description: Web Response
@@ -116,7 +455,329 @@ info:
   title: Alur Kerja Service API
   version: "1.0"
 paths:
-  /indikator-pokin-opd:
+  /indikator-pokin-opd-strategics:
+    get:
+      consumes:
+      - application/json
+      description: Get list of all Indikator Pokin OPD Strategic
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/web.IndikatorPokinOpdStrategicResponse'
+                  type: array
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: List All Indikator Pokin OPD Strategic
+      tags:
+      - Indikator Pokin OPD Strategic
+    post:
+      consumes:
+      - application/json
+      description: Create new Indikator Pokin OPD Strategic
+      parameters:
+      - description: Indikator Pokin OPD Strategic Create Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.IndikatorPokinOpdStrategicCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.IndikatorPokinOpdStrategicResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Create Indikator Pokin OPD Strategic
+      tags:
+      - Indikator Pokin OPD Strategic
+  /indikator-pokin-opd-strategics/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete existing Indikator Pokin OPD Strategic by ID
+      parameters:
+      - description: Indikator Pokin OPD Strategic ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Delete Indikator Pokin OPD Strategic
+      tags:
+      - Indikator Pokin OPD Strategic
+    get:
+      consumes:
+      - application/json
+      description: Get Indikator Pokin OPD Strategic detail by ID
+      parameters:
+      - description: Indikator Pokin OPD Strategic ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.IndikatorPokinOpdStrategicResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Get Indikator Pokin OPD Strategic by ID
+      tags:
+      - Indikator Pokin OPD Strategic
+    put:
+      consumes:
+      - application/json
+      description: Update existing Indikator Pokin OPD Strategic by ID
+      parameters:
+      - description: Indikator Pokin OPD Strategic ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Indikator Pokin OPD Strategic Update Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.IndikatorPokinOpdStrategicUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.IndikatorPokinOpdStrategicResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Update Indikator Pokin OPD Strategic
+      tags:
+      - Indikator Pokin OPD Strategic
+  /indikator-pokin-opd-tacticals:
+    get:
+      consumes:
+      - application/json
+      description: Get list of all Indikator Pokin OPD Tactical
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/web.IndikatorPokinOpdTacticalResponse'
+                  type: array
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: List All Indikator Pokin OPD Tactical
+      tags:
+      - Indikator Pokin OPD Tactical
+    post:
+      consumes:
+      - application/json
+      description: Create new Indikator Pokin OPD Tactical
+      parameters:
+      - description: Indikator Pokin OPD Tactical Create Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.IndikatorPokinOpdTacticalCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.IndikatorPokinOpdTacticalResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Create Indikator Pokin OPD Tactical
+      tags:
+      - Indikator Pokin OPD Tactical
+  /indikator-pokin-opd-tacticals/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete existing Indikator Pokin OPD Tactical by ID
+      parameters:
+      - description: Indikator Pokin OPD Tactical ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Delete Indikator Pokin OPD Tactical
+      tags:
+      - Indikator Pokin OPD Tactical
+    get:
+      consumes:
+      - application/json
+      description: Get Indikator Pokin OPD Tactical detail by ID
+      parameters:
+      - description: Indikator Pokin OPD Tactical ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.IndikatorPokinOpdTacticalResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Get Indikator Pokin OPD Tactical by ID
+      tags:
+      - Indikator Pokin OPD Tactical
+    put:
+      consumes:
+      - application/json
+      description: Update existing Indikator Pokin OPD Tactical by ID
+      parameters:
+      - description: Indikator Pokin OPD Tactical ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Indikator Pokin OPD Tactical Update Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.IndikatorPokinOpdTacticalUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.IndikatorPokinOpdTacticalResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Update Indikator Pokin OPD Tactical
+      tags:
+      - Indikator Pokin OPD Tactical
+  /indikator-pokin-opds:
     get:
       consumes:
       - application/json
@@ -176,7 +837,7 @@ paths:
       summary: Create Indikator Pokin Opd
       tags:
       - Indikator Pokin Opd
-  /indikator-pokin-opd/{id}:
+  /indikator-pokin-opds/{id}:
     delete:
       consumes:
       - application/json
@@ -282,7 +943,212 @@ paths:
       summary: Update Indikator Pokin Opd
       tags:
       - Indikator Pokin Opd
-  /pokin-opd:
+  /pohon-kinerja-opds/{kode_opd}/{tahun}:
+    get:
+      consumes:
+      - application/json
+      description: Get pohon kinerja opd by kode opd and tahun
+      parameters:
+      - description: Kode OPD
+        in: path
+        name: kode_opd
+        required: true
+        type: string
+      - description: Tahun
+        in: path
+        name: tahun
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.PohonKinerjaResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Get Pohon Kinerja Opd
+      tags:
+      - Pohon Kinerja Opd
+  /pokin-opd-strategics:
+    get:
+      consumes:
+      - application/json
+      description: Get list of all Pokin Opd Strategic
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/web.PokinOpdStrategicResponse'
+                  type: array
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: List All Pokin Opd Strategic
+      tags:
+      - Pokin Opd Strategic
+    post:
+      consumes:
+      - application/json
+      description: Create new Pokin Opd Strategic
+      parameters:
+      - description: Pokin Opd Strategic Create Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.PokinOpdStrategicCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.PokinOpdStrategicResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Create Pokin Opd Strategic
+      tags:
+      - Pokin Opd Strategic
+  /pokin-opd-strategics/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete existing Pokin Opd Strategic by ID
+      parameters:
+      - description: Pokin Opd Strategic ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.PokinOpdStrategicResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Delete Pokin Opd Strategic
+      tags:
+      - Pokin Opd Strategic
+    get:
+      consumes:
+      - application/json
+      description: Get Pokin Opd Strategic detail by ID
+      parameters:
+      - description: Pokin Opd Strategic ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.PokinOpdStrategicResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Get Pokin Opd Strategic by ID
+      tags:
+      - Pokin Opd Strategic
+    put:
+      consumes:
+      - application/json
+      description: Update existing Pokin Opd Strategic by ID
+      parameters:
+      - description: Pokin Opd Strategic ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Pokin Opd Strategic Update Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.PokinOpdStrategicUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.PokinOpdStrategicResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Update Pokin Opd Strategic
+      tags:
+      - Pokin Opd Strategic
+  /pokin-opds:
     get:
       consumes:
       - application/json
@@ -342,7 +1208,7 @@ paths:
       summary: Create Pokin Opd
       tags:
       - Pokin Opd
-  /pokin-opd/{id}:
+  /pokin-opds/{id}:
     delete:
       consumes:
       - application/json
@@ -448,23 +1314,11 @@ paths:
       summary: Update Pokin Opd
       tags:
       - Pokin Opd
-  /tujan-pokin-opd/{id}:
-    put:
+  /target-pokin-opd-strategics:
+    get:
       consumes:
       - application/json
-      description: Update existing Tujuan Pokin Opd by ID
-      parameters:
-      - description: Tujuan Pokin Opd ID
-        in: path
-        name: id
-        required: true
-        type: integer
-      - description: Tujuan Pokin Opd Update Request
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/web.TujuanPokinOpdUpdateRequest'
+      description: Get list of all Target Pokin OPD Strategic
       produces:
       - application/json
       responses:
@@ -475,7 +1329,39 @@ paths:
             - $ref: '#/definitions/web.WebResponse'
             - properties:
                 data:
-                  $ref: '#/definitions/web.TujuanPokinOpdResponse'
+                  items:
+                    $ref: '#/definitions/web.TargetPokinOpdStrategicResponse'
+                  type: array
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: List All Target Pokin OPD Strategic
+      tags:
+      - Target Pokin OPD Strategic
+    post:
+      consumes:
+      - application/json
+      description: Create new Target Pokin OPD Strategic
+      parameters:
+      - description: Target Pokin OPD Strategic Create Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.TargetPokinOpdStrategicCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.TargetPokinOpdStrategicResponse'
               type: object
         "400":
           description: Bad Request
@@ -485,10 +1371,433 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/web.WebResponse'
-      summary: Tujuan Update Pokin Opd
+      summary: Create Target Pokin OPD Strategic
       tags:
-      - Tujuan Pokin Opd
-  /tujuan-pokin-opd:
+      - Target Pokin OPD Strategic
+  /target-pokin-opd-strategics/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete existing Target Pokin OPD Strategic by ID
+      parameters:
+      - description: Target Pokin OPD Strategic ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Delete Target Pokin OPD Strategic
+      tags:
+      - Target Pokin OPD Strategic
+    get:
+      consumes:
+      - application/json
+      description: Get Target Pokin OPD Strategic detail by ID
+      parameters:
+      - description: Target Pokin OPD Strategic ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.TargetPokinOpdStrategicResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Get Target Pokin OPD Strategic by ID
+      tags:
+      - Target Pokin OPD Strategic
+    put:
+      consumes:
+      - application/json
+      description: Update existing Target Pokin OPD Strategic by ID
+      parameters:
+      - description: Target Pokin OPD Strategic ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Target Pokin OPD Strategic Update Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.TargetPokinOpdStrategicUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.TargetPokinOpdStrategicResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Update Target Pokin OPD Strategic
+      tags:
+      - Target Pokin OPD Strategic
+  /target-pokin-opd-tacticals:
+    get:
+      consumes:
+      - application/json
+      description: Get list of all Target Pokin OPD Tactical
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/web.TargetPokinOpdTacticalResponse'
+                  type: array
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: List All Target Pokin OPD Tactical
+      tags:
+      - Target Pokin OPD Tactical
+    post:
+      consumes:
+      - application/json
+      description: Create new Target Pokin OPD Tactical
+      parameters:
+      - description: Target Pokin OPD Tactical Create Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.TargetPokinOpdTacticalCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.TargetPokinOpdTacticalResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Create Target Pokin OPD Tactical
+      tags:
+      - Target Pokin OPD Tactical
+  /target-pokin-opd-tacticals/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete existing Target Pokin OPD Tactical by ID
+      parameters:
+      - description: Target Pokin OPD Tactical ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Delete Target Pokin OPD Tactical
+      tags:
+      - Target Pokin OPD Tactical
+    get:
+      consumes:
+      - application/json
+      description: Get Target Pokin OPD Tactical detail by ID
+      parameters:
+      - description: Target Pokin OPD Tactical ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.TargetPokinOpdTacticalResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Get Target Pokin OPD Tactical by ID
+      tags:
+      - Target Pokin OPD Tactical
+    put:
+      consumes:
+      - application/json
+      description: Update existing Target Pokin OPD Tactical by ID
+      parameters:
+      - description: Target Pokin OPD Tactical ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Target Pokin OPD Tactical Update Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.TargetPokinOpdTacticalUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.TargetPokinOpdTacticalResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Update Target Pokin OPD Tactical
+      tags:
+      - Target Pokin OPD Tactical
+  /target-pokin-opds:
+    get:
+      consumes:
+      - application/json
+      description: Get list of all Target Pokin Opd
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/web.TargetPokinOpdResponse'
+                  type: array
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: List All Target Pokin Opd
+      tags:
+      - Target Pokin Opd
+    post:
+      consumes:
+      - application/json
+      description: Create new Target Pokin Opd
+      parameters:
+      - description: Target Pokin Opd Create Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.TargetPokinOpdCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.TargetPokinOpdResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Create Target Pokin Opd
+      tags:
+      - Target Pokin Opd
+  /target-pokin-opds/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete existing Target Pokin Opd by ID
+      parameters:
+      - description: Target Pokin Opd ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Delete Target Pokin Opd
+      tags:
+      - Target Pokin Opd
+    get:
+      consumes:
+      - application/json
+      description: Get Target Pokin Opd detail by ID
+      parameters:
+      - description: Target Pokin Opd ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.TargetPokinOpdResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Get Target Pokin Opd by ID
+      tags:
+      - Target Pokin Opd
+    put:
+      consumes:
+      - application/json
+      description: Update existing Target Pokin Opd by ID
+      parameters:
+      - description: Target Pokin Opd ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Target Pokin Opd Update Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.TargetPokinOpdUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.TargetPokinOpdResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Update Target Pokin Opd
+      tags:
+      - Target Pokin Opd
+  /tujuan-pokin-opds:
     get:
       consumes:
       - application/json
@@ -548,7 +1857,7 @@ paths:
       summary: Create Tujuan Pokin Opd
       tags:
       - Tujuan Pokin Opd
-  /tujuan-pokin-opd/{id}:
+  /tujuan-pokin-opds/{id}:
     delete:
       consumes:
       - application/json
@@ -613,6 +1922,45 @@ paths:
           schema:
             $ref: '#/definitions/web.WebResponse'
       summary: Get Tujuan Pokin Opd by ID
+      tags:
+      - Tujuan Pokin Opd
+    put:
+      consumes:
+      - application/json
+      description: Update existing Tujuan Pokin Opd by ID
+      parameters:
+      - description: Tujuan Pokin Opd ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Tujuan Pokin Opd Update Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.TujuanPokinOpdUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.TujuanPokinOpdResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Tujuan Update Pokin Opd
       tags:
       - Tujuan Pokin Opd
 schemes:

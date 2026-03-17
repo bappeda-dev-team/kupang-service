@@ -28,7 +28,7 @@ func NewTujuanPokinOpdControllerImpl(tujuanPokinOpdService service.TujuanPokinOp
 // @Success 201 {object} web.WebResponse{data=web.TujuanPokinOpdResponse} "Created"
 // @Failure 400 {object} web.WebResponse "Bad Request"
 // @Failure 500 {object} web.WebResponse "Internal Server Error"
-// @Router /api/v1/tujuan-pokin-opd [post]
+// @Router /tujuan-pokin-opds [post]
 func (controller *TujuanPokinOpdControllerImpl) Create(c echo.Context) error {
 	tujuanPokinOpdCreateRequest := web.TujuanPokinOpdCreateRequest{}
 	err := c.Bind(&tujuanPokinOpdCreateRequest)
@@ -64,7 +64,7 @@ func (controller *TujuanPokinOpdControllerImpl) Create(c echo.Context) error {
 // @Success 200 {object} web.WebResponse{data=web.TujuanPokinOpdResponse} "OK"
 // @Failure 400 {object} web.WebResponse "Bad Request"
 // @Failure 500 {object} web.WebResponse "Internal Server Error"
-// @Router /api/v1/tujan-pokin-opd/{id} [put]
+// @Router /tujuan-pokin-opds/{id} [put]
 func (controller *TujuanPokinOpdControllerImpl) Update(c echo.Context) error {
 	tujuanPokinOpdUpdateRequest := web.TujuanPokinOpdUpdateRequest{}
 	err := c.Bind(&tujuanPokinOpdUpdateRequest)
@@ -107,7 +107,7 @@ func (controller *TujuanPokinOpdControllerImpl) Update(c echo.Context) error {
 // @Success 200 {object} web.WebResponse{data=web.TujuanPokinOpdResponse} "OK"
 // @Failure 400 {object} web.WebResponse "Bad Request"
 // @Failure 500 {object} web.WebResponse "Internal Server Error"
-// @Router /api/v1/tujuan-pokin-opd/{id} [delete]
+// @Router /tujuan-pokin-opds/{id} [delete]
 func (controller *TujuanPokinOpdControllerImpl) Delete(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
@@ -140,7 +140,7 @@ func (controller *TujuanPokinOpdControllerImpl) Delete(c echo.Context) error {
 // @Success 200 {object} web.WebResponse{data=web.TujuanPokinOpdResponse} "OK"
 // @Failure 400 {object} web.WebResponse "Bad Request"
 // @Failure 500 {object} web.WebResponse "Internal Server Error"
-// @Router /api/v1/tujuan-pokin-opd/{id} [get]
+// @Router /tujuan-pokin-opds/{id} [get]
 func (controller *TujuanPokinOpdControllerImpl) FindById(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
@@ -172,7 +172,7 @@ func (controller *TujuanPokinOpdControllerImpl) FindById(c echo.Context) error {
 // @Produce json
 // @Success 200 {object} web.WebResponse{data=[]web.TujuanPokinOpdResponse} "OK"
 // @Failure 500 {object} web.WebResponse "Internal Server Error"
-// @Router /api/v1/tujuan-pokin-opd [get]
+// @Router /tujuan-pokin-opds [get]
 func (controller *TujuanPokinOpdControllerImpl) FindAll(c echo.Context) error {
 	tujuanPokinOpdResponses, err := controller.TujuanPokinOpdService.FindAll(c.Request().Context())
 	if err != nil {

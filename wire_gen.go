@@ -26,12 +26,16 @@ func InitializedServer() *echo.Echo {
 	pokinOpdServiceImpl := service.NewPokinOpdServiceImpl(pokinOpdRepositoryImpl, db, validate)
 	pokinOpdControllerImpl := controller.NewPokinOpdControllerImpl(pokinOpdServiceImpl)
 	pokinOpdStrategicRepositoryImpl := repository.NewPokinOpdStrategicRepositoryImpl()
+pokinOpdTacticalRepositoryImpl := repository.NewPokinOpdTacticalRepositoryImpl()
 	indikatorPokinOpdRepositoryImpl := repository.NewIndikatorPokinOpdRepositoryImpl()
 	indikatorPokinOpdServiceImpl := service.NewIndikatorPokinOpdServiceImpl(indikatorPokinOpdRepositoryImpl, db, validate)
 	indikatorPokinOpdControllerImpl := controller.NewIndikatorPokinOpdControllerImpl(indikatorPokinOpdServiceImpl)
 	indikatorPokinOpdStrategicRepositoryImpl := repository.NewIndikatorPokinOpdStrategicRepositoryImpl()
 	indikatorPokinOpdStrategicServiceImpl := service.NewIndikatorPokinOpdStrategicServiceImpl(indikatorPokinOpdStrategicRepositoryImpl, db, validate)
 	indikatorPokinOpdStrategicControllerImpl := controller.NewIndikatorPokinOpdStrategicControllerImpl(indikatorPokinOpdStrategicServiceImpl)
+	indikatorPokinOpdTacticalRepositoryImpl := repository.NewIndikatorPokinOpdTacticalRepositoryImpl()
+	indikatorPokinOpdTacticalServiceImpl := service.NewIndikatorPokinOpdTacticalServiceImpl(indikatorPokinOpdTacticalRepositoryImpl, db, validate)
+	indikatorPokinOpdTacticalControllerImpl := controller.NewIndikatorPokinOpdTacticalControllerImpl(indikatorPokinOpdTacticalServiceImpl)
 	tujuanPokinOpdRepositoryImpl := repository.NewTujuanPokinOpdRepositoryImpl()
 	tujuanPokinOpdServiceImpl := service.NewTujuanPokinOpdServiceImpl(tujuanPokinOpdRepositoryImpl, db, validate)
 	tujuanPokinOpdControllerImpl := controller.NewTujuanPokinOpdControllerImpl(tujuanPokinOpdServiceImpl)
@@ -41,11 +45,16 @@ func InitializedServer() *echo.Echo {
 	targetPokinOpdStrategicRepositoryImpl := repository.NewTargetPokinOpdStrategicRepositoryImpl()
 	targetPokinOpdStrategicServiceImpl := service.NewTargetPokinOpdStrategicServiceImpl(targetPokinOpdStrategicRepositoryImpl, db, validate)
 	targetPokinOpdStrategicControllerImpl := controller.NewTargetPokinOpdStrategicControllerImpl(targetPokinOpdStrategicServiceImpl)
+	targetPokinOpdTacticalRepositoryImpl := repository.NewTargetPokinOpdTacticalRepositoryImpl()
+	targetPokinOpdTacticalServiceImpl := service.NewTargetPokinOpdTacticalServiceImpl(targetPokinOpdTacticalRepositoryImpl, db, validate)
+	targetPokinOpdTacticalControllerImpl := controller.NewTargetPokinOpdTacticalControllerImpl(targetPokinOpdTacticalServiceImpl)
+pokinOpdTacticalServiceImpl := service.NewPokinOpdTacticalServiceImpl(pokinOpdTacticalRepositoryImpl, indikatorPokinOpdTacticalRepositoryImpl, targetPokinOpdTacticalRepositoryImpl, db, validate)
+pokinOpdTacticalControllerImpl := controller.NewPokinOpdTacticalControllerImpl(pokinOpdTacticalServiceImpl)
 	pokinOpdStrategicServiceImpl := service.NewPokinOpdStrategicServiceImpl(pokinOpdStrategicRepositoryImpl, indikatorPokinOpdStrategicRepositoryImpl, targetPokinOpdStrategicRepositoryImpl, db, validate)
 	pokinOpdStrategicControllerImpl := controller.NewPokinOpdStrategicControllerImpl(pokinOpdStrategicServiceImpl)
 	pohonKinerjaServiceImpl := service.NewPohonKinerjaServiceImpl(pokinOpdRepositoryImpl, tujuanPokinOpdRepositoryImpl, indikatorPokinOpdRepositoryImpl, targetPokinOpdRepositoryImpl, pokinOpdStrategicRepositoryImpl, indikatorPokinOpdStrategicRepositoryImpl, targetPokinOpdStrategicRepositoryImpl, db)
 	pohonKinerjaControllerImpl := controller.NewPohonKinerjaControllerImpl(pohonKinerjaServiceImpl)
-	echoEcho := app.NewRouter(pokinOpdControllerImpl, pokinOpdStrategicControllerImpl, indikatorPokinOpdControllerImpl, indikatorPokinOpdStrategicControllerImpl, tujuanPokinOpdControllerImpl, targetPokinOpdControllerImpl, targetPokinOpdStrategicControllerImpl, pohonKinerjaControllerImpl)
+	echoEcho := app.NewRouter(pokinOpdControllerImpl, pokinOpdStrategicControllerImpl, pokinOpdTacticalControllerImpl, indikatorPokinOpdControllerImpl, indikatorPokinOpdStrategicControllerImpl, indikatorPokinOpdTacticalControllerImpl, tujuanPokinOpdControllerImpl, targetPokinOpdControllerImpl, targetPokinOpdStrategicControllerImpl, targetPokinOpdTacticalControllerImpl, pohonKinerjaControllerImpl)
 	return echoEcho
 }
 
@@ -59,14 +68,20 @@ var pokinOpdSet = wire.NewSet(repository.NewPokinOpdRepositoryImpl, wire.Bind(ne
 
 var pokinOpdStrategicSet = wire.NewSet(repository.NewPokinOpdStrategicRepositoryImpl, wire.Bind(new(repository.PokinOpdStrategicRepository), new(*repository.PokinOpdStrategicRepositoryImpl)), service.NewPokinOpdStrategicServiceImpl, wire.Bind(new(service.PokinOpdStrategicService), new(*service.PokinOpdStrategicServiceImpl)), controller.NewPokinOpdStrategicControllerImpl, wire.Bind(new(controller.PokinOpdStrategicController), new(*controller.PokinOpdStrategicControllerImpl)))
 
+var pokinOpdTacticalSet = wire.NewSet(repository.NewPokinOpdTacticalRepositoryImpl, wire.Bind(new(repository.PokinOpdTacticalRepository), new(*repository.PokinOpdTacticalRepositoryImpl)), service.NewPokinOpdTacticalServiceImpl, wire.Bind(new(service.PokinOpdTacticalService), new(*service.PokinOpdTacticalServiceImpl)), controller.NewPokinOpdTacticalControllerImpl, wire.Bind(new(controller.PokinOpdTacticalController), new(*controller.PokinOpdTacticalControllerImpl)))
+
 var indikatorPokinOpdSet = wire.NewSet(repository.NewIndikatorPokinOpdRepositoryImpl, wire.Bind(new(repository.IndikatorPokinOpdRepository), new(*repository.IndikatorPokinOpdRepositoryImpl)), service.NewIndikatorPokinOpdServiceImpl, wire.Bind(new(service.IndikatorPokinOpdService), new(*service.IndikatorPokinOpdServiceImpl)), controller.NewIndikatorPokinOpdControllerImpl, wire.Bind(new(controller.IndikatorPokinOpdController), new(*controller.IndikatorPokinOpdControllerImpl)))
 
 var indikatorPokinOpdStrategicSet = wire.NewSet(repository.NewIndikatorPokinOpdStrategicRepositoryImpl, wire.Bind(new(repository.IndikatorPokinOpdStrategicRepository), new(*repository.IndikatorPokinOpdStrategicRepositoryImpl)), service.NewIndikatorPokinOpdStrategicServiceImpl, wire.Bind(new(service.IndikatorPokinOpdStrategicService), new(*service.IndikatorPokinOpdStrategicServiceImpl)), controller.NewIndikatorPokinOpdStrategicControllerImpl, wire.Bind(new(controller.IndikatorPokinOpdStrategicController), new(*controller.IndikatorPokinOpdStrategicControllerImpl)))
+
+var indikatorPokinOpdTacticalSet = wire.NewSet(repository.NewIndikatorPokinOpdTacticalRepositoryImpl, wire.Bind(new(repository.IndikatorPokinOpdTacticalRepository), new(*repository.IndikatorPokinOpdTacticalRepositoryImpl)), service.NewIndikatorPokinOpdTacticalServiceImpl, wire.Bind(new(service.IndikatorPokinOpdTacticalService), new(*service.IndikatorPokinOpdTacticalServiceImpl)), controller.NewIndikatorPokinOpdTacticalControllerImpl, wire.Bind(new(controller.IndikatorPokinOpdTacticalController), new(*controller.IndikatorPokinOpdTacticalControllerImpl)))
 
 var tujuanPokinOpdSet = wire.NewSet(repository.NewTujuanPokinOpdRepositoryImpl, wire.Bind(new(repository.TujuanPokinOpdRepository), new(*repository.TujuanPokinOpdRepositoryImpl)), service.NewTujuanPokinOpdServiceImpl, wire.Bind(new(service.TujuanPokinOpdService), new(*service.TujuanPokinOpdServiceImpl)), controller.NewTujuanPokinOpdControllerImpl, wire.Bind(new(controller.TujuanPokinOpdController), new(*controller.TujuanPokinOpdControllerImpl)))
 
 var targetPokinOpdSet = wire.NewSet(repository.NewTargetPokinOpdRepositoryImpl, wire.Bind(new(repository.TargetPokinOpdRepository), new(*repository.TargetPokinOpdRepositoryImpl)), service.NewTargetPokinOpdServiceImpl, wire.Bind(new(service.TargetPokinOpdService), new(*service.TargetPokinOpdServiceImpl)), controller.NewTargetPokinOpdControllerImpl, wire.Bind(new(controller.TargetPokinOpdController), new(*controller.TargetPokinOpdControllerImpl)))
 
 var targetPokinOpdStrategicSet = wire.NewSet(repository.NewTargetPokinOpdStrategicRepositoryImpl, wire.Bind(new(repository.TargetPokinOpdStrategicRepository), new(*repository.TargetPokinOpdStrategicRepositoryImpl)), service.NewTargetPokinOpdStrategicServiceImpl, wire.Bind(new(service.TargetPokinOpdStrategicService), new(*service.TargetPokinOpdStrategicServiceImpl)), controller.NewTargetPokinOpdStrategicControllerImpl, wire.Bind(new(controller.TargetPokinOpdStrategicController), new(*controller.TargetPokinOpdStrategicControllerImpl)))
+
+var targetPokinOpdTacticalSet = wire.NewSet(repository.NewTargetPokinOpdTacticalRepositoryImpl, wire.Bind(new(repository.TargetPokinOpdTacticalRepository), new(*repository.TargetPokinOpdTacticalRepositoryImpl)), service.NewTargetPokinOpdTacticalServiceImpl, wire.Bind(new(service.TargetPokinOpdTacticalService), new(*service.TargetPokinOpdTacticalServiceImpl)), controller.NewTargetPokinOpdTacticalControllerImpl, wire.Bind(new(controller.TargetPokinOpdTacticalController), new(*controller.TargetPokinOpdTacticalControllerImpl)))
 
 var pohonKinerjaSet = wire.NewSet(service.NewPohonKinerjaServiceImpl, wire.Bind(new(service.PohonKinerjaService), new(*service.PohonKinerjaServiceImpl)), controller.NewPohonKinerjaControllerImpl, wire.Bind(new(controller.PohonKinerjaController), new(*controller.PohonKinerjaControllerImpl)))

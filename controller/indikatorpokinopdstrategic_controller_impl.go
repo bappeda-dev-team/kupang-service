@@ -28,7 +28,7 @@ func NewIndikatorPokinOpdStrategicControllerImpl(indikatorService service.Indika
 // @Success 201 {object} web.WebResponse{data=web.IndikatorPokinOpdStrategicResponse} "Created"
 // @Failure 400 {object} web.WebResponse "Bad Request"
 // @Failure 500 {object} web.WebResponse "Internal Server Error"
-// @Router /api/v1/indikator-pokin-opd-strategics [post]
+// @Router /indikator-pokin-opd-strategics [post]
 func (controller *IndikatorPokinOpdStrategicControllerImpl) Create(c echo.Context) error {
 	createRequest := web.IndikatorPokinOpdStrategicCreateRequest{}
 	err := c.Bind(&createRequest)
@@ -64,7 +64,7 @@ func (controller *IndikatorPokinOpdStrategicControllerImpl) Create(c echo.Contex
 // @Success 200 {object} web.WebResponse{data=web.IndikatorPokinOpdStrategicResponse} "OK"
 // @Failure 400 {object} web.WebResponse "Bad Request"
 // @Failure 500 {object} web.WebResponse "Internal Server Error"
-// @Router /api/v1/indikator-pokin-opd-strategics/{id} [put]
+// @Router /indikator-pokin-opd-strategics/{id} [put]
 func (controller *IndikatorPokinOpdStrategicControllerImpl) Update(c echo.Context) error {
 	updateRequest := web.IndikatorPokinOpdStrategicUpdateRequest{}
 	err := c.Bind(&updateRequest)
@@ -107,7 +107,7 @@ func (controller *IndikatorPokinOpdStrategicControllerImpl) Update(c echo.Contex
 // @Success 200 {object} web.WebResponse "OK"
 // @Failure 400 {object} web.WebResponse "Bad Request"
 // @Failure 500 {object} web.WebResponse "Internal Server Error"
-// @Router /api/v1/indikator-pokin-opd-strategics/{id} [delete]
+// @Router /indikator-pokin-opd-strategics/{id} [delete]
 func (controller *IndikatorPokinOpdStrategicControllerImpl) Delete(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
@@ -140,7 +140,7 @@ func (controller *IndikatorPokinOpdStrategicControllerImpl) Delete(c echo.Contex
 // @Success 200 {object} web.WebResponse{data=web.IndikatorPokinOpdStrategicResponse} "OK"
 // @Failure 400 {object} web.WebResponse "Bad Request"
 // @Failure 500 {object} web.WebResponse "Internal Server Error"
-// @Router /api/v1/indikator-pokin-opd-strategics/{id} [get]
+// @Router /indikator-pokin-opd-strategics/{id} [get]
 func (controller *IndikatorPokinOpdStrategicControllerImpl) FindById(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
@@ -172,7 +172,7 @@ func (controller *IndikatorPokinOpdStrategicControllerImpl) FindById(c echo.Cont
 // @Produce json
 // @Success 200 {object} web.WebResponse{data=[]web.IndikatorPokinOpdStrategicResponse} "OK"
 // @Failure 500 {object} web.WebResponse "Internal Server Error"
-// @Router /api/v1/indikator-pokin-opd-strategics [get]
+// @Router /indikator-pokin-opd-strategics [get]
 func (controller *IndikatorPokinOpdStrategicControllerImpl) FindAll(c echo.Context) error {
 	responses, err := controller.IndikatorPokinOpdStrategicService.FindAll(c.Request().Context())
 	if err != nil {

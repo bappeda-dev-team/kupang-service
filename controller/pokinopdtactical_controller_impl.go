@@ -9,28 +9,28 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type PokinOpdStrategicControllerImpl struct {
-	PokinOpdStrategicService service.PokinOpdStrategicService
+type PokinOpdTacticalControllerImpl struct {
+	PokinOpdTacticalService service.PokinOpdTacticalService
 }
 
-func NewPokinOpdStrategicControllerImpl(pokinOpdStrategicService service.PokinOpdStrategicService) *PokinOpdStrategicControllerImpl {
-	return &PokinOpdStrategicControllerImpl{
-		PokinOpdStrategicService: pokinOpdStrategicService,
+func NewPokinOpdTacticalControllerImpl(pokinOpdTacticalService service.PokinOpdTacticalService) *PokinOpdTacticalControllerImpl {
+	return &PokinOpdTacticalControllerImpl{
+		PokinOpdTacticalService: pokinOpdTacticalService,
 	}
 }
 
-// @Summary Create Pokin Opd Strategic
-// @Description Create new Pokin Opd Strategic
-// @Tags Pokin Opd Strategic
+// @Summary Create Pokin Opd Tactical
+// @Description Create new Pokin Opd Tactical
+// @Tags Pokin Opd Tactical
 // @Accept json
 // @Produce json
-// @Param data body web.PokinOpdStrategicCreateRequest true "Pokin Opd Strategic Create Request"
-// @Success 201 {object} web.WebResponse{data=web.PokinOpdStrategicResponse} "Created"
+// @Param data body web.PokinOpdTacticalCreateRequest true "Pokin Opd Tactical Create Request"
+// @Success 201 {object} web.WebResponse{data=web.PokinOpdTacticalResponse} "Created"
 // @Failure 400 {object} web.WebResponse "Bad Request"
 // @Failure 500 {object} web.WebResponse "Internal Server Error"
-// @Router /pokin-opd-strategics [post]
-func (controller *PokinOpdStrategicControllerImpl) Create(c echo.Context) error {
-	request := web.PokinOpdStrategicCreateRequest{}
+// @Router /pokin-opd-tacticals [post]
+func (controller *PokinOpdTacticalControllerImpl) Create(c echo.Context) error {
+	request := web.PokinOpdTacticalCreateRequest{}
 	if err := c.Bind(&request); err != nil {
 		return c.JSON(http.StatusBadRequest, web.WebResponse{
 			Code:   http.StatusBadRequest,
@@ -38,7 +38,7 @@ func (controller *PokinOpdStrategicControllerImpl) Create(c echo.Context) error 
 		})
 	}
 
-	response, err := controller.PokinOpdStrategicService.Create(c.Request().Context(), request)
+	response, err := controller.PokinOpdTacticalService.Create(c.Request().Context(), request)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, web.WebResponse{
 			Code:   http.StatusInternalServerError,
@@ -53,19 +53,19 @@ func (controller *PokinOpdStrategicControllerImpl) Create(c echo.Context) error 
 	})
 }
 
-// @Summary Update Pokin Opd Strategic
-// @Description Update existing Pokin Opd Strategic by ID
-// @Tags Pokin Opd Strategic
+// @Summary Update Pokin Opd Tactical
+// @Description Update existing Pokin Opd Tactical by ID
+// @Tags Pokin Opd Tactical
 // @Accept json
 // @Produce json
-// @Param id path int true "Pokin Opd Strategic ID"
-// @Param data body web.PokinOpdStrategicUpdateRequest true "Pokin Opd Strategic Update Request"
-// @Success 200 {object} web.WebResponse{data=web.PokinOpdStrategicResponse} "OK"
+// @Param id path int true "Pokin Opd Tactical ID"
+// @Param data body web.PokinOpdTacticalUpdateRequest true "Pokin Opd Tactical Update Request"
+// @Success 200 {object} web.WebResponse{data=web.PokinOpdTacticalResponse} "OK"
 // @Failure 400 {object} web.WebResponse "Bad Request"
 // @Failure 500 {object} web.WebResponse "Internal Server Error"
-// @Router /pokin-opd-strategics/{id} [put]
-func (controller *PokinOpdStrategicControllerImpl) Update(c echo.Context) error {
-	request := web.PokinOpdStrategicUpdateRequest{}
+// @Router /pokin-opd-tacticals/{id} [put]
+func (controller *PokinOpdTacticalControllerImpl) Update(c echo.Context) error {
+	request := web.PokinOpdTacticalUpdateRequest{}
 	if err := c.Bind(&request); err != nil {
 		return c.JSON(http.StatusBadRequest, web.WebResponse{
 			Code:   http.StatusBadRequest,
@@ -82,7 +82,7 @@ func (controller *PokinOpdStrategicControllerImpl) Update(c echo.Context) error 
 	}
 	request.Id = id
 
-	response, err := controller.PokinOpdStrategicService.Update(c.Request().Context(), request)
+	response, err := controller.PokinOpdTacticalService.Update(c.Request().Context(), request)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, web.WebResponse{
 			Code:   http.StatusInternalServerError,
@@ -97,17 +97,17 @@ func (controller *PokinOpdStrategicControllerImpl) Update(c echo.Context) error 
 	})
 }
 
-// @Summary Delete Pokin Opd Strategic
-// @Description Delete existing Pokin Opd Strategic by ID
-// @Tags Pokin Opd Strategic
+// @Summary Delete Pokin Opd Tactical
+// @Description Delete existing Pokin Opd Tactical by ID
+// @Tags Pokin Opd Tactical
 // @Accept json
 // @Produce json
-// @Param id path int true "Pokin Opd Strategic ID"
-// @Success 200 {object} web.WebResponse{data=web.PokinOpdStrategicResponse} "OK"
+// @Param id path int true "Pokin Opd Tactical ID"
+// @Success 200 {object} web.WebResponse{data=web.PokinOpdTacticalResponse} "OK"
 // @Failure 400 {object} web.WebResponse "Bad Request"
 // @Failure 500 {object} web.WebResponse "Internal Server Error"
-// @Router /pokin-opd-strategics/{id} [delete]
-func (controller *PokinOpdStrategicControllerImpl) Delete(c echo.Context) error {
+// @Router /pokin-opd-tacticals/{id} [delete]
+func (controller *PokinOpdTacticalControllerImpl) Delete(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, web.WebResponse{
@@ -116,7 +116,7 @@ func (controller *PokinOpdStrategicControllerImpl) Delete(c echo.Context) error 
 		})
 	}
 
-	if err := controller.PokinOpdStrategicService.Delete(c.Request().Context(), id); err != nil {
+	if err := controller.PokinOpdTacticalService.Delete(c.Request().Context(), id); err != nil {
 		return c.JSON(http.StatusInternalServerError, web.WebResponse{
 			Code:   http.StatusInternalServerError,
 			Status: "INTERNAL_SERVER_ERROR",
@@ -129,17 +129,17 @@ func (controller *PokinOpdStrategicControllerImpl) Delete(c echo.Context) error 
 	})
 }
 
-// @Summary Get Pokin Opd Strategic by ID
-// @Description Get Pokin Opd Strategic detail by ID
-// @Tags Pokin Opd Strategic
+// @Summary Get Pokin Opd Tactical by ID
+// @Description Get Pokin Opd Tactical detail by ID
+// @Tags Pokin Opd Tactical
 // @Accept json
 // @Produce json
-// @Param id path int true "Pokin Opd Strategic ID"
-// @Success 200 {object} web.WebResponse{data=web.PokinOpdStrategicResponse} "OK"
+// @Param id path int true "Pokin Opd Tactical ID"
+// @Success 200 {object} web.WebResponse{data=web.PokinOpdTacticalResponse} "OK"
 // @Failure 400 {object} web.WebResponse "Bad Request"
 // @Failure 500 {object} web.WebResponse "Internal Server Error"
-// @Router /pokin-opd-strategics/{id} [get]
-func (controller *PokinOpdStrategicControllerImpl) FindById(c echo.Context) error {
+// @Router /pokin-opd-tacticals/{id} [get]
+func (controller *PokinOpdTacticalControllerImpl) FindById(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, web.WebResponse{
@@ -148,7 +148,7 @@ func (controller *PokinOpdStrategicControllerImpl) FindById(c echo.Context) erro
 		})
 	}
 
-	response, err := controller.PokinOpdStrategicService.FindById(c.Request().Context(), id)
+	response, err := controller.PokinOpdTacticalService.FindById(c.Request().Context(), id)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, web.WebResponse{
 			Code:   http.StatusInternalServerError,
@@ -163,16 +163,16 @@ func (controller *PokinOpdStrategicControllerImpl) FindById(c echo.Context) erro
 	})
 }
 
-// @Summary List All Pokin Opd Strategic
-// @Description Get list of all Pokin Opd Strategic
-// @Tags Pokin Opd Strategic
+// @Summary List All Pokin Opd Tactical
+// @Description Get list of all Pokin Opd Tactical
+// @Tags Pokin Opd Tactical
 // @Accept json
 // @Produce json
-// @Success 200 {object} web.WebResponse{data=[]web.PokinOpdStrategicResponse} "OK"
+// @Success 200 {object} web.WebResponse{data=[]web.PokinOpdTacticalResponse} "OK"
 // @Failure 500 {object} web.WebResponse "Internal Server Error"
-// @Router /pokin-opd-strategics [get]
-func (controller *PokinOpdStrategicControllerImpl) FindAll(c echo.Context) error {
-	responses, err := controller.PokinOpdStrategicService.FindAll(c.Request().Context())
+// @Router /pokin-opd-tacticals [get]
+func (controller *PokinOpdTacticalControllerImpl) FindAll(c echo.Context) error {
+	responses, err := controller.PokinOpdTacticalService.FindAll(c.Request().Context())
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, web.WebResponse{
 			Code:   http.StatusInternalServerError,

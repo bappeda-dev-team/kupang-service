@@ -29,7 +29,7 @@ func NewPohonKinerjaControllerImpl(pohonKinerjaService service.PohonKinerjaServi
 // @Success 200 {object} web.WebResponse{data=web.PohonKinerjaResponse} "OK"
 // @Failure 400 {object} web.WebResponse "Bad Request"
 // @Failure 500 {object} web.WebResponse "Internal Server Error"
-// @Router /api/v1/pohon-kinerja-opd/{kode_opd}/{tahun} [get]
+// @Router /pohon-kinerja-opds/{kode_opd}/{tahun} [get]
 func (controller *PohonKinerjaControllerImpl) FindByKodeOpdAndTahun(c echo.Context) error {
 	kodeOpd := c.Param("kode_opd")
 	if kodeOpd == "" {

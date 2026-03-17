@@ -7,16 +7,19 @@ import (
 	"kupang-service/controller"
 )
 
-func NewRouter(pokinOpdController controller.PokinOpdController, pokinOpdStrategicController controller.PokinOpdStrategicController, indikatorPokinOpdController controller.IndikatorPokinOpdController, indikatorPokinOpdStrategicController controller.IndikatorPokinOpdStrategicController, tujuanPokinOpdController controller.TujuanPokinOpdController, targetPokinOpdController controller.TargetPokinOpdController, targetPokinOpdStrategicController controller.TargetPokinOpdStrategicController, pohonKinerjaController controller.PohonKinerjaController) *echo.Echo {
+func NewRouter(pokinOpdController controller.PokinOpdController, pokinOpdStrategicController controller.PokinOpdStrategicController, pokinOpdTacticalController controller.PokinOpdTacticalController, indikatorPokinOpdController controller.IndikatorPokinOpdController, indikatorPokinOpdStrategicController controller.IndikatorPokinOpdStrategicController, indikatorPokinOpdTacticalController controller.IndikatorPokinOpdTacticalController, tujuanPokinOpdController controller.TujuanPokinOpdController, targetPokinOpdController controller.TargetPokinOpdController, targetPokinOpdStrategicController controller.TargetPokinOpdStrategicController, targetPokinOpdTacticalController controller.TargetPokinOpdTacticalController, pohonKinerjaController controller.PohonKinerjaController) *echo.Echo {
 	e := echo.New()
 
 	const pokinOpdBase = "/pokin-opds"
 	const pokinOpdStrategicBase = "/pokin-opd-strategics"
+	const pokinOpdTacticalBase = "/pokin-opd-tacticals"
 	const indikatorPokinOpdBase = "/indikator-pokin-opds"
 	const indikatorPokinOpdStrategicBase = "/indikator-pokin-opd-strategics"
+	const indikatorPokinOpdTacticalBase = "/indikator-pokin-opd-tacticals"
 	const tujuanPokinOpdBase = "/tujuan-pokin-opds"
 	const targetPokinOpdBase = "/target-pokin-opds"
 	const targetPokinOpdStrategicBase = "/target-pokin-opd-strategics"
+	const targetPokinOpdTacticalBase = "/target-pokin-opd-tacticals"
 	const pohonKinerjaBase = "/pohon-kinerja-opds"
 
 	e.Use(middleware.Logger())
@@ -37,6 +40,12 @@ func NewRouter(pokinOpdController controller.PokinOpdController, pokinOpdStrateg
 	e.GET(pokinOpdStrategicBase+"/:id", pokinOpdStrategicController.FindById)
 	e.GET(pokinOpdStrategicBase, pokinOpdStrategicController.FindAll)
 
+	e.POST(pokinOpdTacticalBase, pokinOpdTacticalController.Create)
+	e.PUT(pokinOpdTacticalBase+"/:id", pokinOpdTacticalController.Update)
+	e.DELETE(pokinOpdTacticalBase+"/:id", pokinOpdTacticalController.Delete)
+	e.GET(pokinOpdTacticalBase+"/:id", pokinOpdTacticalController.FindById)
+	e.GET(pokinOpdTacticalBase, pokinOpdTacticalController.FindAll)
+
 	e.POST(indikatorPokinOpdBase, indikatorPokinOpdController.Create)
 	e.PUT(indikatorPokinOpdBase+"/:id", indikatorPokinOpdController.Update)
 	e.DELETE(indikatorPokinOpdBase+"/:id", indikatorPokinOpdController.Delete)
@@ -48,6 +57,12 @@ func NewRouter(pokinOpdController controller.PokinOpdController, pokinOpdStrateg
 	e.DELETE(indikatorPokinOpdStrategicBase+"/:id", indikatorPokinOpdStrategicController.Delete)
 	e.GET(indikatorPokinOpdStrategicBase+"/:id", indikatorPokinOpdStrategicController.FindById)
 	e.GET(indikatorPokinOpdStrategicBase, indikatorPokinOpdStrategicController.FindAll)
+
+	e.POST(indikatorPokinOpdTacticalBase, indikatorPokinOpdTacticalController.Create)
+	e.PUT(indikatorPokinOpdTacticalBase+"/:id", indikatorPokinOpdTacticalController.Update)
+	e.DELETE(indikatorPokinOpdTacticalBase+"/:id", indikatorPokinOpdTacticalController.Delete)
+	e.GET(indikatorPokinOpdTacticalBase+"/:id", indikatorPokinOpdTacticalController.FindById)
+	e.GET(indikatorPokinOpdTacticalBase, indikatorPokinOpdTacticalController.FindAll)
 
 	e.POST(tujuanPokinOpdBase, tujuanPokinOpdController.Create)
 	e.PUT(tujuanPokinOpdBase+"/:id", tujuanPokinOpdController.Update)
@@ -66,6 +81,12 @@ func NewRouter(pokinOpdController controller.PokinOpdController, pokinOpdStrateg
 	e.DELETE(targetPokinOpdStrategicBase+"/:id", targetPokinOpdStrategicController.Delete)
 	e.GET(targetPokinOpdStrategicBase+"/:id", targetPokinOpdStrategicController.FindById)
 	e.GET(targetPokinOpdStrategicBase, targetPokinOpdStrategicController.FindAll)
+
+	e.POST(targetPokinOpdTacticalBase, targetPokinOpdTacticalController.Create)
+	e.PUT(targetPokinOpdTacticalBase+"/:id", targetPokinOpdTacticalController.Update)
+	e.DELETE(targetPokinOpdTacticalBase+"/:id", targetPokinOpdTacticalController.Delete)
+	e.GET(targetPokinOpdTacticalBase+"/:id", targetPokinOpdTacticalController.FindById)
+	e.GET(targetPokinOpdTacticalBase, targetPokinOpdTacticalController.FindAll)
 
 	e.GET(pohonKinerjaBase+"/:kode_opd/:tahun", pohonKinerjaController.FindByKodeOpdAndTahun)
 
