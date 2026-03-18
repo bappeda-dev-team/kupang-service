@@ -36,8 +36,8 @@ func main() {
 	// app.RunFlyway()
 
 	server := InitializedServer()
-	host := os.Getenv("host")
-	port := os.Getenv("port")
+	host := os.Getenv("HOST")
+	port := os.Getenv("PORT")
 
 	prod := os.Getenv("PROD_HOSTNAME")
 
