@@ -1,23 +1,25 @@
 ARG GO_VERSION=1.24.2
 
+FROM golang:${GO_VERSION}-alpine AS build
+LABEL "language"="go"
+LABEL "framework"="echo"
 
-FROM registry.docker.com/library/golang:$GO_VERSION-alpine AS base
-
-# app lives here
 WORKDIR /app
 
-
-# Throw-away build stage to reduce size of final image
-FROM base AS build
-
-# Install packages needed to build
-RUN apk update -qq && \
-    apk add --no-cache git
+RUN apk update -qq && apk add --no-cache git
 
 COPY . .
 
 RUN go build -o api main.go wire_gen.go
 
-ENTRYPOINT ["/app/api"]
+FROM alpine:latest
 
-CMD ["app/api"]
+WORKDIR /app
+
+RUN apk add --no-cache ca-certificates
+
+COPY --from=build /app/api /app/api
+
+EXPOSE 8002
+
+ENTRYPOINT ["/app/api"]
