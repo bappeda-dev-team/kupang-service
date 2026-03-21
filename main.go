@@ -4,7 +4,9 @@ import (
 	"kupang-service/docs"
 	"fmt"
 	"os"
+	"strings"
 
+	"kupang-service/app"
 	"kupang-service/helper"
 
 	"github.com/labstack/echo/v4"
@@ -33,7 +35,7 @@ func NewServer(e *echo.Echo) *echo.Echo {
 func main() {
 
 	// DEPRECATED jalankan flyway secara terpisah
-	// app.RunFlyway()
+	app.RunFlyway()
 
 	server := InitializedServer()
 	host := os.Getenv("HOST")
@@ -41,8 +43,14 @@ func main() {
 
 	prod := os.Getenv("PROD_HOSTNAME")
 
-	docs.SwaggerInfo.Host = fmt.Sprintf("%v", prod)
-	docs.SwaggerInfo.Schemes = []string{"https"}
+	prod = strings.TrimSpace(prod)
+	if prod != "" && strings.ToLower(prod) != "localhost" {
+		docs.SwaggerInfo.Host = prod
+		docs.SwaggerInfo.Schemes = []string{"https"}
+	} else {
+		docs.SwaggerInfo.Host = fmt.Sprintf("%s:%s", host, port)
+		docs.SwaggerInfo.Schemes = []string{"http"}
+	}
 
 	addr := fmt.Sprintf("%s:%s", host, port)
 
