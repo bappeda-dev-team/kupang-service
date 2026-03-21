@@ -35,7 +35,7 @@ func NewServer(e *echo.Echo) *echo.Echo {
 func main() {
 
 	// DEPRECATED jalankan flyway secara terpisah
-	app.RunFlyway()
+	app.RunMigrate()
 
 	server := InitializedServer()
 	host := os.Getenv("HOST")
