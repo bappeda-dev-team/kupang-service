@@ -42,6 +42,7 @@ func main() {
 	prod := os.Getenv("PROD_HOSTNAME")
 
 	docs.SwaggerInfo.Host = fmt.Sprintf("%v", prod)
+	docs.SwaggerInfo.Schemes = []string{"https"}
 
 	addr := fmt.Sprintf("%s:%s", host, port)
 
