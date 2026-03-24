@@ -223,6 +223,120 @@ definitions:
       updated_by:
         type: string
     type: object
+  web.PokinOpdTacticalResponse:
+    properties:
+      id:
+        type: integer
+      parent:
+        type: integer
+      nama_pohon:
+        type: string
+      jenis_pohon:
+        type: string
+      level_pohon:
+        type: integer
+      kode_opd:
+        type: string
+      nama_opd:
+        type: string
+      keterangan:
+        type: string
+      tahun:
+        type: integer
+      jumlah_review:
+        type: integer
+      status:
+        type: string
+      pelaksana:
+        type: string
+      updated_by:
+        type: string
+      indikator:
+        type: array
+        items:
+          $ref: '#/definitions/web.PokinOpdTacticalIndikatorResponse'
+      childs:
+        type: array
+        items:
+          $ref: '#/definitions/web.PokinOpdOperationalResponse'
+    type: object
+  web.PokinOpdTacticalIndikatorResponse:
+    properties:
+      id_indikator:
+        type: integer
+      nama_indikator:
+        type: string
+      targets:
+        type: array
+        items:
+          $ref: '#/definitions/web.PokinOpdTacticalTargetResponse'
+    type: object
+  web.PokinOpdTacticalTargetResponse:
+    properties:
+      id_target:
+        type: integer
+      indikator_id:
+        type: integer
+      target:
+        type: integer
+      satuan:
+        type: string
+    type: object
+  web.PokinOpdOperationalResponse:
+    properties:
+      id:
+        type: integer
+      parent:
+        type: integer
+      nama_pohon:
+        type: string
+      jenis_pohon:
+        type: string
+      level_pohon:
+        type: integer
+      kode_opd:
+        type: string
+      nama_opd:
+        type: string
+      keterangan:
+        type: string
+      tahun:
+        type: integer
+      jumlah_review:
+        type: integer
+      status:
+        type: string
+      pelaksana:
+        type: string
+      updated_by:
+        type: string
+      indikator:
+        type: array
+        items:
+          $ref: '#/definitions/web.PokinOpdOperationalIndikatorResponse'
+    type: object
+  web.PokinOpdOperationalIndikatorResponse:
+    properties:
+      id_indikator:
+        type: integer
+      nama_indikator:
+        type: string
+      targets:
+        type: array
+        items:
+          $ref: '#/definitions/web.PokinOpdOperationalTargetResponse'
+    type: object
+  web.PokinOpdOperationalTargetResponse:
+    properties:
+      id_target:
+        type: integer
+      indikator_id:
+        type: integer
+      target:
+        type: integer
+      satuan:
+        type: string
+    type: object
   web.PokinOpdStrategicTargetResponse:
     properties:
       id_target:

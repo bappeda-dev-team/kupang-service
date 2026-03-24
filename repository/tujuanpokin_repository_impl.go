@@ -25,8 +25,8 @@ func (repository *TujuanPokinOpdRepositoryImpl) Create(ctx context.Context, tx *
 }
 
 func (repository *TujuanPokinOpdRepositoryImpl) Update(ctx context.Context, tx *sql.Tx, tujuanPokinOpd domain.TujuanPokinOpd) (domain.TujuanPokinOpd, error) {
-	query := "UPDATE tujuan_pokin_opd SET kode_opd = $1, nama_tujuan = $2, bidang_urusan = $3, tahun_awal_periode = $4, tahun_akhir_periode = $5, last_modified_date = NOW() WHERE id = $6"
-	_, err := tx.ExecContext(ctx, query, tujuanPokinOpd.KodeOpd, tujuanPokinOpd.NamaTujuan, tujuanPokinOpd.BidangUrusan, tujuanPokinOpd.TahunAwalPeriode, tujuanPokinOpd.TahunAkhirPeriode, tujuanPokinOpd.Id)
+	query := "UPDATE tujuan_pokin_opd SET pokin_opd_id = $1, kode_opd = $2, nama_tujuan = $3, bidang_urusan = $4, tahun_awal_periode = $5, tahun_akhir_periode = $6, last_modified_date = NOW() WHERE id = $7"
+	_, err := tx.ExecContext(ctx, query, tujuanPokinOpd.PokinOpdId, tujuanPokinOpd.KodeOpd, tujuanPokinOpd.NamaTujuan, tujuanPokinOpd.BidangUrusan, tujuanPokinOpd.TahunAwalPeriode, tujuanPokinOpd.TahunAkhirPeriode, tujuanPokinOpd.Id)
 	if err != nil {
 		return domain.TujuanPokinOpd{}, err
 	}

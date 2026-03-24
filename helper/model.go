@@ -69,9 +69,26 @@ func ToIndikatorPokinOpdTacticalResponses(indikators []domain.IndikatorPokinOpdT
 	return responses
 }
 
+func ToIndikatorPokinOpdOperationalResponse(indikator domain.IndikatorPokinOpdOperational) web.IndikatorPokinOpdOperationalResponse {
+	return web.IndikatorPokinOpdOperationalResponse{
+		Id:                    indikator.Id,
+		PokinOpdOperationalId: indikator.PokinOpdOperationalId,
+		NamaIndikator:         indikator.NamaIndikator,
+	}
+}
+
+func ToIndikatorPokinOpdOperationalResponses(indikators []domain.IndikatorPokinOpdOperational) []web.IndikatorPokinOpdOperationalResponse {
+	var responses []web.IndikatorPokinOpdOperationalResponse
+	for _, indikator := range indikators {
+		responses = append(responses, ToIndikatorPokinOpdOperationalResponse(indikator))
+	}
+	return responses
+}
+
 func ToTujuanPokinOpdResponse(tujuanPokinOpd domain.TujuanPokinOpd) web.TujuanPokinOpdResponse {
 	return web.TujuanPokinOpdResponse{
 		Id:                tujuanPokinOpd.Id,
+		PokinOpdId:        tujuanPokinOpd.PokinOpdId,
 		KodeOpd:           tujuanPokinOpd.KodeOpd,
 		NamaTujuan:        tujuanPokinOpd.NamaTujuan,
 		BidangUrusan:      tujuanPokinOpd.BidangUrusan,
@@ -134,6 +151,23 @@ func ToTargetPokinOpdTacticalResponses(targets []domain.TargetPokinOpdTactical) 
 	var responses []web.TargetPokinOpdTacticalResponse
 	for _, target := range targets {
 		responses = append(responses, ToTargetPokinOpdTacticalResponse(target))
+	}
+	return responses
+}
+
+func ToTargetPokinOpdOperationalResponse(target domain.TargetPokinOpdOperational) web.TargetPokinOpdOperationalResponse {
+	return web.TargetPokinOpdOperationalResponse{
+		Id:                             target.Id,
+		IndikatorPokinOpdOperationalId: target.IndikatorPokinOpdOperationalId,
+		NilaiTarget:                    target.NilaiTarget,
+		Satuan:                         target.Satuan,
+	}
+}
+
+func ToTargetPokinOpdOperationalResponses(targets []domain.TargetPokinOpdOperational) []web.TargetPokinOpdOperationalResponse {
+	var responses []web.TargetPokinOpdOperationalResponse
+	for _, target := range targets {
+		responses = append(responses, ToTargetPokinOpdOperationalResponse(target))
 	}
 	return responses
 }

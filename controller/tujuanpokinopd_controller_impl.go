@@ -69,7 +69,7 @@ func (controller *TujuanPokinOpdControllerImpl) Create(c echo.Context) error {
 // @Produce json
 // @Param id path int true "Tujuan Pokin Opd ID"
 // @Param data body web.TujuanPokinOpdUpdateRequest true "Tujuan Pokin Opd Update Request"
-// @Success 200 {object} web.WebResponse{data=web.TujuanPokinOpdResponse} "OK"
+// @Success 200 {object} web.WebResponse "OK"
 // @Failure 400 {object} web.WebResponse "Bad Request"
 // @Failure 500 {object} web.WebResponse "Internal Server Error"
 // @Router /tujuan-pokin-opds/{id} [put]
@@ -167,6 +167,13 @@ func (controller *TujuanPokinOpdControllerImpl) FindById(c echo.Context) error {
 
 	tujuanPokinOpdResponse, err := controller.TujuanPokinOpdService.FindById(c.Request().Context(), id)
 	if err != nil {
+		if err.Error() == "id tidak ditemukan" {
+			return c.JSON(http.StatusBadRequest, web.WebResponse{
+				Code:   http.StatusBadRequest,
+				Status: "BAD_REQUEST",
+				Data:   err.Error(),
+			})
+		}
 		return c.JSON(http.StatusInternalServerError, web.WebResponse{
 			Code:   http.StatusInternalServerError,
 			Status: "INTERNAL_SERVER_ERROR",

@@ -2827,6 +2827,180 @@
                 }
             }
         },
+        "web.PokinOpdTacticalResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "parent": {
+                    "type": "integer"
+                },
+                "nama_pohon": {
+                    "type": "string"
+                },
+                "jenis_pohon": {
+                    "type": "string"
+                },
+                "level_pohon": {
+                    "type": "integer"
+                },
+                "kode_opd": {
+                    "type": "string"
+                },
+                "nama_opd": {
+                    "type": "string"
+                },
+                "keterangan": {
+                    "type": "string"
+                },
+                "tahun": {
+                    "type": "integer"
+                },
+                "jumlah_review": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "pelaksana": {
+                    "type": "string"
+                },
+                "updated_by": {
+                    "type": "string"
+                },
+                "indikator": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/web.PokinOpdTacticalIndikatorResponse"
+                    }
+                },
+                "childs": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/web.PokinOpdOperationalResponse"
+                    }
+                }
+            }
+        },
+        "web.PokinOpdTacticalIndikatorResponse": {
+            "type": "object",
+            "properties": {
+                "id_indikator": {
+                    "type": "integer"
+                },
+                "nama_indikator": {
+                    "type": "string"
+                },
+                "targets": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/web.PokinOpdTacticalTargetResponse"
+                    }
+                }
+            }
+        },
+        "web.PokinOpdTacticalTargetResponse": {
+            "type": "object",
+            "properties": {
+                "id_target": {
+                    "type": "integer"
+                },
+                "indikator_id": {
+                    "type": "integer"
+                },
+                "target": {
+                    "type": "integer"
+                },
+                "satuan": {
+                    "type": "string"
+                }
+            }
+        },
+        "web.PokinOpdOperationalResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "parent": {
+                    "type": "integer"
+                },
+                "nama_pohon": {
+                    "type": "string"
+                },
+                "jenis_pohon": {
+                    "type": "string"
+                },
+                "level_pohon": {
+                    "type": "integer"
+                },
+                "kode_opd": {
+                    "type": "string"
+                },
+                "nama_opd": {
+                    "type": "string"
+                },
+                "keterangan": {
+                    "type": "string"
+                },
+                "tahun": {
+                    "type": "integer"
+                },
+                "jumlah_review": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "pelaksana": {
+                    "type": "string"
+                },
+                "updated_by": {
+                    "type": "string"
+                },
+                "indikator": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/web.PokinOpdOperationalIndikatorResponse"
+                    }
+                }
+            }
+        },
+        "web.PokinOpdOperationalIndikatorResponse": {
+            "type": "object",
+            "properties": {
+                "id_indikator": {
+                    "type": "integer"
+                },
+                "nama_indikator": {
+                    "type": "string"
+                },
+                "targets": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/web.PokinOpdOperationalTargetResponse"
+                    }
+                }
+            }
+        },
+        "web.PokinOpdOperationalTargetResponse": {
+            "type": "object",
+            "properties": {
+                "id_target": {
+                    "type": "integer"
+                },
+                "indikator_id": {
+                    "type": "integer"
+                },
+                "target": {
+                    "type": "integer"
+                },
+                "satuan": {
+                    "type": "string"
+                }
+            }
+        },
         "web.PokinOpdStrategicTargetResponse": {
             "type": "object",
             "properties": {

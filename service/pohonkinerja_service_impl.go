@@ -9,17 +9,20 @@ import (
 )
 
 type PohonKinerjaServiceImpl struct {
-	PokinOpdRepository                   repository.PokinOpdRepository
-	TujuanPokinOpdRepository             repository.TujuanPokinOpdRepository
-	IndikatorPokinOpdRepository          repository.IndikatorPokinOpdRepository
-	TargetPokinOpdRepository             repository.TargetPokinOpdRepository
-	PokinOpdStrategicRepository          repository.PokinOpdStrategicRepository
-	IndikatorPokinOpdStrategicRepository repository.IndikatorPokinOpdStrategicRepository
-	TargetPokinOpdStrategicRepository    repository.TargetPokinOpdStrategicRepository
-	PokinOpdTacticalRepository           repository.PokinOpdTacticalRepository
-	IndikatorPokinOpdTacticalRepository  repository.IndikatorPokinOpdTacticalRepository
-	TargetPokinOpdTacticalRepository     repository.TargetPokinOpdTacticalRepository
-	DB                                   *sql.DB
+	PokinOpdRepository                     repository.PokinOpdRepository
+	TujuanPokinOpdRepository               repository.TujuanPokinOpdRepository
+	IndikatorPokinOpdRepository            repository.IndikatorPokinOpdRepository
+	TargetPokinOpdRepository               repository.TargetPokinOpdRepository
+	PokinOpdStrategicRepository            repository.PokinOpdStrategicRepository
+	IndikatorPokinOpdStrategicRepository   repository.IndikatorPokinOpdStrategicRepository
+	TargetPokinOpdStrategicRepository      repository.TargetPokinOpdStrategicRepository
+	PokinOpdTacticalRepository             repository.PokinOpdTacticalRepository
+	IndikatorPokinOpdTacticalRepository    repository.IndikatorPokinOpdTacticalRepository
+	TargetPokinOpdTacticalRepository       repository.TargetPokinOpdTacticalRepository
+	PokinOpdOperationalRepository          repository.PokinOpdOperationalRepository
+	IndikatorPokinOpdOperationalRepository repository.IndikatorPokinOpdOperationalRepository
+	TargetPokinOpdOperationalRepository    repository.TargetPokinOpdOperationalRepository
+	DB                                     *sql.DB
 }
 
 func NewPohonKinerjaServiceImpl(
@@ -33,20 +36,26 @@ func NewPohonKinerjaServiceImpl(
 	pokinOpdTacticalRepository repository.PokinOpdTacticalRepository,
 	indikatorPokinOpdTacticalRepository repository.IndikatorPokinOpdTacticalRepository,
 	targetPokinOpdTacticalRepository repository.TargetPokinOpdTacticalRepository,
+	pokinOpdOperationalRepository repository.PokinOpdOperationalRepository,
+	indikatorPokinOpdOperationalRepository repository.IndikatorPokinOpdOperationalRepository,
+	targetPokinOpdOperationalRepository repository.TargetPokinOpdOperationalRepository,
 	db *sql.DB,
 ) *PohonKinerjaServiceImpl {
 	return &PohonKinerjaServiceImpl{
-		PokinOpdRepository:                   pokinOpdRepository,
-		TujuanPokinOpdRepository:             tujuanPokinOpdRepository,
-		IndikatorPokinOpdRepository:          indikatorPokinOpdRepository,
-		TargetPokinOpdRepository:             targetPokinOpdRepository,
-		PokinOpdStrategicRepository:          pokinOpdStrategicRepository,
-		IndikatorPokinOpdStrategicRepository: indikatorPokinOpdStrategicRepository,
-		TargetPokinOpdStrategicRepository:    targetPokinOpdStrategicRepository,
-		PokinOpdTacticalRepository:           pokinOpdTacticalRepository,
-		IndikatorPokinOpdTacticalRepository:  indikatorPokinOpdTacticalRepository,
-		TargetPokinOpdTacticalRepository:     targetPokinOpdTacticalRepository,
-		DB:                                   db,
+		PokinOpdRepository:                     pokinOpdRepository,
+		TujuanPokinOpdRepository:               tujuanPokinOpdRepository,
+		IndikatorPokinOpdRepository:            indikatorPokinOpdRepository,
+		TargetPokinOpdRepository:               targetPokinOpdRepository,
+		PokinOpdStrategicRepository:            pokinOpdStrategicRepository,
+		IndikatorPokinOpdStrategicRepository:   indikatorPokinOpdStrategicRepository,
+		TargetPokinOpdStrategicRepository:      targetPokinOpdStrategicRepository,
+		PokinOpdTacticalRepository:             pokinOpdTacticalRepository,
+		IndikatorPokinOpdTacticalRepository:    indikatorPokinOpdTacticalRepository,
+		TargetPokinOpdTacticalRepository:       targetPokinOpdTacticalRepository,
+		PokinOpdOperationalRepository:          pokinOpdOperationalRepository,
+		IndikatorPokinOpdOperationalRepository: indikatorPokinOpdOperationalRepository,
+		TargetPokinOpdOperationalRepository:    targetPokinOpdOperationalRepository,
+		DB:                                     db,
 	}
 }
 
@@ -205,6 +214,11 @@ func (service *PohonKinerjaServiceImpl) buildTacticalChildResponses(ctx context.
 			return nil, err
 		}
 
+		operationalResponses, err := service.buildOperationalChildResponses(ctx, tx, tactical.Id)
+		if err != nil {
+			return nil, err
+		}
+
 		tacticalResponse := web.PokinOpdTacticalResponse{
 			Id:           tactical.Id,
 			Parent:       tactical.Parent,
@@ -220,6 +234,7 @@ func (service *PohonKinerjaServiceImpl) buildTacticalChildResponses(ctx context.
 			Pelaksana:    tactical.Pelaksana,
 			UpdatedBy:    tactical.UpdatedBy,
 			Indikator:    indikatorResponses,
+			Childs:       operationalResponses,
 		}
 
 		responses = append(responses, web.WebResponse{
@@ -259,6 +274,79 @@ func (service *PohonKinerjaServiceImpl) buildTacticalIndikatorResponses(ctx cont
 		}
 
 		indikatorResponses = append(indikatorResponses, web.PokinOpdTacticalIndikatorResponse{
+			IdIndikator:   indikator.Id,
+			NamaIndikator: indikator.NamaIndikator,
+			Targets:       targetResponses,
+		})
+	}
+
+	return indikatorResponses, nil
+}
+
+func (service *PohonKinerjaServiceImpl) buildOperationalChildResponses(ctx context.Context, tx *sql.Tx, tacticalId int) ([]web.PokinOpdOperationalResponse, error) {
+	operationalDomains, err := service.PokinOpdOperationalRepository.FindByParent(ctx, tx, tacticalId)
+	if err != nil {
+		return nil, err
+	}
+	if len(operationalDomains) == 0 {
+		return []web.PokinOpdOperationalResponse{}, nil
+	}
+
+	responses := make([]web.PokinOpdOperationalResponse, 0, len(operationalDomains))
+	for _, operational := range operationalDomains {
+		indikatorResponses, err := service.buildOperationalIndikatorResponses(ctx, tx, operational.Id)
+		if err != nil {
+			return nil, err
+		}
+
+		responses = append(responses, web.PokinOpdOperationalResponse{
+			Id:           operational.Id,
+			Parent:       operational.Parent,
+			NamaPohon:    operational.NamaPohon,
+			JenisPohon:   operational.JenisPohon,
+			LevelPohon:   operational.LevelPohon,
+			KodeOpd:      operational.KodeOpd,
+			NamaOpd:      operational.NamaOpd,
+			Keterangan:   operational.Keterangan,
+			Tahun:        operational.Tahun,
+			JumlahReview: operational.JumlahReview,
+			Status:       operational.Status,
+			Pelaksana:    operational.Pelaksana,
+			UpdatedBy:    operational.UpdatedBy,
+			Indikator:    indikatorResponses,
+		})
+	}
+
+	return responses, nil
+}
+
+func (service *PohonKinerjaServiceImpl) buildOperationalIndikatorResponses(ctx context.Context, tx *sql.Tx, pokinOpdOperationalId int) ([]web.PokinOpdOperationalIndikatorResponse, error) {
+	indikatorDomains, err := service.IndikatorPokinOpdOperationalRepository.FindByPokinOpdOperationalId(ctx, tx, pokinOpdOperationalId)
+	if err != nil {
+		return nil, err
+	}
+	if len(indikatorDomains) == 0 {
+		return nil, nil
+	}
+
+	indikatorResponses := make([]web.PokinOpdOperationalIndikatorResponse, 0, len(indikatorDomains))
+	for _, indikator := range indikatorDomains {
+		targetDomains, err := service.TargetPokinOpdOperationalRepository.FindByIndikatorId(ctx, tx, indikator.Id)
+		if err != nil {
+			return nil, err
+		}
+
+		targetResponses := make([]web.PokinOpdOperationalTargetResponse, 0, len(targetDomains))
+		for _, target := range targetDomains {
+			targetResponses = append(targetResponses, web.PokinOpdOperationalTargetResponse{
+				IdTarget:    target.Id,
+				IndikatorId: target.IndikatorPokinOpdOperationalId,
+				Target:      target.NilaiTarget,
+				Satuan:      target.Satuan,
+			})
+		}
+
+		indikatorResponses = append(indikatorResponses, web.PokinOpdOperationalIndikatorResponse{
 			IdIndikator:   indikator.Id,
 			NamaIndikator: indikator.NamaIndikator,
 			Targets:       targetResponses,

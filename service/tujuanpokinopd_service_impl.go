@@ -14,13 +14,15 @@ import (
 
 type TujuanPokinOpdServiceImpl struct {
 	TujuanPokinOpdRepository repository.TujuanPokinOpdRepository
+	PokinOpdRepository       repository.PokinOpdRepository
 	DB                       *sql.DB
 	Validator                *validator.Validate
 }
 
-func NewTujuanPokinOpdServiceImpl(tujuanPokinOpdRepository repository.TujuanPokinOpdRepository, db *sql.DB, validator *validator.Validate) *TujuanPokinOpdServiceImpl {
+func NewTujuanPokinOpdServiceImpl(tujuanPokinOpdRepository repository.TujuanPokinOpdRepository, pokinOpdRepository repository.PokinOpdRepository, db *sql.DB, validator *validator.Validate) *TujuanPokinOpdServiceImpl {
 	return &TujuanPokinOpdServiceImpl{
 		TujuanPokinOpdRepository: tujuanPokinOpdRepository,
+		PokinOpdRepository:       pokinOpdRepository,
 		DB:                       db,
 		Validator:                validator,
 	}
@@ -38,6 +40,10 @@ func (service *TujuanPokinOpdServiceImpl) Create(ctx context.Context, tujuanPoki
 	}
 	defer helper.CommitOrRollback(tx)
 
+	if err := service.validatePokinOpdId(ctx, tx, tujuanPokinOpd.PokinOpdId); err != nil {
+		return web.TujuanPokinOpdResponse{}, err
+	}
+
 	tujuanPokinOpdDomain := domain.TujuanPokinOpd{
 		PokinOpdId:         tujuanPokinOpd.PokinOpdId,
 		KodeOpd:           tujuanPokinOpd.KodeOpd,
@@ -54,6 +60,7 @@ func (service *TujuanPokinOpdServiceImpl) Create(ctx context.Context, tujuanPoki
 
 	return web.TujuanPokinOpdResponse{
 		Id:                tujuanPokinOpdDomain.Id,
+		PokinOpdId:        tujuanPokinOpdDomain.PokinOpdId,
 		KodeOpd:           tujuanPokinOpdDomain.KodeOpd,
 		NamaTujuan:        tujuanPokinOpdDomain.NamaTujuan,
 		BidangUrusan:      tujuanPokinOpdDomain.BidangUrusan,
@@ -63,14 +70,24 @@ func (service *TujuanPokinOpdServiceImpl) Create(ctx context.Context, tujuanPoki
 }
 
 func (service *TujuanPokinOpdServiceImpl) Update(ctx context.Context, tujuanPokinOpdData web.TujuanPokinOpdUpdateRequest) (web.TujuanPokinOpdResponse, error) {
+	err := service.Validator.Struct(tujuanPokinOpdData)
+	if err != nil {
+		return web.TujuanPokinOpdResponse{}, err
+	}
+
 	tx, err := service.DB.BeginTx(ctx, nil)
 	if err != nil {
 		return web.TujuanPokinOpdResponse{}, err
 	}
 	defer helper.CommitOrRollback(tx)
 
+	if err := service.validatePokinOpdId(ctx, tx, tujuanPokinOpdData.PokinOpdId); err != nil {
+		return web.TujuanPokinOpdResponse{}, err
+	}
+
 	tujuanPokinOpdDomain := domain.TujuanPokinOpd{
 		Id:                tujuanPokinOpdData.Id,
+		PokinOpdId:        tujuanPokinOpdData.PokinOpdId,
 		KodeOpd:           tujuanPokinOpdData.KodeOpd,
 		NamaTujuan:        tujuanPokinOpdData.NamaTujuan,
 		BidangUrusan:      tujuanPokinOpdData.BidangUrusan,
@@ -85,6 +102,7 @@ func (service *TujuanPokinOpdServiceImpl) Update(ctx context.Context, tujuanPoki
 
 	return web.TujuanPokinOpdResponse{
 		Id:                tujuanPokinOpdDomain.Id,
+		PokinOpdId:        tujuanPokinOpdDomain.PokinOpdId,
 		KodeOpd:           tujuanPokinOpdDomain.KodeOpd,
 		NamaTujuan:        tujuanPokinOpdDomain.NamaTujuan,
 		BidangUrusan:      tujuanPokinOpdDomain.BidangUrusan,
@@ -100,7 +118,17 @@ func (service *TujuanPokinOpdServiceImpl) Delete(ctx context.Context, id int) er
 	}
 	defer helper.CommitOrRollback(tx)
 
-	return service.TujuanPokinOpdRepository.Delete(ctx, tx, id)
+	_, err = service.TujuanPokinOpdRepository.FindById(ctx, tx, id)
+	if err != nil {
+		return errors.New("id tidak ditemukan")
+	}
+
+	err = service.TujuanPokinOpdRepository.Delete(ctx, tx, id)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (service *TujuanPokinOpdServiceImpl) FindById(ctx context.Context, id int) (web.TujuanPokinOpdResponse, error) {
@@ -117,6 +145,7 @@ func (service *TujuanPokinOpdServiceImpl) FindById(ctx context.Context, id int) 
 
 	return web.TujuanPokinOpdResponse{
 		Id:                tujuanPokinOpdDomain.Id,
+		PokinOpdId:        tujuanPokinOpdDomain.PokinOpdId,
 		KodeOpd:           tujuanPokinOpdDomain.KodeOpd,
 		NamaTujuan:        tujuanPokinOpdDomain.NamaTujuan,
 		BidangUrusan:      tujuanPokinOpdDomain.BidangUrusan,
@@ -138,4 +167,20 @@ func (service *TujuanPokinOpdServiceImpl) FindAll(ctx context.Context) ([]web.Tu
 	}
 
 	return helper.ToTujuanPokinOpdResponses(tujuanPokinOpdDomains), nil
+}
+
+type pokinOpdIdValidation struct {
+	PokinOpdId int `validate:"gt=0"`
+}
+
+func (service *TujuanPokinOpdServiceImpl) validatePokinOpdId(ctx context.Context, tx *sql.Tx, id int) error {
+	_, err := service.PokinOpdRepository.FindById(ctx, tx, id)
+	if err != nil {
+		if err.Error() == "id tidak ditemukan" {
+			return service.Validator.Struct(pokinOpdIdValidation{})
+		}
+		return err
+	}
+
+	return nil
 }

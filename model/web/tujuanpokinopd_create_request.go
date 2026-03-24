@@ -1,7 +1,7 @@
 package web
 
 type TujuanPokinOpdCreateRequest struct {
-	PokinOpdId        int    `json:"pokin_opd_id"`
+	PokinOpdId        int    `json:"pokin_opd_id" validate:"required,gt=0"`
 	KodeOpd           string `json:"kode_opd"`
 	NamaTujuan        string `json:"tujuan"`
 	BidangUrusan      string `json:"bidang_urusan"`

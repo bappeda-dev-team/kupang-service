@@ -831,6 +831,267 @@ const docTemplate = `{
                 }
             }
         },
+        "/indikator-pokin-opd-operationals": {
+            "get": {
+                "description": "Get list of all Indikator Pokin OPD Operational",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Indikator Pokin OPD Operational"
+                ],
+                "summary": "List All Indikator Pokin OPD Operational",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/web.IndikatorPokinOpdOperationalResponse"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create new Indikator Pokin OPD Operational",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Indikator Pokin OPD Operational"
+                ],
+                "summary": "Create Indikator Pokin OPD Operational",
+                "parameters": [
+                    {
+                        "description": "Indikator Pokin OPD Operational Create Request",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/web.IndikatorPokinOpdOperationalCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.IndikatorPokinOpdOperationalResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/indikator-pokin-opd-operationals/{id}": {
+            "get": {
+                "description": "Get Indikator Pokin OPD Operational detail by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Indikator Pokin OPD Operational"
+                ],
+                "summary": "Get Indikator Pokin OPD Operational by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Indikator Pokin OPD Operational ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.IndikatorPokinOpdOperationalResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update existing Indikator Pokin OPD Operational by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Indikator Pokin OPD Operational"
+                ],
+                "summary": "Update Indikator Pokin OPD Operational",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Indikator Pokin OPD Operational ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Indikator Pokin OPD Operational Update Request",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/web.IndikatorPokinOpdOperationalUpdateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.IndikatorPokinOpdOperationalResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete existing Indikator Pokin OPD Operational by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Indikator Pokin OPD Operational"
+                ],
+                "summary": "Delete Indikator Pokin OPD Operational",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Indikator Pokin OPD Operational ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/pokin-opds": {
             "get": {
                 "description": "Get list of all Pokin Opd",
@@ -1292,7 +1553,267 @@ const docTemplate = `{
                 }
             }
         },
-        "/pokin-opd-strategics/{id}": {
+        "/pokin-opd-operationals": {
+            "get": {
+                "description": "Get list of all Pokin Opd Operational",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pokin Opd Operational"
+                ],
+                "summary": "List All Pokin Opd Operational",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/web.PokinOpdOperationalResponse"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create new Pokin Opd Operational",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pokin Opd Operational"
+                ],
+                "summary": "Create Pokin Opd Operational",
+                "parameters": [
+                    {
+                        "description": "Pokin Opd Operational Create Request",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/web.PokinOpdOperationalCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.PokinOpdOperationalResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/pokin-opd-operationals/{id}": {
+            "get": {
+                "description": "Get Pokin Opd Operational detail by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pokin Opd Operational"
+                ],
+                "summary": "Get Pokin Opd Operational by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Pokin Opd Operational ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.PokinOpdOperationalResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update existing Pokin Opd Operational by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pokin Opd Operational"
+                ],
+                "summary": "Update Pokin Opd Operational",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Pokin Opd Operational ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Pokin Opd Operational Update Request",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/web.PokinOpdOperationalUpdateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.PokinOpdOperationalResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete existing Pokin Opd Operational by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pokin Opd Operational"
+                ],
+                "summary": "Delete Pokin Opd Operational",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Pokin Opd Operational ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            }
+        },        "/pokin-opd-strategics/{id}": {
             "get": {
                 "description": "Get Pokin Opd Strategic detail by ID",
                 "consumes": [
@@ -1667,6 +2188,9 @@ const docTemplate = `{
                                             "items": {
                                                 "type": "object",
                                                 "properties": {
+                                                    "pokin_opd_id": {
+                                                        "type": "integer"
+                                                    },
                                                     "kode_opd": {
                                                         "type": "string"
                                                     },
@@ -1719,6 +2243,9 @@ const docTemplate = `{
                         "schema": {
                             "type": "object",
                             "properties": {
+                                "pokin_opd_id": {
+                                    "type": "integer"
+                                },
                                 "kode_opd": {
                                     "type": "string"
                                 },
@@ -1752,6 +2279,9 @@ const docTemplate = `{
                                         "data": {
                                             "type": "object",
                                             "properties": {
+                                                "pokin_opd_id": {
+                                                    "type": "integer"
+                                                },
                                                 "kode_opd": {
                                                     "type": "string"
                                                 },
@@ -1824,6 +2354,9 @@ const docTemplate = `{
                                 "id": {
                                     "type": "integer"
                                 },
+                                "pokin_opd_id": {
+                                    "type": "integer"
+                                },
                                 "kode_opd": {
                                     "type": "string"
                                 },
@@ -1858,6 +2391,9 @@ const docTemplate = `{
                                             "type": "object",
                                             "properties": {
                                                 "id": {
+                                                    "type": "integer"
+                                                },
+                                                "pokin_opd_id": {
                                                     "type": "integer"
                                                 },
                                                 "kode_opd": {
@@ -2875,6 +3411,273 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/target-pokin-opd-operationals": {
+            "get": {
+                "description": "Get list of all Target Pokin OPD Operational",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Target Pokin OPD Operational"
+                ],
+                "summary": "List All Target Pokin OPD Operational",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/web.TargetPokinOpdOperationalResponse"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create new Target Pokin OPD Operational",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Target Pokin OPD Operational"
+                ],
+                "summary": "Create Target Pokin OPD Operational",
+                "parameters": [
+                    {
+                        "description": "Target Pokin OPD Operational Create Request",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/web.TargetPokinOpdOperationalCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.TargetPokinOpdOperationalResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/target-pokin-opd-operationals/{id}": {
+            "get": {
+                "description": "Get Target Pokin OPD Operational detail by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Target Pokin OPD Operational"
+                ],
+                "summary": "Get Target Pokin OPD Operational by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Target Pokin OPD Operational ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.TargetPokinOpdOperationalResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update existing Target Pokin OPD Operational by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Target Pokin OPD Operational"
+                ],
+                "summary": "Update Target Pokin OPD Operational",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Target Pokin OPD Operational ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Target Pokin OPD Operational Update Request",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/web.TargetPokinOpdOperationalUpdateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.TargetPokinOpdOperationalResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete existing Target Pokin OPD Operational by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Target Pokin OPD Operational"
+                ],
+                "summary": "Delete Target Pokin OPD Operational",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Target Pokin OPD Operational ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -2975,6 +3778,53 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "pokin_opd_tactical_id": {
+                    "type": "integer"
+                },
+                "indikator": {
+                    "type": "string"
+                }
+            }
+        },
+        "web.IndikatorPokinOpdOperationalCreateRequest": {
+            "type": "object",
+            "required": [
+                "pokin_opd_operational_id",
+                "indikator"
+            ],
+            "properties": {
+                "pokin_opd_operational_id": {
+                    "type": "integer"
+                },
+                "indikator": {
+                    "type": "string"
+                }
+            }
+        },
+        "web.IndikatorPokinOpdOperationalResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "pokin_opd_operational_id": {
+                    "type": "integer"
+                },
+                "indikator": {
+                    "type": "string"
+                }
+            }
+        },
+        "web.IndikatorPokinOpdOperationalUpdateRequest": {
+            "type": "object",
+            "required": [
+                "id",
+                "pokin_opd_operational_id"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "pokin_opd_operational_id": {
                     "type": "integer"
                 },
                 "indikator": {
@@ -3416,10 +4266,191 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/web.PokinOpdTacticalIndikatorResponse"
                     }
+                },
+                "childs": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/web.PokinOpdOperationalResponse"
+                    }
                 }
             }
         },
-        "web.PokinOpdStrategicTargetResponse": {
+        "web.PokinOpdOperationalCreateRequest": {
+            "type": "object",
+            "required": [
+                "parent"
+            ],
+            "properties": {
+                "parent": {
+                    "type": "integer"
+                },
+                "nama_pohon": {
+                    "type": "string"
+                },
+                "jenis_pohon": {
+                    "type": "string"
+                },
+                "level_pohon": {
+                    "type": "integer"
+                },
+                "kode_opd": {
+                    "type": "string"
+                },
+                "nama_opd": {
+                    "type": "string"
+                },
+                "keterangan": {
+                    "type": "string"
+                },
+                "tahun": {
+                    "type": "integer"
+                },
+                "jumlah_review": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "pelaksana": {
+                    "type": "string"
+                },
+                "updated_by": {
+                    "type": "string"
+                }
+            }
+        },
+        "web.PokinOpdOperationalIndikatorResponse": {
+            "type": "object",
+            "properties": {
+                "id_indikator": {
+                    "type": "integer"
+                },
+                "nama_indikator": {
+                    "type": "string"
+                },
+                "targets": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/web.PokinOpdOperationalTargetResponse"
+                    }
+                }
+            }
+        },
+        "web.PokinOpdOperationalResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "parent": {
+                    "type": "integer"
+                },
+                "nama_pohon": {
+                    "type": "string"
+                },
+                "jenis_pohon": {
+                    "type": "string"
+                },
+                "level_pohon": {
+                    "type": "integer"
+                },
+                "kode_opd": {
+                    "type": "string"
+                },
+                "nama_opd": {
+                    "type": "string"
+                },
+                "keterangan": {
+                    "type": "string"
+                },
+                "tahun": {
+                    "type": "integer"
+                },
+                "jumlah_review": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "pelaksana": {
+                    "type": "string"
+                },
+                "updated_by": {
+                    "type": "string"
+                },
+                "indikator": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/web.PokinOpdOperationalIndikatorResponse"
+                    }
+                }
+            }
+        },
+        "web.PokinOpdOperationalTargetResponse": {
+            "type": "object",
+            "properties": {
+                "id_target": {
+                    "type": "integer"
+                },
+                "indikator_id": {
+                    "type": "integer"
+                },
+                "target": {
+                    "type": "integer"
+                },
+                "satuan": {
+                    "type": "string"
+                }
+            }
+        },
+        "web.PokinOpdOperationalUpdateRequest": {
+            "type": "object",
+            "required": [
+                "id",
+                "parent"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "parent": {
+                    "type": "integer"
+                },
+                "nama_pohon": {
+                    "type": "string"
+                },
+                "jenis_pohon": {
+                    "type": "string"
+                },
+                "level_pohon": {
+                    "type": "integer"
+                },
+                "kode_opd": {
+                    "type": "string"
+                },
+                "nama_opd": {
+                    "type": "string"
+                },
+                "keterangan": {
+                    "type": "string"
+                },
+                "tahun": {
+                    "type": "integer"
+                },
+                "jumlah_review": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "pelaksana": {
+                    "type": "string"
+                },
+                "updated_by": {
+                    "type": "string"
+                }
+            }
+        },"web.PokinOpdStrategicTargetResponse": {
             "type": "object",
             "properties": {
                 "id_target": {
@@ -3571,15 +4602,18 @@ const docTemplate = `{
                 }
             }
         },
-        "web.TujuanPokinOpdResponse": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "integer"
-                },
-                "kode_opd": {
-                    "type": "string"
-                },
+          "web.TujuanPokinOpdResponse": {
+              "type": "object",
+              "properties": {
+                  "id": {
+                      "type": "integer"
+                  },
+                  "pokin_opd_id": {
+                      "type": "integer"
+                  },
+                  "kode_opd": {
+                      "type": "string"
+                  },
                 "tujuan": {
                     "type": "string"
                 },
@@ -3690,6 +4724,62 @@ const docTemplate = `{
                 }
             }
         },
+        "web.TargetPokinOpdOperationalCreateRequest": {
+            "type": "object",
+            "required": [
+                "indikator_pokin_opd_operational_id",
+                "target",
+                "satuan"
+            ],
+            "properties": {
+                "indikator_pokin_opd_operational_id": {
+                    "type": "integer"
+                },
+                "target": {
+                    "type": "integer"
+                },
+                "satuan": {
+                    "type": "string"
+                }
+            }
+        },
+        "web.TargetPokinOpdOperationalResponse": {
+            "type": "object",
+            "properties": {
+                "indikator_pokin_opd_operational_id": {
+                    "type": "integer"
+                },
+                "target": {
+                    "type": "integer"
+                },
+                "satuan": {
+                    "type": "string"
+                }
+            }
+        },
+        "web.TargetPokinOpdOperationalUpdateRequest": {
+            "type": "object",
+            "required": [
+                "id",
+                "indikator_pokin_opd_operational_id",
+                "target",
+                "satuan"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "indikator_pokin_opd_operational_id": {
+                    "type": "integer"
+                },
+                "target": {
+                    "type": "integer"
+                },
+                "satuan": {
+                    "type": "string"
+                }
+            }
+        },
         "web.TargetPokinOpdTacticalCreateRequest": {
             "type": "object",
             "required": [
@@ -3777,3 +4867,7 @@ var SwaggerInfo = &swag.Spec{
 func init() {
 	swag.Register(SwaggerInfo.InstanceName(), SwaggerInfo)
 }
+
+
+
+
