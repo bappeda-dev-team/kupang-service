@@ -3926,7 +3926,7 @@ const docTemplate = `{
                 "childs": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/web.WebResponse"
+                        "$ref": "#/definitions/web.PokinOpdTacticalResponse"
                     }
                 }
             }

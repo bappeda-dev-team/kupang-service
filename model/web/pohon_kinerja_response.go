@@ -45,5 +45,5 @@ type PohonKinerjaStrategicResponse struct {
 	Pelaksana    string                               `json:"pelaksana"`
 	UpdatedBy    string                               `json:"updated_by"`
 	Indikator    []PokinOpdStrategicIndikatorResponse `json:"indikator"`
-	Childs       []WebResponse                        `json:"childs"`
+	Childs       []PokinOpdTacticalResponse           `json:"childs"`
 }

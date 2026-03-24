@@ -198,16 +198,16 @@ func (service *PohonKinerjaServiceImpl) buildStrategicIndikatorResponses(ctx con
 	return indikatorResponses, nil
 }
 
-func (service *PohonKinerjaServiceImpl) buildTacticalChildResponses(ctx context.Context, tx *sql.Tx, strategicId int) ([]web.WebResponse, error) {
+func (service *PohonKinerjaServiceImpl) buildTacticalChildResponses(ctx context.Context, tx *sql.Tx, strategicId int) ([]web.PokinOpdTacticalResponse, error) {
 	tacticalDomains, err := service.PokinOpdTacticalRepository.FindByParent(ctx, tx, strategicId)
 	if err != nil {
 		return nil, err
 	}
 	if len(tacticalDomains) == 0 {
-		return []web.WebResponse{}, nil
+		return []web.PokinOpdTacticalResponse{}, nil
 	}
 
-	responses := make([]web.WebResponse, 0, len(tacticalDomains))
+	responses := make([]web.PokinOpdTacticalResponse, 0, len(tacticalDomains))
 	for _, tactical := range tacticalDomains {
 		indikatorResponses, err := service.buildTacticalIndikatorResponses(ctx, tx, tactical.Id)
 		if err != nil {
@@ -237,11 +237,7 @@ func (service *PohonKinerjaServiceImpl) buildTacticalChildResponses(ctx context.
 			Childs:       operationalResponses,
 		}
 
-		responses = append(responses, web.WebResponse{
-			Code:   200,
-			Status: "OK",
-			Data:   tacticalResponse,
-		})
+		responses = append(responses, tacticalResponse)
 	}
 
 	return responses, nil

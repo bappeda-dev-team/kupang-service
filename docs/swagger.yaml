@@ -198,6 +198,10 @@ definitions:
         items:
           $ref: '#/definitions/web.PokinOpdStrategicIndikatorResponse'
         type: array
+      childs:
+        items:
+          $ref: '#/definitions/web.PokinOpdTacticalResponse'
+        type: array
       jenis_pohon:
         type: string
       jumlah_review:

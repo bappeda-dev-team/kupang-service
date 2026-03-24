@@ -2789,6 +2789,12 @@
                         "$ref": "#/definitions/web.PokinOpdStrategicIndikatorResponse"
                     }
                 },
+                "childs": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/web.PokinOpdTacticalResponse"
+                    }
+                },
                 "jenis_pohon": {
                     "type": "string"
                 },
