@@ -15,6 +15,7 @@ type PokinOpdOperationalResponse struct {
 	Pelaksana    string                                 `json:"pelaksana"`
 	UpdatedBy    string                                 `json:"updated_by"`
 	Indikator    []PokinOpdOperationalIndikatorResponse `json:"indikator"`
+	Childs       []PokinOpdOperationalNResponse         `json:"childs"`
 }
 
 type PokinOpdOperationalIndikatorResponse struct {

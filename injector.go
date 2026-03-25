@@ -50,6 +50,15 @@ var pokinOpdOperationalSet = wire.NewSet(
 	wire.Bind(new(controller.PokinOpdOperationalController), new(*controller.PokinOpdOperationalControllerImpl)),
 )
 
+var pokinOpdOperationalNSet = wire.NewSet(
+	repository.NewPokinOpdOperationalNRepositoryImpl,
+	wire.Bind(new(repository.PokinOpdOperationalNRepository), new(*repository.PokinOpdOperationalNRepositoryImpl)),
+	service.NewPokinOpdOperationalNServiceImpl,
+	wire.Bind(new(service.PokinOpdOperationalNService), new(*service.PokinOpdOperationalNServiceImpl)),
+	controller.NewPokinOpdOperationalNControllerImpl,
+	wire.Bind(new(controller.PokinOpdOperationalNController), new(*controller.PokinOpdOperationalNControllerImpl)),
+)
+
 var indikatorPokinOpdSet = wire.NewSet(
 	repository.NewIndikatorPokinOpdRepositoryImpl,
 	wire.Bind(new(repository.IndikatorPokinOpdRepository), new(*repository.IndikatorPokinOpdRepositoryImpl)),
@@ -88,6 +97,15 @@ var indikatorPokinOpdOperationalSet = wire.NewSet(
 	wire.Bind(new(service.IndikatorPokinOpdOperationalService), new(*service.IndikatorPokinOpdOperationalServiceImpl)),
 	controller.NewIndikatorPokinOpdOperationalControllerImpl,
 	wire.Bind(new(controller.IndikatorPokinOpdOperationalController), new(*controller.IndikatorPokinOpdOperationalControllerImpl)),
+)
+
+var indikatorPokinOpdOperationalNSet = wire.NewSet(
+	repository.NewIndikatorPokinOpdOperationalNRepositoryImpl,
+	wire.Bind(new(repository.IndikatorPokinOpdOperationalNRepository), new(*repository.IndikatorPokinOpdOperationalNRepositoryImpl)),
+	service.NewIndikatorPokinOpdOperationalNServiceImpl,
+	wire.Bind(new(service.IndikatorPokinOpdOperationalNService), new(*service.IndikatorPokinOpdOperationalNServiceImpl)),
+	controller.NewIndikatorPokinOpdOperationalNControllerImpl,
+	wire.Bind(new(controller.IndikatorPokinOpdOperationalNController), new(*controller.IndikatorPokinOpdOperationalNControllerImpl)),
 )
 
 var tujuanPokinOpdSet = wire.NewSet(
@@ -137,6 +155,15 @@ var targetPokinOpdOperationalSet = wire.NewSet(
 	wire.Bind(new(controller.TargetPokinOpdOperationalController), new(*controller.TargetPokinOpdOperationalControllerImpl)),
 )
 
+var targetPokinOpdOperationalNSet = wire.NewSet(
+	repository.NewTargetPokinOpdOperationalNRepositoryImpl,
+	wire.Bind(new(repository.TargetPokinOpdOperationalNRepository), new(*repository.TargetPokinOpdOperationalNRepositoryImpl)),
+	service.NewTargetPokinOpdOperationalNServiceImpl,
+	wire.Bind(new(service.TargetPokinOpdOperationalNService), new(*service.TargetPokinOpdOperationalNServiceImpl)),
+	controller.NewTargetPokinOpdOperationalNControllerImpl,
+	wire.Bind(new(controller.TargetPokinOpdOperationalNController), new(*controller.TargetPokinOpdOperationalNControllerImpl)),
+)
+
 var pohonKinerjaSet = wire.NewSet(
 	service.NewPohonKinerjaServiceImpl,
 	wire.Bind(new(service.PohonKinerjaService), new(*service.PohonKinerjaServiceImpl)),
@@ -153,15 +180,18 @@ func InitializedServer() *echo.Echo {
 		pokinOpdStrategicSet,
 		pokinOpdTacticalSet,
 		pokinOpdOperationalSet,
+		pokinOpdOperationalNSet,
 		indikatorPokinOpdSet,
 		indikatorPokinOpdStrategicSet,
 		indikatorPokinOpdTacticalSet,
 		indikatorPokinOpdOperationalSet,
+		indikatorPokinOpdOperationalNSet,
 		tujuanPokinOpdSet,
 		targetPokinOpdSet,
 		targetPokinOpdStrategicSet,
 		targetPokinOpdTacticalSet,
 		targetPokinOpdOperationalSet,
+		targetPokinOpdOperationalNSet,
 		pohonKinerjaSet,
 		app.NewRouter,
 	)

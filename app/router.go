@@ -7,22 +7,25 @@ import (
 	"kupang-service/controller"
 )
 
-func NewRouter(pokinOpdController controller.PokinOpdController, pokinOpdStrategicController controller.PokinOpdStrategicController, pokinOpdTacticalController controller.PokinOpdTacticalController, pokinOpdOperationalController controller.PokinOpdOperationalController, indikatorPokinOpdController controller.IndikatorPokinOpdController, indikatorPokinOpdStrategicController controller.IndikatorPokinOpdStrategicController, indikatorPokinOpdTacticalController controller.IndikatorPokinOpdTacticalController, indikatorPokinOpdOperationalController controller.IndikatorPokinOpdOperationalController, tujuanPokinOpdController controller.TujuanPokinOpdController, targetPokinOpdController controller.TargetPokinOpdController, targetPokinOpdStrategicController controller.TargetPokinOpdStrategicController, targetPokinOpdTacticalController controller.TargetPokinOpdTacticalController, targetPokinOpdOperationalController controller.TargetPokinOpdOperationalController, pohonKinerjaController controller.PohonKinerjaController) *echo.Echo {
+func NewRouter(pokinOpdController controller.PokinOpdController, pokinOpdStrategicController controller.PokinOpdStrategicController, pokinOpdTacticalController controller.PokinOpdTacticalController, pokinOpdOperationalController controller.PokinOpdOperationalController, pokinOpdOperationalNController controller.PokinOpdOperationalNController, indikatorPokinOpdController controller.IndikatorPokinOpdController, indikatorPokinOpdStrategicController controller.IndikatorPokinOpdStrategicController, indikatorPokinOpdTacticalController controller.IndikatorPokinOpdTacticalController, indikatorPokinOpdOperationalController controller.IndikatorPokinOpdOperationalController, indikatorPokinOpdOperationalNController controller.IndikatorPokinOpdOperationalNController, tujuanPokinOpdController controller.TujuanPokinOpdController, targetPokinOpdController controller.TargetPokinOpdController, targetPokinOpdStrategicController controller.TargetPokinOpdStrategicController, targetPokinOpdTacticalController controller.TargetPokinOpdTacticalController, targetPokinOpdOperationalController controller.TargetPokinOpdOperationalController, targetPokinOpdOperationalNController controller.TargetPokinOpdOperationalNController, pohonKinerjaController controller.PohonKinerjaController) *echo.Echo {
 	e := echo.New()
 
 	const pokinOpdBase = "/pokin-opds"
 	const pokinOpdStrategicBase = "/pokin-opd-strategics"
 	const pokinOpdTacticalBase = "/pokin-opd-tacticals"
 	const pokinOpdOperationalBase = "/pokin-opd-operationals"
+	const pokinOpdOperationalNBase = "/pokin-opd-operational-ns"
 	const indikatorPokinOpdBase = "/indikator-pokin-opds"
 	const indikatorPokinOpdStrategicBase = "/indikator-pokin-opd-strategics"
 	const indikatorPokinOpdTacticalBase = "/indikator-pokin-opd-tacticals"
 	const indikatorPokinOpdOperationalBase = "/indikator-pokin-opd-operationals"
+	const indikatorPokinOpdOperationalNBase = "/indikator-pokin-opd-operational-ns"
 	const tujuanPokinOpdBase = "/tujuan-pokin-opds"
 	const targetPokinOpdBase = "/target-pokin-opds"
 	const targetPokinOpdStrategicBase = "/target-pokin-opd-strategics"
 	const targetPokinOpdTacticalBase = "/target-pokin-opd-tacticals"
 	const targetPokinOpdOperationalBase = "/target-pokin-opd-operationals"
+	const targetPokinOpdOperationalNBase = "/target-pokin-opd-operational-ns"
 	const pohonKinerjaBase = "/pohon-kinerja-opds"
 
 	e.Use(middleware.Logger())
@@ -55,6 +58,12 @@ func NewRouter(pokinOpdController controller.PokinOpdController, pokinOpdStrateg
 	e.GET(pokinOpdOperationalBase+"/:id", pokinOpdOperationalController.FindById)
 	e.GET(pokinOpdOperationalBase, pokinOpdOperationalController.FindAll)
 
+	e.POST(pokinOpdOperationalNBase, pokinOpdOperationalNController.Create)
+	e.PUT(pokinOpdOperationalNBase+"/:id", pokinOpdOperationalNController.Update)
+	e.DELETE(pokinOpdOperationalNBase+"/:id", pokinOpdOperationalNController.Delete)
+	e.GET(pokinOpdOperationalNBase+"/:id", pokinOpdOperationalNController.FindById)
+	e.GET(pokinOpdOperationalNBase, pokinOpdOperationalNController.FindAll)
+
 	e.POST(indikatorPokinOpdBase, indikatorPokinOpdController.Create)
 	e.PUT(indikatorPokinOpdBase+"/:id", indikatorPokinOpdController.Update)
 	e.DELETE(indikatorPokinOpdBase+"/:id", indikatorPokinOpdController.Delete)
@@ -78,6 +87,12 @@ func NewRouter(pokinOpdController controller.PokinOpdController, pokinOpdStrateg
 	e.DELETE(indikatorPokinOpdOperationalBase+"/:id", indikatorPokinOpdOperationalController.Delete)
 	e.GET(indikatorPokinOpdOperationalBase+"/:id", indikatorPokinOpdOperationalController.FindById)
 	e.GET(indikatorPokinOpdOperationalBase, indikatorPokinOpdOperationalController.FindAll)
+
+	e.POST(indikatorPokinOpdOperationalNBase, indikatorPokinOpdOperationalNController.Create)
+	e.PUT(indikatorPokinOpdOperationalNBase+"/:id", indikatorPokinOpdOperationalNController.Update)
+	e.DELETE(indikatorPokinOpdOperationalNBase+"/:id", indikatorPokinOpdOperationalNController.Delete)
+	e.GET(indikatorPokinOpdOperationalNBase+"/:id", indikatorPokinOpdOperationalNController.FindById)
+	e.GET(indikatorPokinOpdOperationalNBase, indikatorPokinOpdOperationalNController.FindAll)
 
 	e.POST(tujuanPokinOpdBase, tujuanPokinOpdController.Create)
 	e.PUT(tujuanPokinOpdBase+"/:id", tujuanPokinOpdController.Update)
@@ -108,6 +123,12 @@ func NewRouter(pokinOpdController controller.PokinOpdController, pokinOpdStrateg
 	e.DELETE(targetPokinOpdOperationalBase+"/:id", targetPokinOpdOperationalController.Delete)
 	e.GET(targetPokinOpdOperationalBase+"/:id", targetPokinOpdOperationalController.FindById)
 	e.GET(targetPokinOpdOperationalBase, targetPokinOpdOperationalController.FindAll)
+
+	e.POST(targetPokinOpdOperationalNBase, targetPokinOpdOperationalNController.Create)
+	e.PUT(targetPokinOpdOperationalNBase+"/:id", targetPokinOpdOperationalNController.Update)
+	e.DELETE(targetPokinOpdOperationalNBase+"/:id", targetPokinOpdOperationalNController.Delete)
+	e.GET(targetPokinOpdOperationalNBase+"/:id", targetPokinOpdOperationalNController.FindById)
+	e.GET(targetPokinOpdOperationalNBase, targetPokinOpdOperationalNController.FindAll)
 
 	e.GET(pohonKinerjaBase+"/:kode_opd/:tahun", pohonKinerjaController.FindByKodeOpdAndTahun)
 

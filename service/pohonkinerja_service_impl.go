@@ -22,6 +22,9 @@ type PohonKinerjaServiceImpl struct {
 	PokinOpdOperationalRepository          repository.PokinOpdOperationalRepository
 	IndikatorPokinOpdOperationalRepository repository.IndikatorPokinOpdOperationalRepository
 	TargetPokinOpdOperationalRepository    repository.TargetPokinOpdOperationalRepository
+	PokinOpdOperationalNRepository         repository.PokinOpdOperationalNRepository
+	IndikatorPokinOpdOperationalNRepository repository.IndikatorPokinOpdOperationalNRepository
+	TargetPokinOpdOperationalNRepository    repository.TargetPokinOpdOperationalNRepository
 	DB                                     *sql.DB
 }
 
@@ -39,6 +42,9 @@ func NewPohonKinerjaServiceImpl(
 	pokinOpdOperationalRepository repository.PokinOpdOperationalRepository,
 	indikatorPokinOpdOperationalRepository repository.IndikatorPokinOpdOperationalRepository,
 	targetPokinOpdOperationalRepository repository.TargetPokinOpdOperationalRepository,
+	pokinOpdOperationalNRepository repository.PokinOpdOperationalNRepository,
+	indikatorPokinOpdOperationalNRepository repository.IndikatorPokinOpdOperationalNRepository,
+	targetPokinOpdOperationalNRepository repository.TargetPokinOpdOperationalNRepository,
 	db *sql.DB,
 ) *PohonKinerjaServiceImpl {
 	return &PohonKinerjaServiceImpl{
@@ -55,6 +61,9 @@ func NewPohonKinerjaServiceImpl(
 		PokinOpdOperationalRepository:          pokinOpdOperationalRepository,
 		IndikatorPokinOpdOperationalRepository: indikatorPokinOpdOperationalRepository,
 		TargetPokinOpdOperationalRepository:    targetPokinOpdOperationalRepository,
+		PokinOpdOperationalNRepository:         pokinOpdOperationalNRepository,
+		IndikatorPokinOpdOperationalNRepository: indikatorPokinOpdOperationalNRepository,
+		TargetPokinOpdOperationalNRepository:    targetPokinOpdOperationalNRepository,
 		DB:                                     db,
 	}
 }
@@ -295,6 +304,11 @@ func (service *PohonKinerjaServiceImpl) buildOperationalChildResponses(ctx conte
 			return nil, err
 		}
 
+		operationalNResponses, err := service.buildOperationalNChildResponses(ctx, tx, operational.Id)
+		if err != nil {
+			return nil, err
+		}
+
 		responses = append(responses, web.PokinOpdOperationalResponse{
 			Id:           operational.Id,
 			Parent:       operational.Parent,
@@ -310,6 +324,7 @@ func (service *PohonKinerjaServiceImpl) buildOperationalChildResponses(ctx conte
 			Pelaksana:    operational.Pelaksana,
 			UpdatedBy:    operational.UpdatedBy,
 			Indikator:    indikatorResponses,
+			Childs:       operationalNResponses,
 		})
 	}
 
@@ -343,6 +358,79 @@ func (service *PohonKinerjaServiceImpl) buildOperationalIndikatorResponses(ctx c
 		}
 
 		indikatorResponses = append(indikatorResponses, web.PokinOpdOperationalIndikatorResponse{
+			IdIndikator:   indikator.Id,
+			NamaIndikator: indikator.NamaIndikator,
+			Targets:       targetResponses,
+		})
+	}
+
+	return indikatorResponses, nil
+}
+
+func (service *PohonKinerjaServiceImpl) buildOperationalNChildResponses(ctx context.Context, tx *sql.Tx, operationalId int) ([]web.PokinOpdOperationalNResponse, error) {
+	operationalNDomains, err := service.PokinOpdOperationalNRepository.FindByParent(ctx, tx, operationalId)
+	if err != nil {
+		return nil, err
+	}
+	if len(operationalNDomains) == 0 {
+		return []web.PokinOpdOperationalNResponse{}, nil
+	}
+
+	responses := make([]web.PokinOpdOperationalNResponse, 0, len(operationalNDomains))
+	for _, operationalN := range operationalNDomains {
+		indikatorResponses, err := service.buildOperationalNIndikatorResponses(ctx, tx, operationalN.Id)
+		if err != nil {
+			return nil, err
+		}
+
+		responses = append(responses, web.PokinOpdOperationalNResponse{
+			Id:           operationalN.Id,
+			Parent:       operationalN.Parent,
+			NamaPohon:    operationalN.NamaPohon,
+			JenisPohon:   operationalN.JenisPohon,
+			LevelPohon:   operationalN.LevelPohon,
+			KodeOpd:      operationalN.KodeOpd,
+			NamaOpd:      operationalN.NamaOpd,
+			Keterangan:   operationalN.Keterangan,
+			Tahun:        operationalN.Tahun,
+			JumlahReview: operationalN.JumlahReview,
+			Status:       operationalN.Status,
+			Pelaksana:    operationalN.Pelaksana,
+			UpdatedBy:    operationalN.UpdatedBy,
+			Indikator:    indikatorResponses,
+		})
+	}
+
+	return responses, nil
+}
+
+func (service *PohonKinerjaServiceImpl) buildOperationalNIndikatorResponses(ctx context.Context, tx *sql.Tx, pokinOpdOperationalNId int) ([]web.PokinOpdOperationalNIndikatorResponse, error) {
+	indikatorDomains, err := service.IndikatorPokinOpdOperationalNRepository.FindByPokinOpdOperationalNId(ctx, tx, pokinOpdOperationalNId)
+	if err != nil {
+		return nil, err
+	}
+	if len(indikatorDomains) == 0 {
+		return nil, nil
+	}
+
+	indikatorResponses := make([]web.PokinOpdOperationalNIndikatorResponse, 0, len(indikatorDomains))
+	for _, indikator := range indikatorDomains {
+		targetDomains, err := service.TargetPokinOpdOperationalNRepository.FindByIndikatorId(ctx, tx, indikator.Id)
+		if err != nil {
+			return nil, err
+		}
+
+		targetResponses := make([]web.PokinOpdOperationalNTargetResponse, 0, len(targetDomains))
+		for _, target := range targetDomains {
+			targetResponses = append(targetResponses, web.PokinOpdOperationalNTargetResponse{
+				IdTarget:    target.Id,
+				IndikatorId: target.IndikatorPokinOpdOperationalNId,
+				Target:      target.NilaiTarget,
+				Satuan:      target.Satuan,
+			})
+		}
+
+		indikatorResponses = append(indikatorResponses, web.PokinOpdOperationalNIndikatorResponse{
 			IdIndikator:   indikator.Id,
 			NamaIndikator: indikator.NamaIndikator,
 			Targets:       targetResponses,

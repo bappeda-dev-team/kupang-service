@@ -85,6 +85,22 @@ func ToIndikatorPokinOpdOperationalResponses(indikators []domain.IndikatorPokinO
 	return responses
 }
 
+func ToIndikatorPokinOpdOperationalNResponse(indikator domain.IndikatorPokinOpdOperationalN) web.IndikatorPokinOpdOperationalNResponse {
+	return web.IndikatorPokinOpdOperationalNResponse{
+		Id:                     indikator.Id,
+		PokinOpdOperationalNId: indikator.PokinOpdOperationalNId,
+		NamaIndikator:          indikator.NamaIndikator,
+	}
+}
+
+func ToIndikatorPokinOpdOperationalNResponses(indikators []domain.IndikatorPokinOpdOperationalN) []web.IndikatorPokinOpdOperationalNResponse {
+	var responses []web.IndikatorPokinOpdOperationalNResponse
+	for _, indikator := range indikators {
+		responses = append(responses, ToIndikatorPokinOpdOperationalNResponse(indikator))
+	}
+	return responses
+}
+
 func ToTujuanPokinOpdResponse(tujuanPokinOpd domain.TujuanPokinOpd) web.TujuanPokinOpdResponse {
 	return web.TujuanPokinOpdResponse{
 		Id:                tujuanPokinOpd.Id,
@@ -168,6 +184,23 @@ func ToTargetPokinOpdOperationalResponses(targets []domain.TargetPokinOpdOperati
 	var responses []web.TargetPokinOpdOperationalResponse
 	for _, target := range targets {
 		responses = append(responses, ToTargetPokinOpdOperationalResponse(target))
+	}
+	return responses
+}
+
+func ToTargetPokinOpdOperationalNResponse(target domain.TargetPokinOpdOperationalN) web.TargetPokinOpdOperationalNResponse {
+	return web.TargetPokinOpdOperationalNResponse{
+		Id:                              target.Id,
+		IndikatorPokinOpdOperationalNId: target.IndikatorPokinOpdOperationalNId,
+		NilaiTarget:                     target.NilaiTarget,
+		Satuan:                          target.Satuan,
+	}
+}
+
+func ToTargetPokinOpdOperationalNResponses(targets []domain.TargetPokinOpdOperationalN) []web.TargetPokinOpdOperationalNResponse {
+	var responses []web.TargetPokinOpdOperationalNResponse
+	for _, target := range targets {
+		responses = append(responses, ToTargetPokinOpdOperationalNResponse(target))
 	}
 	return responses
 }
