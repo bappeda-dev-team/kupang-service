@@ -22,6 +22,23 @@ func ToPokinOpdResponses(pokinOpds []domain.PokinOpd) []web.PokinOpdResponse {
 	return responses
 }
 
+func ToOpdResponse(opd domain.Opd) web.OpdResponse {
+	return web.OpdResponse{
+		Id:      opd.Id,
+		KodeOpd: opd.KodeOpd,
+		NamaOpd: opd.NamaOpd,
+		Tahun:   opd.Tahun,
+	}
+}
+
+func ToOpdResponses(opds []domain.Opd) []web.OpdResponse {
+	var responses []web.OpdResponse
+	for _, opd := range opds {
+		responses = append(responses, ToOpdResponse(opd))
+	}
+	return responses
+}
+
 func ToIndikatorPokinOpdResponse(indikatorPokinOpd domain.IndikatorPokinOpd) web.IndikatorPokinOpdResponse {
 	return web.IndikatorPokinOpdResponse{
 		Id:            indikatorPokinOpd.Id,

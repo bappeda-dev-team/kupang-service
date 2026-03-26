@@ -23,6 +23,15 @@ var pokinOpdSet = wire.NewSet(
 	wire.Bind(new(controller.PokinOpdController), new(*controller.PokinOpdControllerImpl)),
 )
 
+var opdSet = wire.NewSet(
+	repository.NewOpdRepositoryImpl,
+	wire.Bind(new(repository.OpdRepository), new(*repository.OpdRepositoryImpl)),
+	service.NewOpdServiceImpl,
+	wire.Bind(new(service.OpdService), new(*service.OpdServiceImpl)),
+	controller.NewOpdControllerImpl,
+	wire.Bind(new(controller.OpdController), new(*controller.OpdControllerImpl)),
+)
+
 var pokinOpdStrategicSet = wire.NewSet(
 	repository.NewPokinOpdStrategicRepositoryImpl,
 	wire.Bind(new(repository.PokinOpdStrategicRepository), new(*repository.PokinOpdStrategicRepositoryImpl)),
@@ -176,6 +185,7 @@ func InitializedServer() *echo.Echo {
 		app.GetConnection,
 		wire.Value([]validator.Option{}),
 		validator.New,
+		opdSet,
 		pokinOpdSet,
 		pokinOpdStrategicSet,
 		pokinOpdTacticalSet,
