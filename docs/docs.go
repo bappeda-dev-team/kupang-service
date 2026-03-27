@@ -4861,8 +4861,7 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "kode_opd",
-                "nama_opd",
-                "tahun"
+                "nama_opd"
             ],
             "properties": {
                 "kode_opd": {
@@ -4870,9 +4869,6 @@ const docTemplate = `{
                 },
                 "nama_opd": {
                     "type": "string"
-                },
-                "tahun": {
-                    "type": "integer"
                 }
             }
         },
@@ -4887,9 +4883,6 @@ const docTemplate = `{
                 },
                 "nama_opd": {
                     "type": "string"
-                },
-                "tahun": {
-                    "type": "integer"
                 }
             }
         },
@@ -4898,8 +4891,7 @@ const docTemplate = `{
             "required": [
                 "id",
                 "kode_opd",
-                "nama_opd",
-                "tahun"
+                "nama_opd"
             ],
             "properties": {
                 "id": {
@@ -4910,9 +4902,6 @@ const docTemplate = `{
                 },
                 "nama_opd": {
                     "type": "string"
-                },
-                "tahun": {
-                    "type": "integer"
                 }
             }
         },

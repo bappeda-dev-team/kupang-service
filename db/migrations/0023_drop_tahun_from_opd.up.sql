@@ -1,0 +1,1 @@
+ALTER TABLE opd DROP COLUMN tahun;

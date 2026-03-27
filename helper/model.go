@@ -27,7 +27,6 @@ func ToOpdResponse(opd domain.Opd) web.OpdResponse {
 		Id:      opd.Id,
 		KodeOpd: opd.KodeOpd,
 		NamaOpd: opd.NamaOpd,
-		Tahun:   opd.Tahun,
 	}
 }
 

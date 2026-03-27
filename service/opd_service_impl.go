@@ -41,7 +41,6 @@ func (service *OpdServiceImpl) Create(ctx context.Context, opd web.OpdCreateRequ
 	opdDomain := domain.Opd{
 		KodeOpd: opd.KodeOpd,
 		NamaOpd: opd.NamaOpd,
-		Tahun:   opd.Tahun,
 	}
 
 	opdDomain, err = service.OpdRepository.Create(ctx, tx, opdDomain)
@@ -53,7 +52,6 @@ func (service *OpdServiceImpl) Create(ctx context.Context, opd web.OpdCreateRequ
 		Id:      opdDomain.Id,
 		KodeOpd: opdDomain.KodeOpd,
 		NamaOpd: opdDomain.NamaOpd,
-		Tahun:   opdDomain.Tahun,
 	}, nil
 }
 
@@ -73,7 +71,6 @@ func (service *OpdServiceImpl) Update(ctx context.Context, opdData web.OpdUpdate
 		Id:      opdData.Id,
 		KodeOpd: opdData.KodeOpd,
 		NamaOpd: opdData.NamaOpd,
-		Tahun:   opdData.Tahun,
 	}
 
 	opdDomain, err = service.OpdRepository.Update(ctx, tx, opdDomain)
@@ -85,7 +82,6 @@ func (service *OpdServiceImpl) Update(ctx context.Context, opdData web.OpdUpdate
 		Id:      opdDomain.Id,
 		KodeOpd: opdDomain.KodeOpd,
 		NamaOpd: opdDomain.NamaOpd,
-		Tahun:   opdDomain.Tahun,
 	}, nil
 }
 
@@ -120,7 +116,6 @@ func (service *OpdServiceImpl) FindById(ctx context.Context, id int) (web.OpdRes
 		Id:      opdDomain.Id,
 		KodeOpd: opdDomain.KodeOpd,
 		NamaOpd: opdDomain.NamaOpd,
-		Tahun:   opdDomain.Tahun,
 	}, nil
 }
 
