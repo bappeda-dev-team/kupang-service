@@ -32,6 +32,15 @@ var opdSet = wire.NewSet(
 	wire.Bind(new(controller.OpdController), new(*controller.OpdControllerImpl)),
 )
 
+var pemdaSet = wire.NewSet(
+	repository.NewPemdaRepositoryImpl,
+	wire.Bind(new(repository.PemdaRepository), new(*repository.PemdaRepositoryImpl)),
+	service.NewPemdaServiceImpl,
+	wire.Bind(new(service.PemdaService), new(*service.PemdaServiceImpl)),
+	controller.NewPemdaControllerImpl,
+	wire.Bind(new(controller.PemdaController), new(*controller.PemdaControllerImpl)),
+)
+
 var pokinOpdStrategicSet = wire.NewSet(
 	repository.NewPokinOpdStrategicRepositoryImpl,
 	wire.Bind(new(repository.PokinOpdStrategicRepository), new(*repository.PokinOpdStrategicRepositoryImpl)),
@@ -185,8 +194,9 @@ func InitializedServer() *echo.Echo {
 		app.GetConnection,
 		wire.Value([]validator.Option{}),
 		validator.New,
-		opdSet,
-		pokinOpdSet,
+	opdSet,
+	pemdaSet,
+	pokinOpdSet,
 		pokinOpdStrategicSet,
 		pokinOpdTacticalSet,
 		pokinOpdOperationalSet,
