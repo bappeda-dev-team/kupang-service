@@ -38,6 +38,22 @@ func ToOpdResponses(opds []domain.Opd) []web.OpdResponse {
 	return responses
 }
 
+func ToPemdaResponse(pemda domain.Pemda) web.PemdaResponse {
+	return web.PemdaResponse{
+		Id:        pemda.Id,
+		KodePemda: pemda.KodePemda,
+		NamaPemda: pemda.NamaPemda,
+	}
+}
+
+func ToPemdaResponses(pemdas []domain.Pemda) []web.PemdaResponse {
+	var responses []web.PemdaResponse
+	for _, pemda := range pemdas {
+		responses = append(responses, ToPemdaResponse(pemda))
+	}
+	return responses
+}
+
 func ToIndikatorPokinOpdResponse(indikatorPokinOpd domain.IndikatorPokinOpd) web.IndikatorPokinOpdResponse {
 	return web.IndikatorPokinOpdResponse{
 		Id:            indikatorPokinOpd.Id,

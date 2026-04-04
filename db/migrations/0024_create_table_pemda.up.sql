@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS pemda (
+    id BIGSERIAL PRIMARY KEY,
+    kode_pemda VARCHAR(255),
+    nama_pemda VARCHAR(255),
+    created_date TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    last_modified_date TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
+);

@@ -152,12 +152,9 @@ definitions:
         type: string
       nama_opd:
         type: string
-      tahun:
-        type: integer
     required:
     - kode_opd
     - nama_opd
-    - tahun
     type: object
   web.OpdResponse:
     properties:
@@ -167,8 +164,6 @@ definitions:
         type: string
       nama_opd:
         type: string
-      tahun:
-        type: integer
     type: object
   web.OpdUpdateRequest:
     properties:
@@ -178,13 +173,42 @@ definitions:
         type: string
       nama_opd:
         type: string
-      tahun:
-        type: integer
     required:
     - id
     - kode_opd
     - nama_opd
-    - tahun
+    type: object
+  web.PemdaCreateRequest:
+    properties:
+      kode_pemda:
+        type: string
+      nama_pemda:
+        type: string
+    required:
+    - kode_pemda
+    - nama_pemda
+    type: object
+  web.PemdaResponse:
+    properties:
+      id:
+        type: integer
+      kode_pemda:
+        type: string
+      nama_pemda:
+        type: string
+    type: object
+  web.PemdaUpdateRequest:
+    properties:
+      id:
+        type: integer
+      kode_pemda:
+        type: string
+      nama_pemda:
+        type: string
+    required:
+    - id
+    - kode_pemda
+    - nama_pemda
     type: object
   web.PohonKinerjaIndikatorResponse:
     properties:
@@ -2017,6 +2041,172 @@ paths:
       summary: Update OPD
       tags:
       - OPD
+  /pemdas:
+    get:
+      consumes:
+      - application/json
+      description: Get list of all Pemda
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/web.PemdaResponse'
+                  type: array
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: List All Pemda
+      tags:
+      - Pemda
+    post:
+      consumes:
+      - application/json
+      description: Create new Pemda
+      parameters:
+      - description: Pemda Create Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.PemdaCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.PemdaResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Create Pemda
+      tags:
+      - Pemda
+  /pemdas/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete existing Pemda by ID
+      parameters:
+      - description: Pemda ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.PemdaResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Delete Pemda
+      tags:
+      - Pemda
+    get:
+      consumes:
+      - application/json
+      description: Get Pemda detail by ID
+      parameters:
+      - description: Pemda ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.PemdaResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Get Pemda by ID
+      tags:
+      - Pemda
+    put:
+      consumes:
+      - application/json
+      description: Update existing Pemda by ID
+      parameters:
+      - description: Pemda ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Pemda Update Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.PemdaUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.PemdaResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Update Pemda
+      tags:
+      - Pemda
   /pohon-kinerja-opds/{kode_opd}/{tahun}:
     get:
       consumes:
