@@ -24,9 +24,10 @@ func ToPokinOpdResponses(pokinOpds []domain.PokinOpd) []web.PokinOpdResponse {
 
 func ToOpdResponse(opd domain.Opd) web.OpdResponse {
 	return web.OpdResponse{
-		Id:      opd.Id,
-		KodeOpd: opd.KodeOpd,
-		NamaOpd: opd.NamaOpd,
+		Id:          opd.Id,
+		KodeOpd:     opd.KodeOpd,
+		NamaOpd:     opd.NamaOpd,
+		KodeLembaga: opd.KodeLembaga,
 	}
 }
 

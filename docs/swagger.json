@@ -5131,10 +5131,14 @@
         "web.OpdCreateRequest": {
             "type": "object",
             "required": [
+                "kode_lembaga",
                 "kode_opd",
                 "nama_opd"
             ],
             "properties": {
+                "kode_lembaga": {
+                    "type": "string"
+                },
                 "kode_opd": {
                     "type": "string"
                 },
@@ -5149,6 +5153,9 @@
                 "id": {
                     "type": "integer"
                 },
+                "kode_lembaga": {
+                    "type": "string"
+                },
                 "kode_opd": {
                     "type": "string"
                 },
@@ -5161,12 +5168,16 @@
             "type": "object",
             "required": [
                 "id",
+                "kode_lembaga",
                 "kode_opd",
                 "nama_opd"
             ],
             "properties": {
                 "id": {
                     "type": "integer"
+                },
+                "kode_lembaga": {
+                    "type": "string"
                 },
                 "kode_opd": {
                     "type": "string"

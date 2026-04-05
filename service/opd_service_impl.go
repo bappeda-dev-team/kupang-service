@@ -39,8 +39,9 @@ func (service *OpdServiceImpl) Create(ctx context.Context, opd web.OpdCreateRequ
 	defer helper.CommitOrRollback(tx)
 
 	opdDomain := domain.Opd{
-		KodeOpd: opd.KodeOpd,
-		NamaOpd: opd.NamaOpd,
+		KodeOpd:     opd.KodeOpd,
+		NamaOpd:     opd.NamaOpd,
+		KodeLembaga: opd.KodeLembaga,
 	}
 
 	opdDomain, err = service.OpdRepository.Create(ctx, tx, opdDomain)
@@ -49,9 +50,10 @@ func (service *OpdServiceImpl) Create(ctx context.Context, opd web.OpdCreateRequ
 	}
 
 	return web.OpdResponse{
-		Id:      opdDomain.Id,
-		KodeOpd: opdDomain.KodeOpd,
-		NamaOpd: opdDomain.NamaOpd,
+		Id:          opdDomain.Id,
+		KodeOpd:     opdDomain.KodeOpd,
+		NamaOpd:     opdDomain.NamaOpd,
+		KodeLembaga: opdDomain.KodeLembaga,
 	}, nil
 }
 
@@ -68,9 +70,10 @@ func (service *OpdServiceImpl) Update(ctx context.Context, opdData web.OpdUpdate
 	defer helper.CommitOrRollback(tx)
 
 	opdDomain := domain.Opd{
-		Id:      opdData.Id,
-		KodeOpd: opdData.KodeOpd,
-		NamaOpd: opdData.NamaOpd,
+		Id:          opdData.Id,
+		KodeOpd:     opdData.KodeOpd,
+		NamaOpd:     opdData.NamaOpd,
+		KodeLembaga: opdData.KodeLembaga,
 	}
 
 	opdDomain, err = service.OpdRepository.Update(ctx, tx, opdDomain)
@@ -79,9 +82,10 @@ func (service *OpdServiceImpl) Update(ctx context.Context, opdData web.OpdUpdate
 	}
 
 	return web.OpdResponse{
-		Id:      opdDomain.Id,
-		KodeOpd: opdDomain.KodeOpd,
-		NamaOpd: opdDomain.NamaOpd,
+		Id:          opdDomain.Id,
+		KodeOpd:     opdDomain.KodeOpd,
+		NamaOpd:     opdDomain.NamaOpd,
+		KodeLembaga: opdDomain.KodeLembaga,
 	}, nil
 }
 
@@ -113,9 +117,10 @@ func (service *OpdServiceImpl) FindById(ctx context.Context, id int) (web.OpdRes
 	}
 
 	return web.OpdResponse{
-		Id:      opdDomain.Id,
-		KodeOpd: opdDomain.KodeOpd,
-		NamaOpd: opdDomain.NamaOpd,
+		Id:          opdDomain.Id,
+		KodeOpd:     opdDomain.KodeOpd,
+		NamaOpd:     opdDomain.NamaOpd,
+		KodeLembaga: opdDomain.KodeLembaga,
 	}, nil
 }
 

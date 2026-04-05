@@ -5134,13 +5134,17 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "kode_opd",
-                "nama_opd"
+                "nama_opd",
+                "kode_lembaga"
             ],
             "properties": {
                 "kode_opd": {
                     "type": "string"
                 },
                 "nama_opd": {
+                    "type": "string"
+                },
+                "kode_lembaga": {
                     "type": "string"
                 }
             }
@@ -5156,6 +5160,9 @@ const docTemplate = `{
                 },
                 "nama_opd": {
                     "type": "string"
+                },
+                "kode_lembaga": {
+                    "type": "string"
                 }
             }
         },
@@ -5164,7 +5171,8 @@ const docTemplate = `{
             "required": [
                 "id",
                 "kode_opd",
-                "nama_opd"
+                "nama_opd",
+                "kode_lembaga"
             ],
             "properties": {
                 "id": {
@@ -5174,6 +5182,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "nama_opd": {
+                    "type": "string"
+                },
+                "kode_lembaga": {
                     "type": "string"
                 }
             }

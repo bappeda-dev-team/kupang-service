@@ -148,11 +148,14 @@ definitions:
     type: object
   web.OpdCreateRequest:
     properties:
+      kode_lembaga:
+        type: string
       kode_opd:
         type: string
       nama_opd:
         type: string
     required:
+    - kode_lembaga
     - kode_opd
     - nama_opd
     type: object
@@ -160,6 +163,8 @@ definitions:
     properties:
       id:
         type: integer
+      kode_lembaga:
+        type: string
       kode_opd:
         type: string
       nama_opd:
@@ -169,12 +174,15 @@ definitions:
     properties:
       id:
         type: integer
+      kode_lembaga:
+        type: string
       kode_opd:
         type: string
       nama_opd:
         type: string
     required:
     - id
+    - kode_lembaga
     - kode_opd
     - nama_opd
     type: object
