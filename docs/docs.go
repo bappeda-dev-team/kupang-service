@@ -1341,6 +1341,267 @@ const docTemplate = `{
                 }
             }
         },
+        "/lembagas": {
+            "get": {
+                "description": "Get list of all Lembaga",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Lembaga"
+                ],
+                "summary": "List All Lembaga",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/web.LembagaResponse"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create new Lembaga",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Lembaga"
+                ],
+                "summary": "Create Lembaga",
+                "parameters": [
+                    {
+                        "description": "Lembaga Create Request",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/web.LembagaCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.LembagaResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/lembagas/{id}": {
+            "get": {
+                "description": "Get Lembaga detail by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Lembaga"
+                ],
+                "summary": "Get Lembaga by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Lembaga ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.LembagaResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update existing Lembaga by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Lembaga"
+                ],
+                "summary": "Update Lembaga",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Lembaga ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Lembaga Update Request",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/web.LembagaUpdateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.LembagaResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete existing Lembaga by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Lembaga"
+                ],
+                "summary": "Delete Lembaga",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Lembaga ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/opds": {
             "get": {
                 "description": "Get list of all OPD",
@@ -1593,279 +1854,6 @@ const docTemplate = `{
                                     "properties": {
                                         "data": {
                                             "$ref": "#/definitions/web.OpdResponse"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/web.WebResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/web.WebResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/pemdas": {
-            "get": {
-                "description": "Get list of all Pemda",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Pemda"
-                ],
-                "summary": "List All Pemda",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/web.WebResponse"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "type": "array",
-                                            "items": {
-                                                "$ref": "#/definitions/web.PemdaResponse"
-                                            }
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/web.WebResponse"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "description": "Create new Pemda",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Pemda"
-                ],
-                "summary": "Create Pemda",
-                "parameters": [
-                    {
-                        "description": "Pemda Create Request",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/web.PemdaCreateRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Created",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/web.WebResponse"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/web.PemdaResponse"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/web.WebResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/web.WebResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/pemdas/{id}": {
-            "get": {
-                "description": "Get Pemda detail by ID",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Pemda"
-                ],
-                "summary": "Get Pemda by ID",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "Pemda ID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/web.WebResponse"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/web.PemdaResponse"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/web.WebResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/web.WebResponse"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "description": "Update existing Pemda by ID",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Pemda"
-                ],
-                "summary": "Update Pemda",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "Pemda ID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "Pemda Update Request",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/web.PemdaUpdateRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/web.WebResponse"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/web.PemdaResponse"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/web.WebResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/web.WebResponse"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "description": "Delete existing Pemda by ID",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Pemda"
-                ],
-                "summary": "Delete Pemda",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "Pemda ID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/web.WebResponse"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/web.PemdaResponse"
                                         }
                                     }
                                 }
@@ -5130,21 +5118,69 @@ const docTemplate = `{
                 }
             }
         },
+        "web.LembagaCreateRequest": {
+            "type": "object",
+            "required": [
+                "kode_lembaga",
+                "nama_lembaga"
+            ],
+            "properties": {
+                "kode_lembaga": {
+                    "type": "string"
+                },
+                "nama_lembaga": {
+                    "type": "string"
+                }
+            }
+        },
+        "web.LembagaResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "kode_lembaga": {
+                    "type": "string"
+                },
+                "nama_lembaga": {
+                    "type": "string"
+                }
+            }
+        },
+        "web.LembagaUpdateRequest": {
+            "type": "object",
+            "required": [
+                "id",
+                "kode_lembaga",
+                "nama_lembaga"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "kode_lembaga": {
+                    "type": "string"
+                },
+                "nama_lembaga": {
+                    "type": "string"
+                }
+            }
+        },
         "web.OpdCreateRequest": {
             "type": "object",
             "required": [
+                "kode_lembaga",
                 "kode_opd",
-                "nama_opd",
-                "kode_lembaga"
+                "nama_opd"
             ],
             "properties": {
+                "kode_lembaga": {
+                    "type": "string"
+                },
                 "kode_opd": {
                     "type": "string"
                 },
                 "nama_opd": {
-                    "type": "string"
-                },
-                "kode_lembaga": {
                     "type": "string"
                 }
             }
@@ -5155,13 +5191,13 @@ const docTemplate = `{
                 "id": {
                     "type": "integer"
                 },
+                "kode_lembaga": {
+                    "type": "string"
+                },
                 "kode_opd": {
                     "type": "string"
                 },
                 "nama_opd": {
-                    "type": "string"
-                },
-                "kode_lembaga": {
                     "type": "string"
                 }
             }
@@ -5170,69 +5206,21 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "id",
+                "kode_lembaga",
                 "kode_opd",
-                "nama_opd",
-                "kode_lembaga"
+                "nama_opd"
             ],
             "properties": {
                 "id": {
                     "type": "integer"
+                },
+                "kode_lembaga": {
+                    "type": "string"
                 },
                 "kode_opd": {
                     "type": "string"
                 },
                 "nama_opd": {
-                    "type": "string"
-                },
-                "kode_lembaga": {
-                    "type": "string"
-                }
-            }
-        },
-        "web.PemdaCreateRequest": {
-            "type": "object",
-            "required": [
-                "kode_pemda",
-                "nama_pemda"
-            ],
-            "properties": {
-                "kode_pemda": {
-                    "type": "string"
-                },
-                "nama_pemda": {
-                    "type": "string"
-                }
-            }
-        },
-        "web.PemdaResponse": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "integer"
-                },
-                "kode_pemda": {
-                    "type": "string"
-                },
-                "nama_pemda": {
-                    "type": "string"
-                }
-            }
-        },
-        "web.PemdaUpdateRequest": {
-            "type": "object",
-            "required": [
-                "id",
-                "kode_pemda",
-                "nama_pemda"
-            ],
-            "properties": {
-                "id": {
-                    "type": "integer"
-                },
-                "kode_pemda": {
-                    "type": "string"
-                },
-                "nama_pemda": {
                     "type": "string"
                 }
             }

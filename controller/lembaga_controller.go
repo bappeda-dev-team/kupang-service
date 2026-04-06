@@ -1,8 +1,10 @@
 package controller
 
-import "github.com/labstack/echo/v4"
+import (
+	"github.com/labstack/echo/v4"
+)
 
-type PemdaController interface {
+type LembagaController interface {
 	Create(c echo.Context) error
 	Update(c echo.Context) error
 	Delete(c echo.Context) error

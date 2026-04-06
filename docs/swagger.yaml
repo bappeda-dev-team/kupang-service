@@ -146,6 +146,38 @@ definitions:
     required:
     - id
     type: object
+  web.LembagaCreateRequest:
+    properties:
+      kode_lembaga:
+        type: string
+      nama_lembaga:
+        type: string
+    required:
+    - kode_lembaga
+    - nama_lembaga
+    type: object
+  web.LembagaResponse:
+    properties:
+      id:
+        type: integer
+      kode_lembaga:
+        type: string
+      nama_lembaga:
+        type: string
+    type: object
+  web.LembagaUpdateRequest:
+    properties:
+      id:
+        type: integer
+      kode_lembaga:
+        type: string
+      nama_lembaga:
+        type: string
+    required:
+    - id
+    - kode_lembaga
+    - nama_lembaga
+    type: object
   web.OpdCreateRequest:
     properties:
       kode_lembaga:
@@ -185,38 +217,6 @@ definitions:
     - kode_lembaga
     - kode_opd
     - nama_opd
-    type: object
-  web.PemdaCreateRequest:
-    properties:
-      kode_pemda:
-        type: string
-      nama_pemda:
-        type: string
-    required:
-    - kode_pemda
-    - nama_pemda
-    type: object
-  web.PemdaResponse:
-    properties:
-      id:
-        type: integer
-      kode_pemda:
-        type: string
-      nama_pemda:
-        type: string
-    type: object
-  web.PemdaUpdateRequest:
-    properties:
-      id:
-        type: integer
-      kode_pemda:
-        type: string
-      nama_pemda:
-        type: string
-    required:
-    - id
-    - kode_pemda
-    - nama_pemda
     type: object
   web.PohonKinerjaIndikatorResponse:
     properties:
@@ -1883,6 +1883,167 @@ paths:
       summary: Update Indikator Pokin Opd
       tags:
       - Indikator Pokin Opd
+  /lembagas:
+    get:
+      consumes:
+      - application/json
+      description: Get list of all Lembaga
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/web.LembagaResponse'
+                  type: array
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: List All Lembaga
+      tags:
+      - Lembaga
+    post:
+      consumes:
+      - application/json
+      description: Create new Lembaga
+      parameters:
+      - description: Lembaga Create Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.LembagaCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.LembagaResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Create Lembaga
+      tags:
+      - Lembaga
+  /lembagas/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete existing Lembaga by ID
+      parameters:
+      - description: Lembaga ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Delete Lembaga
+      tags:
+      - Lembaga
+    get:
+      consumes:
+      - application/json
+      description: Get Lembaga detail by ID
+      parameters:
+      - description: Lembaga ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.LembagaResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Get Lembaga by ID
+      tags:
+      - Lembaga
+    put:
+      consumes:
+      - application/json
+      description: Update existing Lembaga by ID
+      parameters:
+      - description: Lembaga ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Lembaga Update Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.LembagaUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.LembagaResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Update Lembaga
+      tags:
+      - Lembaga
   /opds:
     get:
       consumes:
@@ -2049,172 +2210,6 @@ paths:
       summary: Update OPD
       tags:
       - OPD
-  /pemdas:
-    get:
-      consumes:
-      - application/json
-      description: Get list of all Pemda
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            allOf:
-            - $ref: '#/definitions/web.WebResponse'
-            - properties:
-                data:
-                  items:
-                    $ref: '#/definitions/web.PemdaResponse'
-                  type: array
-              type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/web.WebResponse'
-      summary: List All Pemda
-      tags:
-      - Pemda
-    post:
-      consumes:
-      - application/json
-      description: Create new Pemda
-      parameters:
-      - description: Pemda Create Request
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/web.PemdaCreateRequest'
-      produces:
-      - application/json
-      responses:
-        "201":
-          description: Created
-          schema:
-            allOf:
-            - $ref: '#/definitions/web.WebResponse'
-            - properties:
-                data:
-                  $ref: '#/definitions/web.PemdaResponse'
-              type: object
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/web.WebResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/web.WebResponse'
-      summary: Create Pemda
-      tags:
-      - Pemda
-  /pemdas/{id}:
-    delete:
-      consumes:
-      - application/json
-      description: Delete existing Pemda by ID
-      parameters:
-      - description: Pemda ID
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            allOf:
-            - $ref: '#/definitions/web.WebResponse'
-            - properties:
-                data:
-                  $ref: '#/definitions/web.PemdaResponse'
-              type: object
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/web.WebResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/web.WebResponse'
-      summary: Delete Pemda
-      tags:
-      - Pemda
-    get:
-      consumes:
-      - application/json
-      description: Get Pemda detail by ID
-      parameters:
-      - description: Pemda ID
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            allOf:
-            - $ref: '#/definitions/web.WebResponse'
-            - properties:
-                data:
-                  $ref: '#/definitions/web.PemdaResponse'
-              type: object
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/web.WebResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/web.WebResponse'
-      summary: Get Pemda by ID
-      tags:
-      - Pemda
-    put:
-      consumes:
-      - application/json
-      description: Update existing Pemda by ID
-      parameters:
-      - description: Pemda ID
-        in: path
-        name: id
-        required: true
-        type: integer
-      - description: Pemda Update Request
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/web.PemdaUpdateRequest'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            allOf:
-            - $ref: '#/definitions/web.WebResponse'
-            - properties:
-                data:
-                  $ref: '#/definitions/web.PemdaResponse'
-              type: object
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/web.WebResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/web.WebResponse'
-      summary: Update Pemda
-      tags:
-      - Pemda
   /pohon-kinerja-opds/{kode_opd}/{tahun}:
     get:
       consumes:

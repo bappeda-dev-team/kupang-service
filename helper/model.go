@@ -39,18 +39,18 @@ func ToOpdResponses(opds []domain.Opd) []web.OpdResponse {
 	return responses
 }
 
-func ToPemdaResponse(pemda domain.Pemda) web.PemdaResponse {
-	return web.PemdaResponse{
-		Id:        pemda.Id,
-		KodePemda: pemda.KodePemda,
-		NamaPemda: pemda.NamaPemda,
+func ToLembagaResponse(lembaga domain.Lembaga) web.LembagaResponse {
+	return web.LembagaResponse{
+		Id:          lembaga.Id,
+		KodeLembaga: lembaga.KodeLembaga,
+		NamaLembaga: lembaga.NamaLembaga,
 	}
 }
 
-func ToPemdaResponses(pemdas []domain.Pemda) []web.PemdaResponse {
-	var responses []web.PemdaResponse
-	for _, pemda := range pemdas {
-		responses = append(responses, ToPemdaResponse(pemda))
+func ToLembagaResponses(lembagas []domain.Lembaga) []web.LembagaResponse {
+	var responses []web.LembagaResponse
+	for _, lembaga := range lembagas {
+		responses = append(responses, ToLembagaResponse(lembaga))
 	}
 	return responses
 }
