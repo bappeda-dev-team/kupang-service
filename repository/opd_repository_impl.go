@@ -35,7 +35,7 @@ func (repository *OpdRepositoryImpl) Update(ctx context.Context, tx *sql.Tx, opd
 }
 
 func (repository *OpdRepositoryImpl) FindById(ctx context.Context, tx *sql.Tx, id int) (domain.Opd, error) {
-	query := "SELECT id, kode_opd, nama_opd, kode_lembaga, nama_kepala_perangkat_daerah, nip_kepala_perangkat_daerah, pangkat_kepala_perangkat_daerah FROM opd WHERE id = $1"
+	query := "SELECT id, kode_opd, nama_opd, COALESCE(kode_lembaga, '') AS kode_lembaga, nama_kepala_perangkat_daerah, nip_kepala_perangkat_daerah, pangkat_kepala_perangkat_daerah FROM opd WHERE id = $1"
 	row := tx.QueryRowContext(ctx, query, id)
 
 	var opd domain.Opd
@@ -51,7 +51,7 @@ func (repository *OpdRepositoryImpl) FindById(ctx context.Context, tx *sql.Tx, i
 }
 
 func (repository *OpdRepositoryImpl) FindAll(ctx context.Context, tx *sql.Tx) ([]domain.Opd, error) {
-	query := "SELECT id, kode_opd, nama_opd, kode_lembaga, nama_kepala_perangkat_daerah, nip_kepala_perangkat_daerah, pangkat_kepala_perangkat_daerah FROM opd ORDER BY id ASC"
+	query := "SELECT id, kode_opd, nama_opd, COALESCE(kode_lembaga, '') AS kode_lembaga, nama_kepala_perangkat_daerah, nip_kepala_perangkat_daerah, pangkat_kepala_perangkat_daerah FROM opd ORDER BY id ASC"
 	rows, err := tx.QueryContext(ctx, query)
 	if err != nil {
 		return []domain.Opd{}, err
