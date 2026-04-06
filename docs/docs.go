@@ -5122,22 +5122,22 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "kode_lembaga",
+                "nama_lembaga",
                 "nama_kepala_lembaga",
                 "jabatan_kepala_lembaga",
-                "nama_lembaga",
                 "nip_kepala_lembaga"
             ],
             "properties": {
                 "kode_lembaga": {
                     "type": "string"
                 },
-                "nama_kepala_lembaga": {
+                "nama_lembaga": {
                     "type": "string"
                 },
                 "jabatan_kepala_lembaga": {
                     "type": "string"
                 },
-                "nama_lembaga": {
+                "nama_kepala_lembaga": {
                     "type": "string"
                 },
                 "nip_kepala_lembaga": {
@@ -5154,13 +5154,13 @@ const docTemplate = `{
                 "kode_lembaga": {
                     "type": "string"
                 },
-                "nama_kepala_lembaga": {
+                "nama_lembaga": {
                     "type": "string"
                 },
                 "jabatan_kepala_lembaga": {
                     "type": "string"
                 },
-                "nama_lembaga": {
+                "nama_kepala_lembaga": {
                     "type": "string"
                 },
                 "nip_kepala_lembaga": {
@@ -5173,9 +5173,9 @@ const docTemplate = `{
             "required": [
                 "id",
                 "kode_lembaga",
+                "nama_lembaga",
                 "nama_kepala_lembaga",
                 "jabatan_kepala_lembaga",
-                "nama_lembaga",
                 "nip_kepala_lembaga"
             ],
             "properties": {
@@ -5185,13 +5185,13 @@ const docTemplate = `{
                 "kode_lembaga": {
                     "type": "string"
                 },
-                "nama_kepala_lembaga": {
+                "nama_lembaga": {
                     "type": "string"
                 },
                 "jabatan_kepala_lembaga": {
                     "type": "string"
                 },
-                "nama_lembaga": {
+                "nama_kepala_lembaga": {
                     "type": "string"
                 },
                 "nip_kepala_lembaga": {
