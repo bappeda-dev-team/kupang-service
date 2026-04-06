@@ -23,6 +23,9 @@ func InitializedServer() *echo.Echo {
 	db := app.GetConnection()
 	v := _wireValue
 	validate := validator.New(v...)
+	pegawaiRepositoryImpl := repository.NewPegawaiRepositoryImpl()
+	pegawaiServiceImpl := service.NewPegawaiServiceImpl(pegawaiRepositoryImpl, db, validate)
+	pegawaiControllerImpl := controller.NewPegawaiControllerImpl(pegawaiServiceImpl)
 	LembagaRepositoryImpl := repository.NewLembagaRepositoryImpl()
 	LembagaServiceImpl := service.NewLembagaServiceImpl(LembagaRepositoryImpl, db, validate)
 	LembagaControllerImpl := controller.NewLembagaControllerImpl(LembagaServiceImpl)
@@ -78,7 +81,7 @@ func InitializedServer() *echo.Echo {
 	pokinOpdStrategicControllerImpl := controller.NewPokinOpdStrategicControllerImpl(pokinOpdStrategicServiceImpl)
 	pohonKinerjaServiceImpl := service.NewPohonKinerjaServiceImpl(pokinOpdRepositoryImpl, tujuanPokinOpdRepositoryImpl, indikatorPokinOpdRepositoryImpl, targetPokinOpdRepositoryImpl, pokinOpdStrategicRepositoryImpl, indikatorPokinOpdStrategicRepositoryImpl, targetPokinOpdStrategicRepositoryImpl, pokinOpdTacticalRepositoryImpl, indikatorPokinOpdTacticalRepositoryImpl, targetPokinOpdTacticalRepositoryImpl, pokinOpdOperationalRepositoryImpl, indikatorPokinOpdOperationalRepositoryImpl, targetPokinOpdOperationalRepositoryImpl, pokinOpdOperationalNRepositoryImpl, indikatorPokinOpdOperationalNRepositoryImpl, targetPokinOpdOperationalNRepositoryImpl, db)
 	pohonKinerjaControllerImpl := controller.NewPohonKinerjaControllerImpl(pohonKinerjaServiceImpl)
-	echoEcho := app.NewRouter(LembagaControllerImpl, opdControllerImpl, pokinOpdControllerImpl, pokinOpdStrategicControllerImpl, pokinOpdTacticalControllerImpl, pokinOpdOperationalControllerImpl, pokinOpdOperationalNControllerImpl, indikatorPokinOpdControllerImpl, indikatorPokinOpdStrategicControllerImpl, indikatorPokinOpdTacticalControllerImpl, indikatorPokinOpdOperationalControllerImpl, indikatorPokinOpdOperationalNControllerImpl, tujuanPokinOpdControllerImpl, targetPokinOpdControllerImpl, targetPokinOpdStrategicControllerImpl, targetPokinOpdTacticalControllerImpl, targetPokinOpdOperationalControllerImpl, targetPokinOpdOperationalNControllerImpl, pohonKinerjaControllerImpl)
+	echoEcho := app.NewRouter(LembagaControllerImpl, opdControllerImpl, pegawaiControllerImpl, pokinOpdControllerImpl, pokinOpdStrategicControllerImpl, pokinOpdTacticalControllerImpl, pokinOpdOperationalControllerImpl, pokinOpdOperationalNControllerImpl, indikatorPokinOpdControllerImpl, indikatorPokinOpdStrategicControllerImpl, indikatorPokinOpdTacticalControllerImpl, indikatorPokinOpdOperationalControllerImpl, indikatorPokinOpdOperationalNControllerImpl, tujuanPokinOpdControllerImpl, targetPokinOpdControllerImpl, targetPokinOpdStrategicControllerImpl, targetPokinOpdTacticalControllerImpl, targetPokinOpdOperationalControllerImpl, targetPokinOpdOperationalNControllerImpl, pohonKinerjaControllerImpl)
 	return echoEcho
 }
 
@@ -91,6 +94,8 @@ var (
 var pokinOpdSet = wire.NewSet(repository.NewPokinOpdRepositoryImpl, wire.Bind(new(repository.PokinOpdRepository), new(*repository.PokinOpdRepositoryImpl)), service.NewPokinOpdServiceImpl, wire.Bind(new(service.PokinOpdService), new(*service.PokinOpdServiceImpl)), controller.NewPokinOpdControllerImpl, wire.Bind(new(controller.PokinOpdController), new(*controller.PokinOpdControllerImpl)))
 
 var opdSet = wire.NewSet(repository.NewOpdRepositoryImpl, wire.Bind(new(repository.OpdRepository), new(*repository.OpdRepositoryImpl)), service.NewOpdServiceImpl, wire.Bind(new(service.OpdService), new(*service.OpdServiceImpl)), controller.NewOpdControllerImpl, wire.Bind(new(controller.OpdController), new(*controller.OpdControllerImpl)))
+
+var pegawaiSet = wire.NewSet(repository.NewPegawaiRepositoryImpl, wire.Bind(new(repository.PegawaiRepository), new(*repository.PegawaiRepositoryImpl)), service.NewPegawaiServiceImpl, wire.Bind(new(service.PegawaiService), new(*service.PegawaiServiceImpl)), controller.NewPegawaiControllerImpl, wire.Bind(new(controller.PegawaiController), new(*controller.PegawaiControllerImpl)))
 
 var LembagaSet = wire.NewSet(repository.NewLembagaRepositoryImpl, wire.Bind(new(repository.LembagaRepository), new(*repository.LembagaRepositoryImpl)), service.NewLembagaServiceImpl, wire.Bind(new(service.LembagaService), new(*service.LembagaServiceImpl)), controller.NewLembagaControllerImpl, wire.Bind(new(controller.LembagaController), new(*controller.LembagaControllerImpl)))
 

@@ -7,11 +7,12 @@ import (
 	"kupang-service/controller"
 )
 
-func NewRouter(lembagaController controller.LembagaController, opdController controller.OpdController, pokinOpdController controller.PokinOpdController, pokinOpdStrategicController controller.PokinOpdStrategicController, pokinOpdTacticalController controller.PokinOpdTacticalController, pokinOpdOperationalController controller.PokinOpdOperationalController, pokinOpdOperationalNController controller.PokinOpdOperationalNController, indikatorPokinOpdController controller.IndikatorPokinOpdController, indikatorPokinOpdStrategicController controller.IndikatorPokinOpdStrategicController, indikatorPokinOpdTacticalController controller.IndikatorPokinOpdTacticalController, indikatorPokinOpdOperationalController controller.IndikatorPokinOpdOperationalController, indikatorPokinOpdOperationalNController controller.IndikatorPokinOpdOperationalNController, tujuanPokinOpdController controller.TujuanPokinOpdController, targetPokinOpdController controller.TargetPokinOpdController, targetPokinOpdStrategicController controller.TargetPokinOpdStrategicController, targetPokinOpdTacticalController controller.TargetPokinOpdTacticalController, targetPokinOpdOperationalController controller.TargetPokinOpdOperationalController, targetPokinOpdOperationalNController controller.TargetPokinOpdOperationalNController, pohonKinerjaController controller.PohonKinerjaController) *echo.Echo {
+func NewRouter(lembagaController controller.LembagaController, opdController controller.OpdController, pegawaiController controller.PegawaiController, pokinOpdController controller.PokinOpdController, pokinOpdStrategicController controller.PokinOpdStrategicController, pokinOpdTacticalController controller.PokinOpdTacticalController, pokinOpdOperationalController controller.PokinOpdOperationalController, pokinOpdOperationalNController controller.PokinOpdOperationalNController, indikatorPokinOpdController controller.IndikatorPokinOpdController, indikatorPokinOpdStrategicController controller.IndikatorPokinOpdStrategicController, indikatorPokinOpdTacticalController controller.IndikatorPokinOpdTacticalController, indikatorPokinOpdOperationalController controller.IndikatorPokinOpdOperationalController, indikatorPokinOpdOperationalNController controller.IndikatorPokinOpdOperationalNController, tujuanPokinOpdController controller.TujuanPokinOpdController, targetPokinOpdController controller.TargetPokinOpdController, targetPokinOpdStrategicController controller.TargetPokinOpdStrategicController, targetPokinOpdTacticalController controller.TargetPokinOpdTacticalController, targetPokinOpdOperationalController controller.TargetPokinOpdOperationalController, targetPokinOpdOperationalNController controller.TargetPokinOpdOperationalNController, pohonKinerjaController controller.PohonKinerjaController) *echo.Echo {
 	e := echo.New()
 
 	const lembagaBase = "/lembagas"
 	const opdBase = "/opds"
+	const pegawaiBase = "/pegawais"
 	const pokinOpdBase = "/pokin-opds"
 	const pokinOpdStrategicBase = "/pokin-opd-strategics"
 	const pokinOpdTacticalBase = "/pokin-opd-tacticals"
@@ -57,6 +58,12 @@ func NewRouter(lembagaController controller.LembagaController, opdController con
 	e.DELETE(opdBase+"/:id", opdController.Delete)
 	e.GET(opdBase+"/:id", opdController.FindById)
 	e.GET(opdBase, opdController.FindAll)
+
+	e.POST(pegawaiBase, pegawaiController.Create)
+	e.PUT(pegawaiBase+"/:id", pegawaiController.Update)
+	e.DELETE(pegawaiBase+"/:id", pegawaiController.Delete)
+	e.GET(pegawaiBase+"/:id", pegawaiController.FindById)
+	e.GET(pegawaiBase, pegawaiController.FindAll)
 
 	e.POST(pokinOpdBase, pokinOpdController.Create)
 	e.PUT(pokinOpdBase+"/:id", pokinOpdController.Update)

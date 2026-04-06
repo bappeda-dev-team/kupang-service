@@ -32,6 +32,15 @@ var opdSet = wire.NewSet(
 	wire.Bind(new(controller.OpdController), new(*controller.OpdControllerImpl)),
 )
 
+var pegawaiSet = wire.NewSet(
+	repository.NewPegawaiRepositoryImpl,
+	wire.Bind(new(repository.PegawaiRepository), new(*repository.PegawaiRepositoryImpl)),
+	service.NewPegawaiServiceImpl,
+	wire.Bind(new(service.PegawaiService), new(*service.PegawaiServiceImpl)),
+	controller.NewPegawaiControllerImpl,
+	wire.Bind(new(controller.PegawaiController), new(*controller.PegawaiControllerImpl)),
+)
+
 var lembagaSet = wire.NewSet(
 	repository.NewLembagaRepositoryImpl,
 	wire.Bind(new(repository.LembagaRepository), new(*repository.LembagaRepositoryImpl)),
@@ -192,12 +201,13 @@ var pohonKinerjaSet = wire.NewSet(
 func InitializedServer() *echo.Echo {
 	wire.Build(
 		app.GetConnection,
-		wire.Value([]validator.Option{}),
-		validator.New,
-		opdSet,
-		lembagaSet,
-		pokinOpdSet,
-		pokinOpdStrategicSet,
+	wire.Value([]validator.Option{}),
+	validator.New,
+	opdSet,
+	pegawaiSet,
+	lembagaSet,
+	pokinOpdSet,
+	pokinOpdStrategicSet,
 		pokinOpdTacticalSet,
 		pokinOpdOperationalSet,
 		pokinOpdOperationalNSet,

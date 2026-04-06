@@ -1875,6 +1875,267 @@ const docTemplate = `{
                 }
             }
         },
+        "/pegawais": {
+            "get": {
+                "description": "Get list of all Pegawai",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pegawai"
+                ],
+                "summary": "Get All Pegawai",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/web.PegawaiResponse"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create new Pegawai",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pegawai"
+                ],
+                "summary": "Create Pegawai",
+                "parameters": [
+                    {
+                        "description": "Pegawai Create Request",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/web.PegawaiCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.PegawaiResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/pegawais/{id}": {
+            "get": {
+                "description": "Get Pegawai details by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pegawai"
+                ],
+                "summary": "Get Pegawai by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Pegawai ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.PegawaiResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update existing Pegawai by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pegawai"
+                ],
+                "summary": "Update Pegawai",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Pegawai ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Pegawai Update Request",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/web.PegawaiUpdateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.PegawaiResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete existing Pegawai by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pegawai"
+                ],
+                "summary": "Delete Pegawai",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Pegawai ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/pohon-kinerja-opds/{kode_opd}/{tahun}": {
             "get": {
                 "description": "Get pohon kinerja opd by kode opd and tahun",
@@ -5287,6 +5548,88 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "kode_lembaga": {
+                    "type": "string"
+                }
+            }
+        },
+        "web.PegawaiCreateRequest": {
+            "type": "object",
+            "required": [
+                "nama",
+                "nip",
+                "jabatan",
+                "kode_opd",
+                "nama_opd"
+            ],
+            "properties": {
+                "nama": {
+                    "type": "string"
+                },
+                "nip": {
+                    "type": "string"
+                },
+                "jabatan": {
+                    "type": "string"
+                },
+                "kode_opd": {
+                    "type": "string"
+                },
+                "nama_opd": {
+                    "type": "string"
+                }
+                
+            }
+        },
+        "web.PegawaiResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "nama": {
+                    "type": "string"
+                },
+                "nip": {
+                    "type": "string"
+                },
+                "jabatan": {
+                    "type": "string"
+                },
+                "kode_opd": {
+                    "type": "string"
+                },
+                "nama_opd": {
+                    "type": "string"
+                }
+            }
+        },
+        "web.PegawaiUpdateRequest": {
+            "type": "object",
+            "required": [
+                "id",
+                "nama",
+                "nip",
+                "jabatan",
+                "kode_opd",
+                "nama_opd"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "nama": {
+                    "type": "string"
+                },
+                "nip": {
+                    "type": "string"
+                },
+                "jabatan": {
+                    "type": "string"
+                },
+                "kode_opd": {
+                    "type": "string"
+                },
+                "nama_opd": {
                     "type": "string"
                 }
             }
