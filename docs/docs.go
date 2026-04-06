@@ -5260,12 +5260,12 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "id",
-                "kode_lembaga",
                 "kode_opd",
                 "nama_kepala_perangkat_daerah",
                 "nama_opd",
                 "nip_kepala_perangkat_daerah",
-                "pangkat_kepala_perangkat_daerah"
+                "pangkat_kepala_perangkat_daerah",
+                "kode_lembaga"
             ],
             "properties": {
                 "id": {
