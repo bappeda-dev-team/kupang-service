@@ -39,8 +39,11 @@ func (service *LembagaServiceImpl) Create(ctx context.Context, lembaga web.Lemba
 	defer helper.CommitOrRollback(tx)
 
 	lembagaDomain := domain.Lembaga{
-		KodeLembaga: lembaga.KodeLembaga,
-		NamaLembaga: lembaga.NamaLembaga,
+		KodeLembaga:          lembaga.KodeLembaga,
+		NamaLembaga:          lembaga.NamaLembaga,
+		JabatanKepalaLembaga: lembaga.JabatanKepalaLembaga,
+		NamaKepalaLembaga:    lembaga.NamaKepalaLembaga,
+		NipKepalaLembaga:     lembaga.NipKepalaLembaga,
 	}
 
 	lembagaDomain, err = service.LembagaRepository.Create(ctx, tx, lembagaDomain)
@@ -49,9 +52,12 @@ func (service *LembagaServiceImpl) Create(ctx context.Context, lembaga web.Lemba
 	}
 
 	return web.LembagaResponse{
-		Id:          lembagaDomain.Id,
-		KodeLembaga: lembagaDomain.KodeLembaga,
-		NamaLembaga: lembagaDomain.NamaLembaga,
+		Id:                   lembagaDomain.Id,
+		KodeLembaga:          lembagaDomain.KodeLembaga,
+		NamaLembaga:          lembagaDomain.NamaLembaga,
+		JabatanKepalaLembaga: lembagaDomain.JabatanKepalaLembaga,
+		NamaKepalaLembaga:    lembagaDomain.NamaKepalaLembaga,
+		NipKepalaLembaga:     lembagaDomain.NipKepalaLembaga,
 	}, nil
 }
 
@@ -68,9 +74,12 @@ func (service *LembagaServiceImpl) Update(ctx context.Context, lembagaData web.L
 	defer helper.CommitOrRollback(tx)
 
 	lembagaDomain := domain.Lembaga{
-		Id:          lembagaData.Id,
-		KodeLembaga: lembagaData.KodeLembaga,
-		NamaLembaga: lembagaData.NamaLembaga,
+		Id:                   lembagaData.Id,
+		KodeLembaga:          lembagaData.KodeLembaga,
+		NamaLembaga:          lembagaData.NamaLembaga,
+		JabatanKepalaLembaga: lembagaData.JabatanKepalaLembaga,
+		NamaKepalaLembaga:    lembagaData.NamaKepalaLembaga,
+		NipKepalaLembaga:     lembagaData.NipKepalaLembaga,
 	}
 
 	lembagaDomain, err = service.LembagaRepository.Update(ctx, tx, lembagaDomain)
@@ -79,9 +88,12 @@ func (service *LembagaServiceImpl) Update(ctx context.Context, lembagaData web.L
 	}
 
 	return web.LembagaResponse{
-		Id:          lembagaDomain.Id,
-		KodeLembaga: lembagaDomain.KodeLembaga,
-		NamaLembaga: lembagaDomain.NamaLembaga,
+		Id:                   lembagaDomain.Id,
+		KodeLembaga:          lembagaDomain.KodeLembaga,
+		NamaLembaga:          lembagaDomain.NamaLembaga,
+		JabatanKepalaLembaga: lembagaDomain.JabatanKepalaLembaga,
+		NamaKepalaLembaga:    lembagaDomain.NamaKepalaLembaga,
+		NipKepalaLembaga:     lembagaDomain.NipKepalaLembaga,
 	}, nil
 }
 
@@ -108,9 +120,12 @@ func (service *LembagaServiceImpl) FindById(ctx context.Context, id int) (web.Le
 	}
 
 	return web.LembagaResponse{
-		Id:          lembagaDomain.Id,
-		KodeLembaga: lembagaDomain.KodeLembaga,
-		NamaLembaga: lembagaDomain.NamaLembaga,
+		Id:                   lembagaDomain.Id,
+		KodeLembaga:          lembagaDomain.KodeLembaga,
+		NamaLembaga:          lembagaDomain.NamaLembaga,
+		JabatanKepalaLembaga: lembagaDomain.JabatanKepalaLembaga,
+		NamaKepalaLembaga:    lembagaDomain.NamaKepalaLembaga,
+		NipKepalaLembaga:     lembagaDomain.NipKepalaLembaga,
 	}, nil
 }
 

@@ -41,9 +41,12 @@ func ToOpdResponses(opds []domain.Opd) []web.OpdResponse {
 
 func ToLembagaResponse(lembaga domain.Lembaga) web.LembagaResponse {
 	return web.LembagaResponse{
-		Id:          lembaga.Id,
-		KodeLembaga: lembaga.KodeLembaga,
-		NamaLembaga: lembaga.NamaLembaga,
+		Id:                   lembaga.Id,
+		KodeLembaga:          lembaga.KodeLembaga,
+		NamaLembaga:          lembaga.NamaLembaga,
+		JabatanKepalaLembaga: lembaga.JabatanKepalaLembaga,
+		NamaKepalaLembaga:    lembaga.NamaKepalaLembaga,
+		NipKepalaLembaga:     lembaga.NipKepalaLembaga,
 	}
 }
 
