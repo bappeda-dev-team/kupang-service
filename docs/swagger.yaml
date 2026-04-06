@@ -208,12 +208,21 @@ definitions:
         type: string
       kode_opd:
         type: string
+      nama_kepala_perangkat_daerah:
+        type: string
       nama_opd:
+        type: string
+      nip_kepala_perangkat_daerah:
+        type: string
+      pangkat_kepala_perangkat_daerah:
         type: string
     required:
     - kode_lembaga
     - kode_opd
+    - nama_kepala_perangkat_daerah
     - nama_opd
+    - nip_kepala_perangkat_daerah
+    - pangkat_kepala_perangkat_daerah
     type: object
   web.OpdResponse:
     properties:
@@ -223,7 +232,13 @@ definitions:
         type: string
       kode_opd:
         type: string
+      nama_kepala_perangkat_daerah:
+        type: string
       nama_opd:
+        type: string
+      nip_kepala_perangkat_daerah:
+        type: string
+      pangkat_kepala_perangkat_daerah:
         type: string
     type: object
   web.OpdUpdateRequest:
@@ -234,13 +249,22 @@ definitions:
         type: string
       kode_opd:
         type: string
+      nama_kepala_perangkat_daerah:
+        type: string
       nama_opd:
+        type: string
+      nip_kepala_perangkat_daerah:
+        type: string
+      pangkat_kepala_perangkat_daerah:
         type: string
     required:
     - id
     - kode_lembaga
     - kode_opd
+    - nama_kepala_perangkat_daerah
     - nama_opd
+    - nip_kepala_perangkat_daerah
+    - pangkat_kepala_perangkat_daerah
     type: object
   web.PohonKinerjaIndikatorResponse:
     properties:

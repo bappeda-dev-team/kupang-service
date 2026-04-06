@@ -5123,21 +5123,21 @@ const docTemplate = `{
             "required": [
                 "kode_lembaga",
                 "nama_lembaga",
-                "nama_kepala_lembaga",
                 "jabatan_kepala_lembaga",
+                "nama_kepala_lembaga",
                 "nip_kepala_lembaga"
             ],
             "properties": {
                 "kode_lembaga": {
                     "type": "string"
                 },
-                "nama_lembaga": {
+                "nama_kepala_lembaga": {
                     "type": "string"
                 },
                 "jabatan_kepala_lembaga": {
                     "type": "string"
                 },
-                "nama_kepala_lembaga": {
+                "nama_lembaga": {
                     "type": "string"
                 },
                 "nip_kepala_lembaga": {
@@ -5154,13 +5154,13 @@ const docTemplate = `{
                 "kode_lembaga": {
                     "type": "string"
                 },
-                "nama_lembaga": {
+                "nama_kepala_lembaga": {
                     "type": "string"
                 },
                 "jabatan_kepala_lembaga": {
                     "type": "string"
                 },
-                "nama_kepala_lembaga": {
+                "nama_lembaga": {
                     "type": "string"
                 },
                 "nip_kepala_lembaga": {
@@ -5173,9 +5173,9 @@ const docTemplate = `{
             "required": [
                 "id",
                 "kode_lembaga",
-                "nama_lembaga",
                 "nama_kepala_lembaga",
                 "jabatan_kepala_lembaga",
+                "nama_lembaga",
                 "nip_kepala_lembaga"
             ],
             "properties": {
@@ -5185,13 +5185,13 @@ const docTemplate = `{
                 "kode_lembaga": {
                     "type": "string"
                 },
-                "nama_lembaga": {
+                "nama_kepala_lembaga": {
                     "type": "string"
                 },
                 "jabatan_kepala_lembaga": {
                     "type": "string"
                 },
-                "nama_kepala_lembaga": {
+                "nama_lembaga": {
                     "type": "string"
                 },
                 "nip_kepala_lembaga": {
@@ -5202,18 +5202,30 @@ const docTemplate = `{
         "web.OpdCreateRequest": {
             "type": "object",
             "required": [
-                "kode_lembaga",
                 "kode_opd",
-                "nama_opd"
+                "nama_opd",
+                "nama_kepala_perangkat_daerah",
+                "nip_kepala_perangkat_daerah",
+                "pangkat_kepala_perangkat_daerah",
+                "kode_lembaga"
             ],
             "properties": {
-                "kode_lembaga": {
-                    "type": "string"
-                },
                 "kode_opd": {
                     "type": "string"
                 },
                 "nama_opd": {
+                    "type": "string"
+                },
+                "nama_kepala_perangkat_daerah": {
+                    "type": "string"
+                },
+                "nip_kepala_perangkat_daerah": {
+                    "type": "string"
+                },
+                "pangkat_kepala_perangkat_daerah": {
+                    "type": "string"
+                },
+                "kode_lembaga": {
                     "type": "string"
                 }
             }
@@ -5224,13 +5236,22 @@ const docTemplate = `{
                 "id": {
                     "type": "integer"
                 },
-                "kode_lembaga": {
-                    "type": "string"
-                },
                 "kode_opd": {
                     "type": "string"
                 },
                 "nama_opd": {
+                    "type": "string"
+                },
+                "nama_kepala_perangkat_daerah": {
+                    "type": "string"
+                },
+                "nip_kepala_perangkat_daerah": {
+                    "type": "string"
+                },
+                "pangkat_kepala_perangkat_daerah": {
+                    "type": "string"
+                },
+                "kode_lembaga": {
                     "type": "string"
                 }
             }
@@ -5241,19 +5262,31 @@ const docTemplate = `{
                 "id",
                 "kode_lembaga",
                 "kode_opd",
-                "nama_opd"
+                "nama_kepala_perangkat_daerah",
+                "nama_opd",
+                "nip_kepala_perangkat_daerah",
+                "pangkat_kepala_perangkat_daerah"
             ],
             "properties": {
                 "id": {
                     "type": "integer"
                 },
-                "kode_lembaga": {
+                "nama_opd": {
                     "type": "string"
                 },
                 "kode_opd": {
                     "type": "string"
                 },
-                "nama_opd": {
+                "nama_kepala_perangkat_daerah": {
+                    "type": "string"
+                },
+                "nip_kepala_perangkat_daerah": {
+                    "type": "string"
+                },
+                "pangkat_kepala_perangkat_daerah": {
+                    "type": "string"
+                },
+                "kode_lembaga": {
                     "type": "string"
                 }
             }

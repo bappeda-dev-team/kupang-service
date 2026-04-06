@@ -39,9 +39,12 @@ func (service *OpdServiceImpl) Create(ctx context.Context, opd web.OpdCreateRequ
 	defer helper.CommitOrRollback(tx)
 
 	opdDomain := domain.Opd{
-		KodeOpd:     opd.KodeOpd,
-		NamaOpd:     opd.NamaOpd,
-		KodeLembaga: opd.KodeLembaga,
+		KodeOpd:                      opd.KodeOpd,
+		NamaOpd:                      opd.NamaOpd,
+		KodeLembaga:                  opd.KodeLembaga,
+		NamaKepalaPerangkatDaerah:    opd.NamaKepalaPerangkatDaerah,
+		NipKepalaPerangkatDaerah:     opd.NipKepalaPerangkatDaerah,
+		PangkatKepalaPerangkatDaerah: opd.PangkatKepalaPerangkatDaerah,
 	}
 
 	opdDomain, err = service.OpdRepository.Create(ctx, tx, opdDomain)
@@ -50,10 +53,13 @@ func (service *OpdServiceImpl) Create(ctx context.Context, opd web.OpdCreateRequ
 	}
 
 	return web.OpdResponse{
-		Id:          opdDomain.Id,
-		KodeOpd:     opdDomain.KodeOpd,
-		NamaOpd:     opdDomain.NamaOpd,
-		KodeLembaga: opdDomain.KodeLembaga,
+		Id:                           opdDomain.Id,
+		KodeOpd:                      opdDomain.KodeOpd,
+		NamaOpd:                      opdDomain.NamaOpd,
+		KodeLembaga:                  opdDomain.KodeLembaga,
+		NamaKepalaPerangkatDaerah:    opdDomain.NamaKepalaPerangkatDaerah,
+		NipKepalaPerangkatDaerah:     opdDomain.NipKepalaPerangkatDaerah,
+		PangkatKepalaPerangkatDaerah: opdDomain.PangkatKepalaPerangkatDaerah,
 	}, nil
 }
 
@@ -70,10 +76,13 @@ func (service *OpdServiceImpl) Update(ctx context.Context, opdData web.OpdUpdate
 	defer helper.CommitOrRollback(tx)
 
 	opdDomain := domain.Opd{
-		Id:          opdData.Id,
-		KodeOpd:     opdData.KodeOpd,
-		NamaOpd:     opdData.NamaOpd,
-		KodeLembaga: opdData.KodeLembaga,
+		Id:                           opdData.Id,
+		KodeOpd:                      opdData.KodeOpd,
+		NamaOpd:                      opdData.NamaOpd,
+		KodeLembaga:                  opdData.KodeLembaga,
+		NamaKepalaPerangkatDaerah:    opdData.NamaKepalaPerangkatDaerah,
+		NipKepalaPerangkatDaerah:     opdData.NipKepalaPerangkatDaerah,
+		PangkatKepalaPerangkatDaerah: opdData.PangkatKepalaPerangkatDaerah,
 	}
 
 	opdDomain, err = service.OpdRepository.Update(ctx, tx, opdDomain)
@@ -82,10 +91,13 @@ func (service *OpdServiceImpl) Update(ctx context.Context, opdData web.OpdUpdate
 	}
 
 	return web.OpdResponse{
-		Id:          opdDomain.Id,
-		KodeOpd:     opdDomain.KodeOpd,
-		NamaOpd:     opdDomain.NamaOpd,
-		KodeLembaga: opdDomain.KodeLembaga,
+		Id:                           opdDomain.Id,
+		KodeOpd:                      opdDomain.KodeOpd,
+		NamaOpd:                      opdDomain.NamaOpd,
+		KodeLembaga:                  opdDomain.KodeLembaga,
+		NamaKepalaPerangkatDaerah:    opdDomain.NamaKepalaPerangkatDaerah,
+		NipKepalaPerangkatDaerah:     opdDomain.NipKepalaPerangkatDaerah,
+		PangkatKepalaPerangkatDaerah: opdDomain.PangkatKepalaPerangkatDaerah,
 	}, nil
 }
 
@@ -117,10 +129,13 @@ func (service *OpdServiceImpl) FindById(ctx context.Context, id int) (web.OpdRes
 	}
 
 	return web.OpdResponse{
-		Id:          opdDomain.Id,
-		KodeOpd:     opdDomain.KodeOpd,
-		NamaOpd:     opdDomain.NamaOpd,
-		KodeLembaga: opdDomain.KodeLembaga,
+		Id:                           opdDomain.Id,
+		KodeOpd:                      opdDomain.KodeOpd,
+		NamaOpd:                      opdDomain.NamaOpd,
+		KodeLembaga:                  opdDomain.KodeLembaga,
+		NamaKepalaPerangkatDaerah:    opdDomain.NamaKepalaPerangkatDaerah,
+		NipKepalaPerangkatDaerah:     opdDomain.NipKepalaPerangkatDaerah,
+		PangkatKepalaPerangkatDaerah: opdDomain.PangkatKepalaPerangkatDaerah,
 	}, nil
 }
 

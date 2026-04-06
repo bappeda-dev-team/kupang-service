@@ -5202,7 +5202,10 @@
             "required": [
                 "kode_lembaga",
                 "kode_opd",
-                "nama_opd"
+                "nama_kepala_perangkat_daerah",
+                "nama_opd",
+                "nip_kepala_perangkat_daerah",
+                "pangkat_kepala_perangkat_daerah"
             ],
             "properties": {
                 "kode_lembaga": {
@@ -5211,7 +5214,16 @@
                 "kode_opd": {
                     "type": "string"
                 },
+                "nama_kepala_perangkat_daerah": {
+                    "type": "string"
+                },
                 "nama_opd": {
+                    "type": "string"
+                },
+                "nip_kepala_perangkat_daerah": {
+                    "type": "string"
+                },
+                "pangkat_kepala_perangkat_daerah": {
                     "type": "string"
                 }
             }
@@ -5228,7 +5240,16 @@
                 "kode_opd": {
                     "type": "string"
                 },
+                "nama_kepala_perangkat_daerah": {
+                    "type": "string"
+                },
                 "nama_opd": {
+                    "type": "string"
+                },
+                "nip_kepala_perangkat_daerah": {
+                    "type": "string"
+                },
+                "pangkat_kepala_perangkat_daerah": {
                     "type": "string"
                 }
             }
@@ -5239,7 +5260,10 @@
                 "id",
                 "kode_lembaga",
                 "kode_opd",
-                "nama_opd"
+                "nama_kepala_perangkat_daerah",
+                "nama_opd",
+                "nip_kepala_perangkat_daerah",
+                "pangkat_kepala_perangkat_daerah"
             ],
             "properties": {
                 "id": {
@@ -5251,7 +5275,16 @@
                 "kode_opd": {
                     "type": "string"
                 },
+                "nama_kepala_perangkat_daerah": {
+                    "type": "string"
+                },
                 "nama_opd": {
+                    "type": "string"
+                },
+                "nip_kepala_perangkat_daerah": {
+                    "type": "string"
+                },
+                "pangkat_kepala_perangkat_daerah": {
                     "type": "string"
                 }
             }
