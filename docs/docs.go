@@ -5121,20 +5121,20 @@ const docTemplate = `{
         "web.LembagaCreateRequest": {
             "type": "object",
             "required": [
-                "jabatan_kepala_lembaga",
                 "kode_lembaga",
                 "nama_kepala_lembaga",
+                "jabatan_kepala_lembaga",
                 "nama_lembaga",
                 "nip_kepala_lembaga"
             ],
             "properties": {
-                "jabatan_kepala_lembaga": {
-                    "type": "string"
-                },
                 "kode_lembaga": {
                     "type": "string"
                 },
                 "nama_kepala_lembaga": {
+                    "type": "string"
+                },
+                "jabatan_kepala_lembaga": {
                     "type": "string"
                 },
                 "nama_lembaga": {
@@ -5151,13 +5151,13 @@ const docTemplate = `{
                 "id": {
                     "type": "integer"
                 },
-                "jabatan_kepala_lembaga": {
-                    "type": "string"
-                },
                 "kode_lembaga": {
                     "type": "string"
                 },
                 "nama_kepala_lembaga": {
+                    "type": "string"
+                },
+                "jabatan_kepala_lembaga": {
                     "type": "string"
                 },
                 "nama_lembaga": {
@@ -5172,9 +5172,9 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "id",
-                "jabatan_kepala_lembaga",
                 "kode_lembaga",
                 "nama_kepala_lembaga",
+                "jabatan_kepala_lembaga",
                 "nama_lembaga",
                 "nip_kepala_lembaga"
             ],
@@ -5182,13 +5182,13 @@ const docTemplate = `{
                 "id": {
                     "type": "integer"
                 },
-                "jabatan_kepala_lembaga": {
-                    "type": "string"
-                },
                 "kode_lembaga": {
                     "type": "string"
                 },
                 "nama_kepala_lembaga": {
+                    "type": "string"
+                },
+                "jabatan_kepala_lembaga": {
                     "type": "string"
                 },
                 "nama_lembaga": {
