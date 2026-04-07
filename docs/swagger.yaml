@@ -266,20 +266,34 @@ definitions:
     - nip_kepala_perangkat_daerah
     - pangkat_kepala_perangkat_daerah
     type: object
-  web.PegawaiCreateRequest:
+  web.PegawaiAddJabatanRequest:
     properties:
-      jabatan:
-        type: string
-      kode_opd:
-        type: string
-      nama:
-        type: string
-      nama_opd:
-        type: string
-      nip:
+      id:
+        type: integer
+      nama_jabatan:
         type: string
     required:
-    - jabatan
+    - id
+    - nama_jabatan
+    type: object
+  web.PegawaiCreateRequest:
+    properties:
+      jabatan_id:
+        example: 0
+        type: integer
+      kode_opd:
+        example: string
+        type: string
+      nama:
+        example: string
+        type: string
+      nama_opd:
+        example: string
+        type: string
+      nip:
+        example: string
+        type: string
+    required:
     - kode_opd
     - nama
     - nama_opd
@@ -288,35 +302,50 @@ definitions:
   web.PegawaiResponse:
     properties:
       id:
+        example: 0
         type: integer
-      jabatan:
-        type: string
+      jabatan_id:
+        example: 0
+        type: integer
       kode_opd:
+        example: string
         type: string
       nama:
+        example: string
+        type: string
+      nama_jabatan:
+        example: string
         type: string
       nama_opd:
+        example: string
         type: string
       nip:
+        example: string
         type: string
     type: object
   web.PegawaiUpdateRequest:
     properties:
       id:
+        example: 0
         type: integer
-      jabatan:
-        type: string
+      jabatan_id:
+        example: 0
+        type: integer
       kode_opd:
+        example: string
         type: string
       nama:
+        example: string
         type: string
       nama_opd:
+        example: string
         type: string
       nip:
+        example: string
         type: string
     required:
     - id
-    - jabatan
+    - jabatan_id
     - kode_opd
     - nama
     - nama_opd
@@ -2341,7 +2370,7 @@ paths:
     post:
       consumes:
       - application/json
-      description: Create new Pegawai
+      description: Create new Pegawai (jabatan_id optional)
       parameters:
       - description: Pegawai Create Request
         in: body
@@ -2473,6 +2502,72 @@ paths:
           schema:
             $ref: '#/definitions/web.WebResponse'
       summary: Update Pegawai
+      tags:
+      - Pegawai
+  /pegawais/jabatan:
+    post:
+      consumes:
+      - application/json
+      description: Menambah atau menetapkan jabatan pada pegawai yang sudah ada (akan
+        membuat jabatan baru jika belum tersedia)
+      parameters:
+      - description: Tambah Jabatan
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.PegawaiAddJabatanRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.PegawaiResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Tambah Jabatan ke Pegawai
+      tags:
+      - Pegawai
+  /pegawais/opd/{kode_opd}:
+    get:
+      description: Get list of Pegawai by kode_opd
+      parameters:
+      - description: Kode OPD
+        in: path
+        name: kode_opd
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/web.PegawaiResponse'
+                  type: array
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Get Pegawai by Kode OPD
       tags:
       - Pegawai
   /pohon-kinerja-opds/{kode_opd}/{tahun}:

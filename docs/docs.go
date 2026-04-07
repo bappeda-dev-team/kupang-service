@@ -1916,7 +1916,7 @@ const docTemplate = `{
                 }
             },
             "post": {
-                "description": "Create new Pegawai",
+                "description": "Create new Pegawai (jabatan_id optional)",
                 "consumes": [
                     "application/json"
                 ],
@@ -1941,6 +1941,64 @@ const docTemplate = `{
                 "responses": {
                     "201": {
                         "description": "Created",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.PegawaiResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/pegawais/jabatan": {
+            "post": {
+                "description": "Menambah atau menetapkan jabatan pada pegawai yang sudah ada (akan membuat jabatan baru jika belum tersedia)",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pegawai"
+                ],
+                "summary": "Tambah Jabatan ke Pegawai",
+                "parameters": [
+                    {
+                        "description": "Tambah Jabatan",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/web.PegawaiAddJabatanRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "allOf": [
                                 {
@@ -5432,23 +5490,23 @@ const docTemplate = `{
         "web.LembagaCreateRequest": {
             "type": "object",
             "required": [
-                "kode_lembaga",
-                "nama_lembaga",
                 "jabatan_kepala_lembaga",
+                "kode_lembaga",
                 "nama_kepala_lembaga",
+                "nama_lembaga",
                 "nip_kepala_lembaga"
             ],
             "properties": {
-                "kode_lembaga": {
-                    "type": "string"
-                },
-                "nama_lembaga": {
-                    "type": "string"
-                },
                 "jabatan_kepala_lembaga": {
                     "type": "string"
                 },
+                "kode_lembaga": {
+                    "type": "string"
+                },
                 "nama_kepala_lembaga": {
+                    "type": "string"
+                },
+                "nama_lembaga": {
                     "type": "string"
                 },
                 "nip_kepala_lembaga": {
@@ -5462,16 +5520,16 @@ const docTemplate = `{
                 "id": {
                     "type": "integer"
                 },
-                "kode_lembaga": {
-                    "type": "string"
-                },
-                "nama_lembaga": {
-                    "type": "string"
-                },
                 "jabatan_kepala_lembaga": {
                     "type": "string"
                 },
+                "kode_lembaga": {
+                    "type": "string"
+                },
                 "nama_kepala_lembaga": {
+                    "type": "string"
+                },
+                "nama_lembaga": {
                     "type": "string"
                 },
                 "nip_kepala_lembaga": {
@@ -5483,26 +5541,26 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "id",
-                "kode_lembaga",
-                "nama_lembaga",
                 "jabatan_kepala_lembaga",
+                "kode_lembaga",
                 "nama_kepala_lembaga",
+                "nama_lembaga",
                 "nip_kepala_lembaga"
             ],
             "properties": {
                 "id": {
                     "type": "integer"
                 },
-                "kode_lembaga": {
-                    "type": "string"
-                },
-                "nama_lembaga": {
-                    "type": "string"
-                },
                 "jabatan_kepala_lembaga": {
                     "type": "string"
                 },
+                "kode_lembaga": {
+                    "type": "string"
+                },
                 "nama_kepala_lembaga": {
+                    "type": "string"
+                },
+                "nama_lembaga": {
                     "type": "string"
                 },
                 "nip_kepala_lembaga": {
@@ -5513,30 +5571,30 @@ const docTemplate = `{
         "web.OpdCreateRequest": {
             "type": "object",
             "required": [
+                "kode_lembaga",
                 "kode_opd",
-                "nama_opd",
                 "nama_kepala_perangkat_daerah",
+                "nama_opd",
                 "nip_kepala_perangkat_daerah",
-                "pangkat_kepala_perangkat_daerah",
-                "kode_lembaga"
+                "pangkat_kepala_perangkat_daerah"
             ],
             "properties": {
+                "kode_lembaga": {
+                    "type": "string"
+                },
                 "kode_opd": {
                     "type": "string"
                 },
-                "nama_opd": {
+                "nama_kepala_perangkat_daerah": {
                     "type": "string"
                 },
-                "nama_kepala_perangkat_daerah": {
+                "nama_opd": {
                     "type": "string"
                 },
                 "nip_kepala_perangkat_daerah": {
                     "type": "string"
                 },
                 "pangkat_kepala_perangkat_daerah": {
-                    "type": "string"
-                },
-                "kode_lembaga": {
                     "type": "string"
                 }
             }
@@ -5547,22 +5605,22 @@ const docTemplate = `{
                 "id": {
                     "type": "integer"
                 },
+                "kode_lembaga": {
+                    "type": "string"
+                },
                 "kode_opd": {
                     "type": "string"
                 },
-                "nama_opd": {
+                "nama_kepala_perangkat_daerah": {
                     "type": "string"
                 },
-                "nama_kepala_perangkat_daerah": {
+                "nama_opd": {
                     "type": "string"
                 },
                 "nip_kepala_perangkat_daerah": {
                     "type": "string"
                 },
                 "pangkat_kepala_perangkat_daerah": {
-                    "type": "string"
-                },
-                "kode_lembaga": {
                     "type": "string"
                 }
             }
@@ -5571,18 +5629,18 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "id",
+                "kode_lembaga",
                 "kode_opd",
                 "nama_kepala_perangkat_daerah",
                 "nama_opd",
                 "nip_kepala_perangkat_daerah",
-                "pangkat_kepala_perangkat_daerah",
-                "kode_lembaga"
+                "pangkat_kepala_perangkat_daerah"
             ],
             "properties": {
                 "id": {
                     "type": "integer"
                 },
-                "nama_opd": {
+                "kode_lembaga": {
                     "type": "string"
                 },
                 "kode_opd": {
@@ -5591,13 +5649,28 @@ const docTemplate = `{
                 "nama_kepala_perangkat_daerah": {
                     "type": "string"
                 },
+                "nama_opd": {
+                    "type": "string"
+                },
                 "nip_kepala_perangkat_daerah": {
                     "type": "string"
                 },
                 "pangkat_kepala_perangkat_daerah": {
                     "type": "string"
+                }
+            }
+        },
+        "web.PegawaiAddJabatanRequest": {
+            "type": "object",
+            "required": [
+                "id",
+                "nama_jabatan"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer"
                 },
-                "kode_lembaga": {
+                "nama_jabatan": {
                     "type": "string"
                 }
             }
@@ -5605,51 +5678,64 @@ const docTemplate = `{
         "web.PegawaiCreateRequest": {
             "type": "object",
             "required": [
-                "nama",
-                "nip",
-                "jabatan",
                 "kode_opd",
-                "nama_opd"
+                "nama",
+                "nama_opd",
+                "nip"
             ],
             "properties": {
-                "nama": {
-                    "type": "string"
-                },
-                "nip": {
-                    "type": "string"
-                },
-                "jabatan": {
-                    "type": "string"
+                "jabatan_id": {
+                    "type": "integer",
+                    "example": 0
                 },
                 "kode_opd": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "string"
+                },
+                "nama": {
+                    "type": "string",
+                    "example": "string"
                 },
                 "nama_opd": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "string"
+                },
+                "nip": {
+                    "type": "string",
+                    "example": "string"
                 }
-                
             }
         },
         "web.PegawaiResponse": {
             "type": "object",
             "properties": {
                 "id": {
-                    "type": "integer"
+                    "type": "integer",
+                    "example": 0
                 },
-                "nama": {
-                    "type": "string"
-                },
-                "nip": {
-                    "type": "string"
-                },
-                "jabatan": {
-                    "type": "string"
+                "jabatan_id": {
+                    "type": "integer",
+                    "example": 0
                 },
                 "kode_opd": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "string"
+                },
+                "nama": {
+                    "type": "string",
+                    "example": "string"
+                },
+                "nama_jabatan": {
+                    "type": "string",
+                    "example": "string"
                 },
                 "nama_opd": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "string"
+                },
+                "nip": {
+                    "type": "string",
+                    "example": "string"
                 }
             }
         },
@@ -5657,30 +5743,36 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "id",
-                "nama",
-                "nip",
-                "jabatan",
+                "jabatan_id",
                 "kode_opd",
-                "nama_opd"
+                "nama",
+                "nama_opd",
+                "nip"
             ],
             "properties": {
                 "id": {
-                    "type": "integer"
+                    "type": "integer",
+                    "example": 0
                 },
-                "nama": {
-                    "type": "string"
-                },
-                "nip": {
-                    "type": "string"
-                },
-                "jabatan": {
-                    "type": "string"
+                "jabatan_id": {
+                    "type": "integer",
+                    "example": 0
                 },
                 "kode_opd": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "string"
+                },
+                "nama": {
+                    "type": "string",
+                    "example": "string"
                 },
                 "nama_opd": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "string"
+                },
+                "nip": {
+                    "type": "string",
+                    "example": "string"
                 }
             }
         },

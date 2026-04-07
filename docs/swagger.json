@@ -1914,7 +1914,7 @@
                 }
             },
             "post": {
-                "description": "Create new Pegawai",
+                "description": "Create new Pegawai (jabatan_id optional)",
                 "consumes": [
                     "application/json"
                 ],
@@ -1959,6 +1959,114 @@
                         "description": "Bad Request",
                         "schema": {
                             "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/pegawais/jabatan": {
+            "post": {
+                "description": "Menambah atau menetapkan jabatan pada pegawai yang sudah ada (akan membuat jabatan baru jika belum tersedia)",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pegawai"
+                ],
+                "summary": "Tambah Jabatan ke Pegawai",
+                "parameters": [
+                    {
+                        "description": "Tambah Jabatan",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/web.PegawaiAddJabatanRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.PegawaiResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/pegawais/opd/{kode_opd}": {
+            "get": {
+                "description": "Get list of Pegawai by kode_opd",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pegawai"
+                ],
+                "summary": "Get Pegawai by Kode OPD",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Kode OPD",
+                        "name": "kode_opd",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/web.PegawaiResponse"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     },
                     "500": {
@@ -5550,30 +5658,49 @@
                 }
             }
         },
+        "web.PegawaiAddJabatanRequest": {
+            "type": "object",
+            "required": [
+                "id",
+                "nama_jabatan"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "nama_jabatan": {
+                    "type": "string"
+                }
+            }
+        },
         "web.PegawaiCreateRequest": {
             "type": "object",
             "required": [
-                "jabatan",
                 "kode_opd",
                 "nama",
                 "nama_opd",
                 "nip"
             ],
             "properties": {
-                "jabatan": {
-                    "type": "string"
+                "jabatan_id": {
+                    "type": "integer",
+                    "example": 0
                 },
                 "kode_opd": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "string"
                 },
                 "nama": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "string"
                 },
                 "nama_opd": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "string"
                 },
                 "nip": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "string"
                 }
             }
         },
@@ -5581,22 +5708,32 @@
             "type": "object",
             "properties": {
                 "id": {
-                    "type": "integer"
+                    "type": "integer",
+                    "example": 0
                 },
-                "jabatan": {
-                    "type": "string"
+                "jabatan_id": {
+                    "type": "integer",
+                    "example": 0
                 },
                 "kode_opd": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "string"
                 },
                 "nama": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "string"
+                },
+                "nama_jabatan": {
+                    "type": "string",
+                    "example": "string"
                 },
                 "nama_opd": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "string"
                 },
                 "nip": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "string"
                 }
             }
         },
@@ -5604,7 +5741,7 @@
             "type": "object",
             "required": [
                 "id",
-                "jabatan",
+                "jabatan_id",
                 "kode_opd",
                 "nama",
                 "nama_opd",
@@ -5612,22 +5749,28 @@
             ],
             "properties": {
                 "id": {
-                    "type": "integer"
+                    "type": "integer",
+                    "example": 0
                 },
-                "jabatan": {
-                    "type": "string"
+                "jabatan_id": {
+                    "type": "integer",
+                    "example": 0
                 },
                 "kode_opd": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "string"
                 },
                 "nama": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "string"
                 },
                 "nama_opd": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "string"
                 },
                 "nip": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "string"
                 }
             }
         },

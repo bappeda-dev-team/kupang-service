@@ -21,7 +21,7 @@ func NewPegawaiControllerImpl(pegawaiService service.PegawaiService) *PegawaiCon
 }
 
 // @Summary Create Pegawai
-// @Description Create new Pegawai
+// @Description Create new Pegawai (jabatan_id optional)
 // @Tags Pegawai
 // @Accept json
 // @Produce json
@@ -92,6 +92,48 @@ func (controller *PegawaiControllerImpl) Update(c echo.Context) error {
 	}
 
 	pegawaiResponse, err := controller.PegawaiService.Update(c.Request().Context(), pegawaiUpdateRequest)
+	if err != nil {
+		if helper.IsValidationError(err) {
+			return c.JSON(http.StatusBadRequest, web.WebResponse{
+				Code:   http.StatusBadRequest,
+				Status: "BAD_REQUEST",
+				Data:   err.Error(),
+			})
+		}
+		return c.JSON(http.StatusInternalServerError, web.WebResponse{
+			Code:   http.StatusInternalServerError,
+			Status: "INTERNAL_SERVER_ERROR",
+		})
+	}
+
+	return c.JSON(http.StatusOK, web.WebResponse{
+		Code:   http.StatusOK,
+		Status: "OK",
+		Data:   pegawaiResponse,
+	})
+}
+
+// @Summary Tambah Jabatan ke Pegawai
+// @Description Menambah atau menetapkan jabatan pada pegawai yang sudah ada (akan membuat jabatan baru jika belum tersedia)
+// @Tags Pegawai
+// @Accept json
+// @Produce json
+// @Param data body web.PegawaiAddJabatanRequest true "Tambah Jabatan"
+// @Success 200 {object} web.WebResponse{data=web.PegawaiResponse} "OK"
+// @Failure 400 {object} web.WebResponse "Bad Request"
+// @Failure 500 {object} web.WebResponse "Internal Server Error"
+// @Router /pegawais/jabatan [post]
+func (controller *PegawaiControllerImpl) AddJabatan(c echo.Context) error {
+	request := web.PegawaiAddJabatanRequest{}
+	err := c.Bind(&request)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, web.WebResponse{
+			Code:   http.StatusBadRequest,
+			Status: "BAD_REQUEST",
+		})
+	}
+
+	pegawaiResponse, err := controller.PegawaiService.AddJabatan(c.Request().Context(), request)
 	if err != nil {
 		if helper.IsValidationError(err) {
 			return c.JSON(http.StatusBadRequest, web.WebResponse{
