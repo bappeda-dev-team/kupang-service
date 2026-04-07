@@ -13,4 +13,5 @@ type PegawaiController interface {
 	FindById(c echo.Context) error
 	FindAll(c echo.Context) error
 	FindByKodeOpd(c echo.Context) error
+	FindAllJabatan(c echo.Context) error
 }

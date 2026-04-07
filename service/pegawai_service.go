@@ -14,4 +14,5 @@ type PegawaiService interface {
 	FindById(ctx context.Context, id int) (web.PegawaiResponse, error)
 	FindAll(ctx context.Context) ([]web.PegawaiResponse, error)
 	FindByKodeOpd(ctx context.Context, kodeOpd string) ([]web.PegawaiResponse, error)
+	FindAllJabatan(ctx context.Context) ([]web.JabatanResponse, error)
 }

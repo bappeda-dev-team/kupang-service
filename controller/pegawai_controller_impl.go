@@ -209,7 +209,7 @@ func (controller *PegawaiControllerImpl) UpdateJabatan(c echo.Context) error {
 				Data:   err.Error(),
 			})
 		}
-		if err.Error() == "jabatan_id tidak sesuai dengan pegawai" {
+		if err.Error() == "jabatan_id tidak sesuai denganpegawai" {
 			return c.JSON(http.StatusBadRequest, web.WebResponse{
 				Code:   http.StatusBadRequest,
 				Status: "BAD_REQUEST",
@@ -226,6 +226,29 @@ func (controller *PegawaiControllerImpl) UpdateJabatan(c echo.Context) error {
 		Code:   http.StatusOK,
 		Status: "OK",
 		Data:   response,
+	})
+}
+
+// @Summary Get All Jabatan
+// @Description Get list of all Jabatan
+// @Tags Pegawai
+// @Produce json
+// @Success 200 {object} web.WebResponse{data=[]web.JabatanResponse} "OK"
+// @Failure 500 {object} web.WebResponse "Internal Server Error"
+// @Router /pegawais/jabatan [get]
+func (controller *PegawaiControllerImpl) FindAllJabatan(c echo.Context) error {
+	jabatanResponses, err := controller.PegawaiService.FindAllJabatan(c.Request().Context())
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, web.WebResponse{
+			Code:   http.StatusInternalServerError,
+			Status: "INTERNAL_SERVER_ERROR",
+		})
+	}
+
+	return c.JSON(http.StatusOK, web.WebResponse{
+		Code:   http.StatusOK,
+		Status: "OK",
+		Data:   jabatanResponses,
 	})
 }
 

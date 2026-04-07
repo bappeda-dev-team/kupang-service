@@ -318,6 +318,30 @@ func (service *PegawaiServiceImpl) FindByKodeOpd(ctx context.Context, kodeOpd st
 	return responses, nil
 }
 
+func (service *PegawaiServiceImpl) FindAllJabatan(ctx context.Context) ([]web.JabatanResponse, error) {
+	tx, err := service.DB.BeginTx(ctx, nil)
+	if err != nil {
+		return []web.JabatanResponse{}, err
+	}
+	defer helper.CommitOrRollback(tx)
+
+	jabatanList, err := service.PegawaiRepository.FindAllJabatan(ctx, tx)
+	if err != nil {
+		return []web.JabatanResponse{}, err
+	}
+
+	var responses []web.JabatanResponse
+	for _, jabatan := range jabatanList {
+		responses = append(responses, web.JabatanResponse{
+			Id:          jabatan.Id,
+			NamaJabatan: jabatan.NamaJabatan,
+			Tahun:       nullStringToPtr(jabatan.Tahun),
+		})
+	}
+
+	return responses, nil
+}
+
 func nullIntToPtr(value sql.NullInt64) *int {
 	if value.Valid {
 		v := int(value.Int64)

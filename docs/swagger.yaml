@@ -146,6 +146,18 @@ definitions:
     required:
     - id
     type: object
+  web.JabatanResponse:
+    properties:
+      id:
+        example: 0
+        type: integer
+      nama_jabatan:
+        example: string
+        type: string
+      tahun:
+        example: "2024"
+        type: string
+    type: object
   web.LembagaCreateRequest:
     properties:
       jabatan_kepala_lembaga:
@@ -2531,6 +2543,29 @@ paths:
       tags:
       - Pegawai
   /pegawais/jabatan:
+    get:
+      description: Get list of all Jabatan
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/web.JabatanResponse'
+                  type: array
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Get All Jabatan
+      tags:
+      - Pegawai
     post:
       consumes:
       - application/json

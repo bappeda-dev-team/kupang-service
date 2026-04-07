@@ -148,3 +148,25 @@ func (repository *PegawaiRepositoryImpl) UpdatePegawaiNamaJabatanByJabatanId(ctx
 
 	return nil
 }
+
+func (repository *PegawaiRepositoryImpl) FindAllJabatan(ctx context.Context, tx *sql.Tx) ([]domain.Jabatan, error) {
+	query := "SELECT id, nama_jabatan, tahun FROM jabatan ORDER BY id ASC"
+	rows, err := tx.QueryContext(ctx, query)
+	if err != nil {
+		return []domain.Jabatan{}, err
+	}
+	defer rows.Close()
+
+	var jabatanList []domain.Jabatan
+	for rows.Next() {
+		var jabatan domain.Jabatan
+		err := rows.Scan(&jabatan.Id, &jabatan.NamaJabatan, &jabatan.Tahun)
+		if err != nil {
+			return []domain.Jabatan{}, err
+		}
+
+		jabatanList = append(jabatanList, jabatan)
+	}
+
+	return jabatanList, nil
+}

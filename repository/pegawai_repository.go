@@ -15,5 +15,6 @@ type PegawaiRepository interface {
 	FindJabatanById(ctx context.Context, tx *sql.Tx, id int) (domain.Jabatan, error)
 	FindAll(ctx context.Context, tx *sql.Tx) ([]domain.Pegawai, error)
 	FindByKodeOpd(ctx context.Context, tx *sql.Tx, kodeOpd string) ([]domain.Pegawai, error)
+	FindAllJabatan(ctx context.Context, tx *sql.Tx) ([]domain.Jabatan, error)
 	UpdatePegawaiNamaJabatanByJabatanId(ctx context.Context, tx *sql.Tx, jabatanId int, namaJabatan string) error
 }

@@ -1973,6 +1973,45 @@ const docTemplate = `{
             }
         },
         "/pegawais/jabatan": {
+            "get": {
+                "description": "Get list of all Jabatan",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pegawai"
+                ],
+                "summary": "Get All Jabatan",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/web.JabatanResponse"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
             "post": {
                 "description": "Menambah atau menetapkan jabatan pada pegawai yang sudah ada (akan membuat jabatan baru jika belum tersedia)",
                 "consumes": [
@@ -5555,6 +5594,23 @@ const docTemplate = `{
                 },
                 "indikator": {
                     "type": "string"
+                }
+            }
+        },
+        "web.JabatanResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "example": 0
+                },
+                "nama_jabatan": {
+                    "type": "string",
+                    "example": "string"
+                },
+                "tahun": {
+                    "type": "string",
+                    "example": "2024"
                 }
             }
         },
