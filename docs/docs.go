@@ -2030,6 +2030,77 @@ const docTemplate = `{
                 }
             }
         },
+        "/pegawais/jabatan/{id}": {
+            "put": {
+                "description": "Update data jabatan by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pegawai"
+                ],
+                "summary": "Update Jabatan",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Jabatan ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Jabatan Update Request",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/web.PegawaiUpdateJabatanRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.PegawaiResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/pegawais/opd/{kode_opd}": {
             "get": {
                 "description": "Get list of Pegawai by kode_opd",
@@ -5663,13 +5734,14 @@ const docTemplate = `{
         "web.PegawaiAddJabatanRequest": {
             "type": "object",
             "required": [
-                "id",
-                "nama_jabatan"
+		"pegawai_id",
+		"nama_jabatan"
             ],
             "properties": {
-                "id": {
-                    "type": "integer"
-                },
+		"pegawai_id": {
+		    "type": "integer",
+		    "example": 0
+		},
                 "nama_jabatan": {
                     "type": "string"
                 }
@@ -5747,7 +5819,6 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "id",
-                "jabatan_id",
                 "kode_opd",
                 "nama",
                 "nama_opd",
@@ -5755,10 +5826,6 @@ const docTemplate = `{
             ],
             "properties": {
                 "id": {
-                    "type": "integer",
-                    "example": 0
-                },
-                "jabatan_id": {
                     "type": "integer",
                     "example": 0
                 },
@@ -5781,6 +5848,28 @@ const docTemplate = `{
                 "nip": {
                     "type": "string",
                     "example": "string"
+                }
+            }
+        },
+        "web.PegawaiUpdateJabatanRequest": {
+            "type": "object",
+            "required": [
+                "jabatan_id",
+                "nama_jabatan",
+                "pegawai_id"
+            ],
+            "properties": {
+                "jabatan_id": {
+                    "type": "integer",
+                    "example": 0
+                },
+                "nama_jabatan": {
+                    "type": "string",
+                    "example": "string"
+                },
+                "pegawai_id": {
+                    "type": "integer",
+                    "example": 0
                 }
             }
         },

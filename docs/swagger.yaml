@@ -331,9 +331,6 @@ definitions:
       id:
         example: 0
         type: integer
-      jabatan_id:
-        example: 0
-        type: integer
       jenis_pegawai:
         example: string
         type: string
@@ -351,7 +348,6 @@ definitions:
         type: string
     required:
     - id
-    - jabatan_id
     - kode_opd
     - nama
     - nama_opd

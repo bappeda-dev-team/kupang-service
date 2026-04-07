@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"database/sql"
+	"errors"
 	"kupang-service/helper"
 	"kupang-service/model/domain"
 	"kupang-service/model/web"
@@ -82,7 +83,7 @@ func (service *PegawaiServiceImpl) AddJabatan(ctx context.Context, request web.P
 	}
 	defer helper.CommitOrRollback(tx)
 
-	pegawai, err := service.PegawaiRepository.FindById(ctx, tx, request.Id)
+	pegawai, err := service.PegawaiRepository.FindById(ctx, tx, request.PegawaiId)
 	if err != nil {
 		return web.PegawaiResponse{}, err
 	}
@@ -112,6 +113,56 @@ func (service *PegawaiServiceImpl) AddJabatan(ctx context.Context, request web.P
 	}, nil
 }
 
+func (service *PegawaiServiceImpl) UpdateJabatan(ctx context.Context, request web.PegawaiUpdateJabatanRequest) (web.PegawaiResponse, error) {
+	err := service.Validator.Struct(request)
+	if err != nil {
+		return web.PegawaiResponse{}, err
+	}
+
+	tx, err := service.DB.BeginTx(ctx, nil)
+	if err != nil {
+		return web.PegawaiResponse{}, err
+	}
+	defer helper.CommitOrRollback(tx)
+
+	pegawai, err := service.PegawaiRepository.FindById(ctx, tx, request.PegawaiId)
+	if err != nil {
+		return web.PegawaiResponse{}, err
+	}
+
+	if !pegawai.JabatanId.Valid || int(pegawai.JabatanId.Int64) != request.JabatanId {
+		return web.PegawaiResponse{}, errors.New("jabatan_id tidak sesuai dengan pegawai")
+	}
+
+	jabatanDomain := domain.Jabatan{
+		Id:          request.JabatanId,
+		NamaJabatan: request.NamaJabatan,
+	}
+
+	jabatanDomain, err = service.PegawaiRepository.UpdateJabatan(ctx, tx, jabatanDomain)
+	if err != nil {
+		return web.PegawaiResponse{}, err
+	}
+
+	err = service.PegawaiRepository.UpdatePegawaiNamaJabatanByJabatanId(ctx, tx, jabatanDomain.Id, jabatanDomain.NamaJabatan)
+	if err != nil {
+		return web.PegawaiResponse{}, err
+	}
+
+	pegawai.NamaJabatan = sql.NullString{String: jabatanDomain.NamaJabatan, Valid: true}
+
+	return web.PegawaiResponse{
+		Id:           pegawai.Id,
+		Nama:         pegawai.Nama,
+		Nip:          pegawai.Nip,
+		JabatanId:    nullIntToPtr(pegawai.JabatanId),
+		NamaJabatan:  nullStringToPtr(pegawai.NamaJabatan),
+		KodeOpd:      pegawai.KodeOpd,
+		NamaOpd:      pegawai.NamaOpd,
+		JenisPegawai: nullStringToPtr(pegawai.JenisPegawai),
+	}, nil
+}
+
 func (service *PegawaiServiceImpl) Update(ctx context.Context, pegawaiData web.PegawaiUpdateRequest) (web.PegawaiResponse, error) {
 	err := service.Validator.Struct(pegawaiData)
 	if err != nil {
@@ -124,23 +175,17 @@ func (service *PegawaiServiceImpl) Update(ctx context.Context, pegawaiData web.P
 	}
 	defer helper.CommitOrRollback(tx)
 
-	namaJabatan, err := service.fetchNamaJabatan(ctx, tx, int64(pegawaiData.JabatanId))
+	pegawaiExisting, err := service.PegawaiRepository.FindById(ctx, tx, pegawaiData.Id)
 	if err != nil {
 		return web.PegawaiResponse{}, err
 	}
 
 	pegawaiDomain := domain.Pegawai{
-		Id:   pegawaiData.Id,
-		Nama: pegawaiData.Nama,
-		Nip:  pegawaiData.Nip,
-		JabatanId: sql.NullInt64{
-			Int64: int64(pegawaiData.JabatanId),
-			Valid: true,
-		},
-		NamaJabatan: sql.NullString{
-			String: namaJabatan,
-			Valid:  true,
-		},
+		Id:           pegawaiData.Id,
+		Nama:         pegawaiData.Nama,
+		Nip:          pegawaiData.Nip,
+		JabatanId:    pegawaiExisting.JabatanId,
+		NamaJabatan:  pegawaiExisting.NamaJabatan,
 		KodeOpd:      pegawaiData.KodeOpd,
 		NamaOpd:      pegawaiData.NamaOpd,
 		JenisPegawai: ptrToNullString(pegawaiData.JenisPegawai),
@@ -155,7 +200,7 @@ func (service *PegawaiServiceImpl) Update(ctx context.Context, pegawaiData web.P
 		Id:           pegawaiDomain.Id,
 		Nama:         pegawaiDomain.Nama,
 		Nip:          pegawaiDomain.Nip,
-		JabatanId:    nullIntToPtr(pegawaiDomain.JabatanId),
+		JabatanId:    nil,
 		NamaJabatan:  nullStringToPtr(pegawaiDomain.NamaJabatan),
 		KodeOpd:      pegawaiDomain.KodeOpd,
 		NamaOpd:      pegawaiDomain.NamaOpd,

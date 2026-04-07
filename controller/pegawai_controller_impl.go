@@ -155,6 +155,80 @@ func (controller *PegawaiControllerImpl) AddJabatan(c echo.Context) error {
 	})
 }
 
+// @Summary Update Jabatan
+// @Description Update data jabatan by ID
+// @Tags Pegawai
+// @Accept json
+// @Produce json
+// @Param id path int true "Jabatan ID"
+// @Param data body web.PegawaiUpdateJabatanRequest true "Jabatan Update Request"
+// @Success 200 {object} web.WebResponse{data=web.PegawaiResponse} "OK"
+// @Failure 400 {object} web.WebResponse "Bad Request"
+// @Failure 404 {object} web.WebResponse "Not Found"
+// @Failure 500 {object} web.WebResponse "Internal Server Error"
+// @Router /pegawais/jabatan/{id} [put]
+func (controller *PegawaiControllerImpl) UpdateJabatan(c echo.Context) error {
+	request := web.PegawaiUpdateJabatanRequest{}
+	err := c.Bind(&request)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, web.WebResponse{
+			Code:   http.StatusBadRequest,
+			Status: "BAD_REQUEST",
+		})
+	}
+
+	request.JabatanId, err = strconv.Atoi(c.Param("id"))
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, web.WebResponse{
+			Code:   http.StatusBadRequest,
+			Status: "BAD_REQUEST",
+		})
+	}
+
+	if request.JabatanId == 0 || request.PegawaiId == 0 {
+		return c.JSON(http.StatusBadRequest, web.WebResponse{
+			Code:   http.StatusBadRequest,
+			Status: "BAD_REQUEST",
+			Data:   "pegawai_id dan jabatan_id wajib diisi",
+		})
+	}
+
+	response, err := controller.PegawaiService.UpdateJabatan(c.Request().Context(), request)
+	if err != nil {
+		if helper.IsValidationError(err) {
+			return c.JSON(http.StatusBadRequest, web.WebResponse{
+				Code:   http.StatusBadRequest,
+				Status: "BAD_REQUEST",
+				Data:   err.Error(),
+			})
+		}
+		if err.Error() == "id tidak ditemukan" {
+			return c.JSON(http.StatusNotFound, web.WebResponse{
+				Code:   http.StatusNotFound,
+				Status: "NOT_FOUND",
+				Data:   err.Error(),
+			})
+		}
+		if err.Error() == "jabatan_id tidak sesuai dengan pegawai" {
+			return c.JSON(http.StatusBadRequest, web.WebResponse{
+				Code:   http.StatusBadRequest,
+				Status: "BAD_REQUEST",
+				Data:   err.Error(),
+			})
+		}
+		return c.JSON(http.StatusInternalServerError, web.WebResponse{
+			Code:   http.StatusInternalServerError,
+			Status: "INTERNAL_SERVER_ERROR",
+		})
+	}
+
+	return c.JSON(http.StatusOK, web.WebResponse{
+		Code:   http.StatusOK,
+		Status: "OK",
+		Data:   response,
+	})
+}
+
 // @Summary Delete Pegawai
 // @Description Delete existing Pegawai by ID
 // @Tags Pegawai

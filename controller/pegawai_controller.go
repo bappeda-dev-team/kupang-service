@@ -8,6 +8,7 @@ type PegawaiController interface {
 	Create(c echo.Context) error
 	Update(c echo.Context) error
 	AddJabatan(c echo.Context) error
+	UpdateJabatan(c echo.Context) error
 	Delete(c echo.Context) error
 	FindById(c echo.Context) error
 	FindAll(c echo.Context) error

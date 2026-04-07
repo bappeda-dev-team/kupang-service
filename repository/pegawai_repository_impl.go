@@ -34,6 +34,25 @@ func (repository *PegawaiRepositoryImpl) Update(ctx context.Context, tx *sql.Tx,
 	return pegawai, nil
 }
 
+func (repository *PegawaiRepositoryImpl) UpdateJabatan(ctx context.Context, tx *sql.Tx, jabatan domain.Jabatan) (domain.Jabatan, error) {
+	query := "UPDATE jabatan SET nama_jabatan = $1, last_modified_date = NOW() WHERE id = $2"
+	result, err := tx.ExecContext(ctx, query, jabatan.NamaJabatan, jabatan.Id)
+	if err != nil {
+		return domain.Jabatan{}, err
+	}
+
+	rows, err := result.RowsAffected()
+	if err != nil {
+		return domain.Jabatan{}, err
+	}
+
+	if rows == 0 {
+		return domain.Jabatan{}, errors.New("id tidak ditemukan")
+	}
+
+	return jabatan, nil
+}
+
 func (repository *PegawaiRepositoryImpl) Delete(ctx context.Context, tx *sql.Tx, id int) error {
 	query := "DELETE FROM pegawai WHERE id = $1"
 	_, err := tx.ExecContext(ctx, query, id)
@@ -58,6 +77,22 @@ func (repository *PegawaiRepositoryImpl) FindById(ctx context.Context, tx *sql.T
 	}
 
 	return pegawai, nil
+}
+
+func (repository *PegawaiRepositoryImpl) FindJabatanById(ctx context.Context, tx *sql.Tx, id int) (domain.Jabatan, error) {
+	query := "SELECT id, nama_jabatan FROM jabatan WHERE id = $1"
+	row := tx.QueryRowContext(ctx, query, id)
+
+	var jabatan domain.Jabatan
+	err := row.Scan(&jabatan.Id, &jabatan.NamaJabatan)
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return domain.Jabatan{}, errors.New("id tidak ditemukan")
+		}
+		return domain.Jabatan{}, err
+	}
+
+	return jabatan, nil
 }
 
 func (repository *PegawaiRepositoryImpl) FindAll(ctx context.Context, tx *sql.Tx) ([]domain.Pegawai, error) {
@@ -102,4 +137,14 @@ func (repository *PegawaiRepositoryImpl) FindByKodeOpd(ctx context.Context, tx *
 	}
 
 	return pegawaiList, nil
+}
+
+func (repository *PegawaiRepositoryImpl) UpdatePegawaiNamaJabatanByJabatanId(ctx context.Context, tx *sql.Tx, jabatanId int, namaJabatan string) error {
+	query := "UPDATE pegawai SET nama_jabatan = $1 WHERE jabatan_id = $2"
+	_, err := tx.ExecContext(ctx, query, namaJabatan, jabatanId)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
