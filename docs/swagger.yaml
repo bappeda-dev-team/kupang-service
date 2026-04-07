@@ -278,9 +278,6 @@ definitions:
     type: object
   web.PegawaiCreateRequest:
     properties:
-      jabatan_id:
-        example: 0
-        type: integer
       kode_opd:
         example: string
         type: string
@@ -2370,7 +2367,7 @@ paths:
     post:
       consumes:
       - application/json
-      description: Create new Pegawai (jabatan_id optional)
+      description: Create new Pegawai
       parameters:
       - description: Pegawai Create Request
         in: body

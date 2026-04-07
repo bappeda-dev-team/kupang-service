@@ -1916,7 +1916,7 @@ const docTemplate = `{
                 }
             },
             "post": {
-                "description": "Create new Pegawai (jabatan_id optional)",
+                "description": "Create new Pegawai",
                 "consumes": [
                     "application/json"
                 ],
@@ -5684,10 +5684,6 @@ const docTemplate = `{
                 "nip"
             ],
             "properties": {
-                "jabatan_id": {
-                    "type": "integer",
-                    "example": 0
-                },
                 "kode_opd": {
                     "type": "string",
                     "example": "string"
@@ -5710,10 +5706,6 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "id": {
-                    "type": "integer",
-                    "example": 0
-                },
-                "jabatan_id": {
                     "type": "integer",
                     "example": 0
                 },

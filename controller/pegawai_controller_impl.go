@@ -21,7 +21,7 @@ func NewPegawaiControllerImpl(pegawaiService service.PegawaiService) *PegawaiCon
 }
 
 // @Summary Create Pegawai
-// @Description Create new Pegawai (jabatan_id optional)
+// @Description Create new Pegawai
 // @Tags Pegawai
 // @Accept json
 // @Produce json

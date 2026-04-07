@@ -37,29 +37,16 @@ func (service *PegawaiServiceImpl) Create(ctx context.Context, pegawai web.Pegaw
 	}
 	defer helper.CommitOrRollback(tx)
 
-	var (
-		namaJabatan  string
-		jabatanValid bool
-	)
-
-	if pegawai.JabatanId != nil {
-		namaJabatan, err = service.fetchNamaJabatan(ctx, tx, int64(*pegawai.JabatanId))
-		if err != nil {
-			return web.PegawaiResponse{}, err
-		}
-		jabatanValid = true
-	}
-
 	pegawaiDomain := domain.Pegawai{
 		Nama: pegawai.Nama,
 		Nip:  pegawai.Nip,
 		JabatanId: sql.NullInt64{
-			Int64: int64(nullIntValue(pegawai.JabatanId)),
-			Valid: jabatanValid,
+			Int64: 0,
+			Valid: false,
 		},
 		NamaJabatan: sql.NullString{
-			String: namaJabatan,
-			Valid:  jabatanValid,
+			String: "",
+			Valid:  false,
 		},
 		KodeOpd: pegawai.KodeOpd,
 		NamaOpd: pegawai.NamaOpd,
@@ -74,7 +61,7 @@ func (service *PegawaiServiceImpl) Create(ctx context.Context, pegawai web.Pegaw
 		Id:          pegawaiDomain.Id,
 		Nama:        pegawaiDomain.Nama,
 		Nip:         pegawaiDomain.Nip,
-		JabatanId:   nullIntToPtr(pegawaiDomain.JabatanId),
+		JabatanId:   nil,
 		NamaJabatan: nullStringToPtr(pegawaiDomain.NamaJabatan),
 		KodeOpd:     pegawaiDomain.KodeOpd,
 		NamaOpd:     pegawaiDomain.NamaOpd,
@@ -281,14 +268,6 @@ func nullStringToPtr(value sql.NullString) *string {
 	}
 
 	return nil
-}
-
-func nullIntValue(value *int) int64 {
-	if value == nil {
-		return 0
-	}
-
-	return int64(*value)
 }
 
 func (service *PegawaiServiceImpl) ensureJabatan(ctx context.Context, tx *sql.Tx, namaJabatan string) (int64, error) {
