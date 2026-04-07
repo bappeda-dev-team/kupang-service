@@ -2028,6 +2028,77 @@
                 }
             }
         },
+        "/pegawais/jabatan/{id}": {
+            "put": {
+                "description": "Update data jabatan by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pegawai"
+                ],
+                "summary": "Update Jabatan",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Jabatan ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Jabatan Update Request",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/web.PegawaiUpdateJabatanRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.PegawaiResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/pegawais/opd/{kode_opd}": {
             "get": {
                 "description": "Get list of Pegawai by kode_opd",
@@ -5661,14 +5732,17 @@
         "web.PegawaiAddJabatanRequest": {
             "type": "object",
             "required": [
-                "id",
-                "nama_jabatan"
+                "nama_jabatan",
+                "pegawai_id"
             ],
             "properties": {
-                "id": {
+                "nama_jabatan": {
+                    "type": "string"
+                },
+                "pegawai_id": {
                     "type": "integer"
                 },
-                "nama_jabatan": {
+                "tahun": {
                     "type": "string"
                 }
             }
@@ -5738,6 +5812,36 @@
                 "nip": {
                     "type": "string",
                     "example": "string"
+                },
+                "tahun_jabatan": {
+                    "type": "string",
+                    "example": "2024"
+                }
+            }
+        },
+        "web.PegawaiUpdateJabatanRequest": {
+            "type": "object",
+            "required": [
+                "jabatan_id",
+                "nama_jabatan",
+                "pegawai_id"
+            ],
+            "properties": {
+                "jabatan_id": {
+                    "type": "integer",
+                    "example": 0
+                },
+                "nama_jabatan": {
+                    "type": "string",
+                    "example": "string"
+                },
+                "pegawai_id": {
+                    "type": "integer",
+                    "example": 0
+                },
+                "tahun": {
+                    "type": "string",
+                    "example": "2024"
                 }
             }
         },

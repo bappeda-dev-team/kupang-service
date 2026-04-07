@@ -8,6 +8,7 @@ type Pegawai struct {
 	Nip          string
 	JabatanId    sql.NullInt64
 	NamaJabatan  sql.NullString
+	TahunJabatan sql.NullString
 	KodeOpd      string
 	NamaOpd      string
 	JenisPegawai sql.NullString

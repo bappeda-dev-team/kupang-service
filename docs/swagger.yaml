@@ -268,13 +268,15 @@ definitions:
     type: object
   web.PegawaiAddJabatanRequest:
     properties:
-      id:
-        type: integer
       nama_jabatan:
         type: string
+      pegawai_id:
+        type: integer
+      tahun:
+        type: string
     required:
-    - id
     - nama_jabatan
+    - pegawai_id
     type: object
   web.PegawaiCreateRequest:
     properties:
@@ -325,6 +327,28 @@ definitions:
       nip:
         example: string
         type: string
+      tahun_jabatan:
+        example: "2024"
+        type: string
+    type: object
+  web.PegawaiUpdateJabatanRequest:
+    properties:
+      jabatan_id:
+        example: 0
+        type: integer
+      nama_jabatan:
+        example: string
+        type: string
+      pegawai_id:
+        example: 0
+        type: integer
+      tahun:
+        example: "2024"
+        type: string
+    required:
+    - jabatan_id
+    - nama_jabatan
+    - pegawai_id
     type: object
   web.PegawaiUpdateRequest:
     properties:
@@ -2540,6 +2564,50 @@ paths:
           schema:
             $ref: '#/definitions/web.WebResponse'
       summary: Tambah Jabatan ke Pegawai
+      tags:
+      - Pegawai
+  /pegawais/jabatan/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Update data jabatan by ID
+      parameters:
+      - description: Jabatan ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Jabatan Update Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.PegawaiUpdateJabatanRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.PegawaiResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Update Jabatan
       tags:
       - Pegawai
   /pegawais/opd/{kode_opd}:

@@ -35,8 +35,8 @@ func (repository *PegawaiRepositoryImpl) Update(ctx context.Context, tx *sql.Tx,
 }
 
 func (repository *PegawaiRepositoryImpl) UpdateJabatan(ctx context.Context, tx *sql.Tx, jabatan domain.Jabatan) (domain.Jabatan, error) {
-	query := "UPDATE jabatan SET nama_jabatan = $1, last_modified_date = NOW() WHERE id = $2"
-	result, err := tx.ExecContext(ctx, query, jabatan.NamaJabatan, jabatan.Id)
+	query := "UPDATE jabatan SET nama_jabatan = $1, tahun = COALESCE($2, tahun), last_modified_date = NOW() WHERE id = $3"
+	result, err := tx.ExecContext(ctx, query, jabatan.NamaJabatan, jabatan.Tahun, jabatan.Id)
 	if err != nil {
 		return domain.Jabatan{}, err
 	}
@@ -64,11 +64,11 @@ func (repository *PegawaiRepositoryImpl) Delete(ctx context.Context, tx *sql.Tx,
 }
 
 func (repository *PegawaiRepositoryImpl) FindById(ctx context.Context, tx *sql.Tx, id int) (domain.Pegawai, error) {
-	query := "SELECT id, nama, nip, jabatan_id, nama_jabatan, kode_opd, nama_opd, jenis_pegawai FROM pegawai WHERE id = $1"
+	query := "SELECT p.id, p.nama, p.nip, p.jabatan_id, p.nama_jabatan, p.kode_opd, p.nama_opd, p.jenis_pegawai, j.tahun FROM pegawai p LEFT JOIN jabatan j ON p.jabatan_id = j.id WHERE p.id = $1"
 	row := tx.QueryRowContext(ctx, query, id)
 
 	var pegawai domain.Pegawai
-	err := row.Scan(&pegawai.Id, &pegawai.Nama, &pegawai.Nip, &pegawai.JabatanId, &pegawai.NamaJabatan, &pegawai.KodeOpd, &pegawai.NamaOpd, &pegawai.JenisPegawai)
+	err := row.Scan(&pegawai.Id, &pegawai.Nama, &pegawai.Nip, &pegawai.JabatanId, &pegawai.NamaJabatan, &pegawai.KodeOpd, &pegawai.NamaOpd, &pegawai.JenisPegawai, &pegawai.TahunJabatan)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return domain.Pegawai{}, errors.New("id tidak ditemukan")
@@ -80,11 +80,11 @@ func (repository *PegawaiRepositoryImpl) FindById(ctx context.Context, tx *sql.T
 }
 
 func (repository *PegawaiRepositoryImpl) FindJabatanById(ctx context.Context, tx *sql.Tx, id int) (domain.Jabatan, error) {
-	query := "SELECT id, nama_jabatan FROM jabatan WHERE id = $1"
+	query := "SELECT id, nama_jabatan, tahun FROM jabatan WHERE id = $1"
 	row := tx.QueryRowContext(ctx, query, id)
 
 	var jabatan domain.Jabatan
-	err := row.Scan(&jabatan.Id, &jabatan.NamaJabatan)
+	err := row.Scan(&jabatan.Id, &jabatan.NamaJabatan, &jabatan.Tahun)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return domain.Jabatan{}, errors.New("id tidak ditemukan")
@@ -96,7 +96,7 @@ func (repository *PegawaiRepositoryImpl) FindJabatanById(ctx context.Context, tx
 }
 
 func (repository *PegawaiRepositoryImpl) FindAll(ctx context.Context, tx *sql.Tx) ([]domain.Pegawai, error) {
-	query := "SELECT id, nama, nip, jabatan_id, nama_jabatan, kode_opd, nama_opd, jenis_pegawai FROM pegawai ORDER BY id ASC"
+	query := "SELECT p.id, p.nama, p.nip, p.jabatan_id, p.nama_jabatan, p.kode_opd, p.nama_opd, p.jenis_pegawai, j.tahun FROM pegawai p LEFT JOIN jabatan j ON p.jabatan_id = j.id ORDER BY p.id ASC"
 	rows, err := tx.QueryContext(ctx, query)
 	if err != nil {
 		return []domain.Pegawai{}, err
@@ -106,7 +106,7 @@ func (repository *PegawaiRepositoryImpl) FindAll(ctx context.Context, tx *sql.Tx
 	var pegawaiList []domain.Pegawai
 	for rows.Next() {
 		var pegawai domain.Pegawai
-		err := rows.Scan(&pegawai.Id, &pegawai.Nama, &pegawai.Nip, &pegawai.JabatanId, &pegawai.NamaJabatan, &pegawai.KodeOpd, &pegawai.NamaOpd, &pegawai.JenisPegawai)
+		err := rows.Scan(&pegawai.Id, &pegawai.Nama, &pegawai.Nip, &pegawai.JabatanId, &pegawai.NamaJabatan, &pegawai.KodeOpd, &pegawai.NamaOpd, &pegawai.JenisPegawai, &pegawai.TahunJabatan)
 		if err != nil {
 			return []domain.Pegawai{}, err
 		}
@@ -118,7 +118,7 @@ func (repository *PegawaiRepositoryImpl) FindAll(ctx context.Context, tx *sql.Tx
 }
 
 func (repository *PegawaiRepositoryImpl) FindByKodeOpd(ctx context.Context, tx *sql.Tx, kodeOpd string) ([]domain.Pegawai, error) {
-	query := "SELECT id, nama, nip, jabatan_id, nama_jabatan, kode_opd, nama_opd, jenis_pegawai FROM pegawai WHERE kode_opd = $1 ORDER BY id ASC"
+	query := "SELECT p.id, p.nama, p.nip, p.jabatan_id, p.nama_jabatan, p.kode_opd, p.nama_opd, p.jenis_pegawai, j.tahun FROM pegawai p LEFT JOIN jabatan j ON p.jabatan_id = j.id WHERE p.kode_opd = $1 ORDER BY p.id ASC"
 	rows, err := tx.QueryContext(ctx, query, kodeOpd)
 	if err != nil {
 		return []domain.Pegawai{}, err
@@ -128,7 +128,7 @@ func (repository *PegawaiRepositoryImpl) FindByKodeOpd(ctx context.Context, tx *
 	var pegawaiList []domain.Pegawai
 	for rows.Next() {
 		var pegawai domain.Pegawai
-		err := rows.Scan(&pegawai.Id, &pegawai.Nama, &pegawai.Nip, &pegawai.JabatanId, &pegawai.NamaJabatan, &pegawai.KodeOpd, &pegawai.NamaOpd, &pegawai.JenisPegawai)
+		err := rows.Scan(&pegawai.Id, &pegawai.Nama, &pegawai.Nip, &pegawai.JabatanId, &pegawai.NamaJabatan, &pegawai.KodeOpd, &pegawai.NamaOpd, &pegawai.JenisPegawai, &pegawai.TahunJabatan)
 		if err != nil {
 			return []domain.Pegawai{}, err
 		}

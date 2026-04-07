@@ -5734,15 +5734,17 @@ const docTemplate = `{
         "web.PegawaiAddJabatanRequest": {
             "type": "object",
             "required": [
-		"pegawai_id",
-		"nama_jabatan"
+                "nama_jabatan",
+                "pegawai_id"
             ],
             "properties": {
-		"pegawai_id": {
-		    "type": "integer",
-		    "example": 0
-		},
                 "nama_jabatan": {
+                    "type": "string"
+                },
+                "pegawai_id": {
+                    "type": "integer"
+                },
+                "tahun": {
                     "type": "string"
                 }
             }
@@ -5812,6 +5814,36 @@ const docTemplate = `{
                 "nip": {
                     "type": "string",
                     "example": "string"
+                },
+                "tahun_jabatan": {
+                    "type": "string",
+                    "example": "2024"
+                }
+            }
+        },
+        "web.PegawaiUpdateJabatanRequest": {
+            "type": "object",
+            "required": [
+                "jabatan_id",
+                "nama_jabatan",
+                "pegawai_id"
+            ],
+            "properties": {
+                "jabatan_id": {
+                    "type": "integer",
+                    "example": 0
+                },
+                "nama_jabatan": {
+                    "type": "string",
+                    "example": "string"
+                },
+                "pegawai_id": {
+                    "type": "integer",
+                    "example": 0
+                },
+                "tahun": {
+                    "type": "string",
+                    "example": "2024"
                 }
             }
         },
@@ -5848,28 +5880,6 @@ const docTemplate = `{
                 "nip": {
                     "type": "string",
                     "example": "string"
-                }
-            }
-        },
-        "web.PegawaiUpdateJabatanRequest": {
-            "type": "object",
-            "required": [
-                "jabatan_id",
-                "nama_jabatan",
-                "pegawai_id"
-            ],
-            "properties": {
-                "jabatan_id": {
-                    "type": "integer",
-                    "example": 0
-                },
-                "nama_jabatan": {
-                    "type": "string",
-                    "example": "string"
-                },
-                "pegawai_id": {
-                    "type": "integer",
-                    "example": 0
                 }
             }
         },

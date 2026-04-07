@@ -65,6 +65,7 @@ func (service *PegawaiServiceImpl) Create(ctx context.Context, pegawai web.Pegaw
 		Nip:          pegawaiDomain.Nip,
 		JabatanId:    nil,
 		NamaJabatan:  nullStringToPtr(pegawaiDomain.NamaJabatan),
+		TahunJabatan: nullStringToPtr(pegawaiDomain.TahunJabatan),
 		KodeOpd:      pegawaiDomain.KodeOpd,
 		NamaOpd:      pegawaiDomain.NamaOpd,
 		JenisPegawai: nullStringToPtr(pegawaiDomain.JenisPegawai),
@@ -88,13 +89,14 @@ func (service *PegawaiServiceImpl) AddJabatan(ctx context.Context, request web.P
 		return web.PegawaiResponse{}, err
 	}
 
-	jabatanId, err := service.ensureJabatan(ctx, tx, request.NamaJabatan)
+	jabatanId, err := service.ensureJabatan(ctx, tx, request.NamaJabatan, request.Tahun)
 	if err != nil {
 		return web.PegawaiResponse{}, err
 	}
 
 	pegawai.JabatanId = sql.NullInt64{Int64: jabatanId, Valid: true}
 	pegawai.NamaJabatan = sql.NullString{String: request.NamaJabatan, Valid: true}
+	pegawai.TahunJabatan = ptrToNullString(request.Tahun)
 
 	pegawai, err = service.PegawaiRepository.Update(ctx, tx, pegawai)
 	if err != nil {
@@ -107,6 +109,7 @@ func (service *PegawaiServiceImpl) AddJabatan(ctx context.Context, request web.P
 		Nip:          pegawai.Nip,
 		JabatanId:    nullIntToPtr(pegawai.JabatanId),
 		NamaJabatan:  nullStringToPtr(pegawai.NamaJabatan),
+		TahunJabatan: nullStringToPtr(pegawai.TahunJabatan),
 		KodeOpd:      pegawai.KodeOpd,
 		NamaOpd:      pegawai.NamaOpd,
 		JenisPegawai: nullStringToPtr(pegawai.JenisPegawai),
@@ -137,6 +140,7 @@ func (service *PegawaiServiceImpl) UpdateJabatan(ctx context.Context, request we
 	jabatanDomain := domain.Jabatan{
 		Id:          request.JabatanId,
 		NamaJabatan: request.NamaJabatan,
+		Tahun:       ptrToNullString(request.Tahun),
 	}
 
 	jabatanDomain, err = service.PegawaiRepository.UpdateJabatan(ctx, tx, jabatanDomain)
@@ -150,6 +154,9 @@ func (service *PegawaiServiceImpl) UpdateJabatan(ctx context.Context, request we
 	}
 
 	pegawai.NamaJabatan = sql.NullString{String: jabatanDomain.NamaJabatan, Valid: true}
+	if jabatanDomain.Tahun.Valid {
+		pegawai.TahunJabatan = jabatanDomain.Tahun
+	}
 
 	return web.PegawaiResponse{
 		Id:           pegawai.Id,
@@ -157,6 +164,7 @@ func (service *PegawaiServiceImpl) UpdateJabatan(ctx context.Context, request we
 		Nip:          pegawai.Nip,
 		JabatanId:    nullIntToPtr(pegawai.JabatanId),
 		NamaJabatan:  nullStringToPtr(pegawai.NamaJabatan),
+		TahunJabatan: nullStringToPtr(pegawai.TahunJabatan),
 		KodeOpd:      pegawai.KodeOpd,
 		NamaOpd:      pegawai.NamaOpd,
 		JenisPegawai: nullStringToPtr(pegawai.JenisPegawai),
@@ -186,6 +194,7 @@ func (service *PegawaiServiceImpl) Update(ctx context.Context, pegawaiData web.P
 		Nip:          pegawaiData.Nip,
 		JabatanId:    pegawaiExisting.JabatanId,
 		NamaJabatan:  pegawaiExisting.NamaJabatan,
+		TahunJabatan: pegawaiExisting.TahunJabatan,
 		KodeOpd:      pegawaiData.KodeOpd,
 		NamaOpd:      pegawaiData.NamaOpd,
 		JenisPegawai: ptrToNullString(pegawaiData.JenisPegawai),
@@ -202,6 +211,7 @@ func (service *PegawaiServiceImpl) Update(ctx context.Context, pegawaiData web.P
 		Nip:          pegawaiDomain.Nip,
 		JabatanId:    nil,
 		NamaJabatan:  nullStringToPtr(pegawaiDomain.NamaJabatan),
+		TahunJabatan: nullStringToPtr(pegawaiDomain.TahunJabatan),
 		KodeOpd:      pegawaiDomain.KodeOpd,
 		NamaOpd:      pegawaiDomain.NamaOpd,
 		JenisPegawai: nullStringToPtr(pegawaiDomain.JenisPegawai),
@@ -241,6 +251,7 @@ func (service *PegawaiServiceImpl) FindById(ctx context.Context, id int) (web.Pe
 		Nip:          pegawai.Nip,
 		JabatanId:    nullIntToPtr(pegawai.JabatanId),
 		NamaJabatan:  nullStringToPtr(pegawai.NamaJabatan),
+		TahunJabatan: nullStringToPtr(pegawai.TahunJabatan),
 		KodeOpd:      pegawai.KodeOpd,
 		NamaOpd:      pegawai.NamaOpd,
 		JenisPegawai: nullStringToPtr(pegawai.JenisPegawai),
@@ -267,6 +278,7 @@ func (service *PegawaiServiceImpl) FindAll(ctx context.Context) ([]web.PegawaiRe
 			Nip:          pegawai.Nip,
 			JabatanId:    nullIntToPtr(pegawai.JabatanId),
 			NamaJabatan:  nullStringToPtr(pegawai.NamaJabatan),
+			TahunJabatan: nullStringToPtr(pegawai.TahunJabatan),
 			KodeOpd:      pegawai.KodeOpd,
 			NamaOpd:      pegawai.NamaOpd,
 			JenisPegawai: nullStringToPtr(pegawai.JenisPegawai),
@@ -296,6 +308,7 @@ func (service *PegawaiServiceImpl) FindByKodeOpd(ctx context.Context, kodeOpd st
 			Nip:          pegawai.Nip,
 			JabatanId:    nullIntToPtr(pegawai.JabatanId),
 			NamaJabatan:  nullStringToPtr(pegawai.NamaJabatan),
+			TahunJabatan: nullStringToPtr(pegawai.TahunJabatan),
 			KodeOpd:      pegawai.KodeOpd,
 			NamaOpd:      pegawai.NamaOpd,
 			JenisPegawai: nullStringToPtr(pegawai.JenisPegawai),
@@ -331,10 +344,11 @@ func ptrToNullString(value *string) sql.NullString {
 	return sql.NullString{String: *value, Valid: true}
 }
 
-func (service *PegawaiServiceImpl) ensureJabatan(ctx context.Context, tx *sql.Tx, namaJabatan string) (int64, error) {
+func (service *PegawaiServiceImpl) ensureJabatan(ctx context.Context, tx *sql.Tx, namaJabatan string, tahun *string) (int64, error) {
 	var id int64
-	query := "INSERT INTO jabatan (nama_jabatan) VALUES ($1) ON CONFLICT (nama_jabatan) DO UPDATE SET nama_jabatan = EXCLUDED.nama_jabatan RETURNING id"
-	err := tx.QueryRowContext(ctx, query, namaJabatan).Scan(&id)
+	tahunNull := ptrToNullString(tahun)
+	query := "INSERT INTO jabatan (nama_jabatan, tahun) VALUES ($1, $2) ON CONFLICT (nama_jabatan) DO UPDATE SET nama_jabatan = EXCLUDED.nama_jabatan, tahun = COALESCE(EXCLUDED.tahun, jabatan.tahun) RETURNING id"
+	err := tx.QueryRowContext(ctx, query, namaJabatan, tahunNull).Scan(&id)
 	if err != nil {
 		return 0, err
 	}
