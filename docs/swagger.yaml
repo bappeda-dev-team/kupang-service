@@ -278,6 +278,9 @@ definitions:
     type: object
   web.PegawaiCreateRequest:
     properties:
+      jenis_pegawai:
+        example: string
+        type: string
       kode_opd:
         example: string
         type: string
@@ -304,6 +307,9 @@ definitions:
       jabatan_id:
         example: 0
         type: integer
+      jenis_pegawai:
+        example: string
+        type: string
       kode_opd:
         example: string
         type: string
@@ -328,6 +334,9 @@ definitions:
       jabatan_id:
         example: 0
         type: integer
+      jenis_pegawai:
+        example: string
+        type: string
       kode_opd:
         example: string
         type: string

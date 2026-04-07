@@ -5682,6 +5682,10 @@
                 "nip"
             ],
             "properties": {
+                "jenis_pegawai": {
+                    "type": "string",
+                    "example": "string"
+                },
                 "kode_opd": {
                     "type": "string",
                     "example": "string"
@@ -5710,6 +5714,10 @@
                 "jabatan_id": {
                     "type": "integer",
                     "example": 0
+                },
+                "jenis_pegawai": {
+                    "type": "string",
+                    "example": "string"
                 },
                 "kode_opd": {
                     "type": "string",
@@ -5751,6 +5759,10 @@
                 "jabatan_id": {
                     "type": "integer",
                     "example": 0
+                },
+                "jenis_pegawai": {
+                    "type": "string",
+                    "example": "string"
                 },
                 "kode_opd": {
                     "type": "string",

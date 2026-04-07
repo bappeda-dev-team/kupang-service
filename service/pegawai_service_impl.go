@@ -48,8 +48,9 @@ func (service *PegawaiServiceImpl) Create(ctx context.Context, pegawai web.Pegaw
 			String: "",
 			Valid:  false,
 		},
-		KodeOpd: pegawai.KodeOpd,
-		NamaOpd: pegawai.NamaOpd,
+		KodeOpd:      pegawai.KodeOpd,
+		NamaOpd:      pegawai.NamaOpd,
+		JenisPegawai: ptrToNullString(pegawai.JenisPegawai),
 	}
 
 	pegawaiDomain, err = service.PegawaiRepository.Create(ctx, tx, pegawaiDomain)
@@ -58,13 +59,14 @@ func (service *PegawaiServiceImpl) Create(ctx context.Context, pegawai web.Pegaw
 	}
 
 	return web.PegawaiResponse{
-		Id:          pegawaiDomain.Id,
-		Nama:        pegawaiDomain.Nama,
-		Nip:         pegawaiDomain.Nip,
-		JabatanId:   nil,
-		NamaJabatan: nullStringToPtr(pegawaiDomain.NamaJabatan),
-		KodeOpd:     pegawaiDomain.KodeOpd,
-		NamaOpd:     pegawaiDomain.NamaOpd,
+		Id:           pegawaiDomain.Id,
+		Nama:         pegawaiDomain.Nama,
+		Nip:          pegawaiDomain.Nip,
+		JabatanId:    nil,
+		NamaJabatan:  nullStringToPtr(pegawaiDomain.NamaJabatan),
+		KodeOpd:      pegawaiDomain.KodeOpd,
+		NamaOpd:      pegawaiDomain.NamaOpd,
+		JenisPegawai: nullStringToPtr(pegawaiDomain.JenisPegawai),
 	}, nil
 }
 
@@ -99,13 +101,14 @@ func (service *PegawaiServiceImpl) AddJabatan(ctx context.Context, request web.P
 	}
 
 	return web.PegawaiResponse{
-		Id:          pegawai.Id,
-		Nama:        pegawai.Nama,
-		Nip:         pegawai.Nip,
-		JabatanId:   nullIntToPtr(pegawai.JabatanId),
-		NamaJabatan: nullStringToPtr(pegawai.NamaJabatan),
-		KodeOpd:     pegawai.KodeOpd,
-		NamaOpd:     pegawai.NamaOpd,
+		Id:           pegawai.Id,
+		Nama:         pegawai.Nama,
+		Nip:          pegawai.Nip,
+		JabatanId:    nullIntToPtr(pegawai.JabatanId),
+		NamaJabatan:  nullStringToPtr(pegawai.NamaJabatan),
+		KodeOpd:      pegawai.KodeOpd,
+		NamaOpd:      pegawai.NamaOpd,
+		JenisPegawai: nullStringToPtr(pegawai.JenisPegawai),
 	}, nil
 }
 
@@ -138,8 +141,9 @@ func (service *PegawaiServiceImpl) Update(ctx context.Context, pegawaiData web.P
 			String: namaJabatan,
 			Valid:  true,
 		},
-		KodeOpd: pegawaiData.KodeOpd,
-		NamaOpd: pegawaiData.NamaOpd,
+		KodeOpd:      pegawaiData.KodeOpd,
+		NamaOpd:      pegawaiData.NamaOpd,
+		JenisPegawai: ptrToNullString(pegawaiData.JenisPegawai),
 	}
 
 	pegawaiDomain, err = service.PegawaiRepository.Update(ctx, tx, pegawaiDomain)
@@ -148,13 +152,14 @@ func (service *PegawaiServiceImpl) Update(ctx context.Context, pegawaiData web.P
 	}
 
 	return web.PegawaiResponse{
-		Id:          pegawaiDomain.Id,
-		Nama:        pegawaiDomain.Nama,
-		Nip:         pegawaiDomain.Nip,
-		JabatanId:   nullIntToPtr(pegawaiDomain.JabatanId),
-		NamaJabatan: nullStringToPtr(pegawaiDomain.NamaJabatan),
-		KodeOpd:     pegawaiDomain.KodeOpd,
-		NamaOpd:     pegawaiDomain.NamaOpd,
+		Id:           pegawaiDomain.Id,
+		Nama:         pegawaiDomain.Nama,
+		Nip:          pegawaiDomain.Nip,
+		JabatanId:    nullIntToPtr(pegawaiDomain.JabatanId),
+		NamaJabatan:  nullStringToPtr(pegawaiDomain.NamaJabatan),
+		KodeOpd:      pegawaiDomain.KodeOpd,
+		NamaOpd:      pegawaiDomain.NamaOpd,
+		JenisPegawai: nullStringToPtr(pegawaiDomain.JenisPegawai),
 	}, nil
 }
 
@@ -186,13 +191,14 @@ func (service *PegawaiServiceImpl) FindById(ctx context.Context, id int) (web.Pe
 	}
 
 	return web.PegawaiResponse{
-		Id:          pegawai.Id,
-		Nama:        pegawai.Nama,
-		Nip:         pegawai.Nip,
-		JabatanId:   nullIntToPtr(pegawai.JabatanId),
-		NamaJabatan: nullStringToPtr(pegawai.NamaJabatan),
-		KodeOpd:     pegawai.KodeOpd,
-		NamaOpd:     pegawai.NamaOpd,
+		Id:           pegawai.Id,
+		Nama:         pegawai.Nama,
+		Nip:          pegawai.Nip,
+		JabatanId:    nullIntToPtr(pegawai.JabatanId),
+		NamaJabatan:  nullStringToPtr(pegawai.NamaJabatan),
+		KodeOpd:      pegawai.KodeOpd,
+		NamaOpd:      pegawai.NamaOpd,
+		JenisPegawai: nullStringToPtr(pegawai.JenisPegawai),
 	}, nil
 }
 
@@ -211,13 +217,14 @@ func (service *PegawaiServiceImpl) FindAll(ctx context.Context) ([]web.PegawaiRe
 	var responses []web.PegawaiResponse
 	for _, pegawai := range pegawaiList {
 		responses = append(responses, web.PegawaiResponse{
-			Id:          pegawai.Id,
-			Nama:        pegawai.Nama,
-			Nip:         pegawai.Nip,
-			JabatanId:   nullIntToPtr(pegawai.JabatanId),
-			NamaJabatan: nullStringToPtr(pegawai.NamaJabatan),
-			KodeOpd:     pegawai.KodeOpd,
-			NamaOpd:     pegawai.NamaOpd,
+			Id:           pegawai.Id,
+			Nama:         pegawai.Nama,
+			Nip:          pegawai.Nip,
+			JabatanId:    nullIntToPtr(pegawai.JabatanId),
+			NamaJabatan:  nullStringToPtr(pegawai.NamaJabatan),
+			KodeOpd:      pegawai.KodeOpd,
+			NamaOpd:      pegawai.NamaOpd,
+			JenisPegawai: nullStringToPtr(pegawai.JenisPegawai),
 		})
 	}
 
@@ -239,13 +246,14 @@ func (service *PegawaiServiceImpl) FindByKodeOpd(ctx context.Context, kodeOpd st
 	var responses []web.PegawaiResponse
 	for _, pegawai := range pegawaiList {
 		responses = append(responses, web.PegawaiResponse{
-			Id:          pegawai.Id,
-			Nama:        pegawai.Nama,
-			Nip:         pegawai.Nip,
-			JabatanId:   nullIntToPtr(pegawai.JabatanId),
-			NamaJabatan: nullStringToPtr(pegawai.NamaJabatan),
-			KodeOpd:     pegawai.KodeOpd,
-			NamaOpd:     pegawai.NamaOpd,
+			Id:           pegawai.Id,
+			Nama:         pegawai.Nama,
+			Nip:          pegawai.Nip,
+			JabatanId:    nullIntToPtr(pegawai.JabatanId),
+			NamaJabatan:  nullStringToPtr(pegawai.NamaJabatan),
+			KodeOpd:      pegawai.KodeOpd,
+			NamaOpd:      pegawai.NamaOpd,
+			JenisPegawai: nullStringToPtr(pegawai.JenisPegawai),
 		})
 	}
 
@@ -268,6 +276,14 @@ func nullStringToPtr(value sql.NullString) *string {
 	}
 
 	return nil
+}
+
+func ptrToNullString(value *string) sql.NullString {
+	if value == nil {
+		return sql.NullString{String: "", Valid: false}
+	}
+
+	return sql.NullString{String: *value, Valid: true}
 }
 
 func (service *PegawaiServiceImpl) ensureJabatan(ctx context.Context, tx *sql.Tx, namaJabatan string) (int64, error) {

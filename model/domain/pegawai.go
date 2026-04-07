@@ -3,11 +3,12 @@ package domain
 import "database/sql"
 
 type Pegawai struct {
-	Id          int
-	Nama        string
-	Nip         string
-	JabatanId   sql.NullInt64
-	NamaJabatan sql.NullString
-	KodeOpd     string
-	NamaOpd     string
+	Id           int
+	Nama         string
+	Nip          string
+	JabatanId    sql.NullInt64
+	NamaJabatan  sql.NullString
+	KodeOpd      string
+	NamaOpd      string
+	JenisPegawai sql.NullString
 }

@@ -5684,6 +5684,10 @@ const docTemplate = `{
                 "nip"
             ],
             "properties": {
+                "jenis_pegawai": {
+                    "type": "string",
+                    "example": "string"
+                },
                 "kode_opd": {
                     "type": "string",
                     "example": "string"
@@ -5708,6 +5712,14 @@ const docTemplate = `{
                 "id": {
                     "type": "integer",
                     "example": 0
+                },
+                "jabatan_id": {
+                    "type": "integer",
+                    "example": 0
+                },
+                "jenis_pegawai": {
+                    "type": "string",
+                    "example": "string"
                 },
                 "kode_opd": {
                     "type": "string",
@@ -5749,6 +5761,10 @@ const docTemplate = `{
                 "jabatan_id": {
                     "type": "integer",
                     "example": 0
+                },
+                "jenis_pegawai": {
+                    "type": "string",
+                    "example": "string"
                 },
                 "kode_opd": {
                     "type": "string",
