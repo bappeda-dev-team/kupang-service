@@ -81,3 +81,25 @@ func (repository *PegawaiRepositoryImpl) FindAll(ctx context.Context, tx *sql.Tx
 
 	return pegawaiList, nil
 }
+
+func (repository *PegawaiRepositoryImpl) FindByKodeOpd(ctx context.Context, tx *sql.Tx, kodeOpd string) ([]domain.Pegawai, error) {
+	query := "SELECT id, nama, nip, jabatan, kode_opd, nama_opd FROM pegawai WHERE kode_opd = $1 ORDER BY id ASC"
+	rows, err := tx.QueryContext(ctx, query, kodeOpd)
+	if err != nil {
+		return []domain.Pegawai{}, err
+	}
+	defer rows.Close()
+
+	var pegawaiList []domain.Pegawai
+	for rows.Next() {
+		var pegawai domain.Pegawai
+		err := rows.Scan(&pegawai.Id, &pegawai.Nama, &pegawai.Nip, &pegawai.Jabatan, &pegawai.KodeOpd, &pegawai.NamaOpd)
+		if err != nil {
+			return []domain.Pegawai{}, err
+		}
+
+		pegawaiList = append(pegawaiList, pegawai)
+	}
+
+	return pegawaiList, nil
+}

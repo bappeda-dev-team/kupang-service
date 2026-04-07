@@ -209,3 +209,29 @@ func (controller *PegawaiControllerImpl) FindAll(c echo.Context) error {
 		Data:   pegawaiResponses,
 	})
 }
+
+// @Summary Get Pegawai by Kode OPD
+// @Description Get list of Pegawai by kode_opd
+// @Tags Pegawai
+// @Produce json
+// @Param kode_opd path string true "Kode OPD"
+// @Success 200 {object} web.WebResponse{data=[]web.PegawaiResponse} "OK"
+// @Failure 500 {object} web.WebResponse "Internal Server Error"
+// @Router /pegawais/opd/{kode_opd} [get]
+func (controller *PegawaiControllerImpl) FindByKodeOpd(c echo.Context) error {
+	kodeOpd := c.Param("kode_opd")
+
+	pegawaiResponses, err := controller.PegawaiService.FindByKodeOpd(c.Request().Context(), kodeOpd)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, web.WebResponse{
+			Code:   http.StatusInternalServerError,
+			Status: "INTERNAL_SERVER_ERROR",
+		})
+	}
+
+	return c.JSON(http.StatusOK, web.WebResponse{
+		Code:   http.StatusOK,
+		Status: "OK",
+		Data:   pegawaiResponses,
+	})
+}

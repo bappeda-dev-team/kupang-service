@@ -12,4 +12,5 @@ type PegawaiRepository interface {
 	Delete(ctx context.Context, tx *sql.Tx, id int) error
 	FindById(ctx context.Context, tx *sql.Tx, id int) (domain.Pegawai, error)
 	FindAll(ctx context.Context, tx *sql.Tx) ([]domain.Pegawai, error)
+	FindByKodeOpd(ctx context.Context, tx *sql.Tx, kodeOpd string) ([]domain.Pegawai, error)
 }

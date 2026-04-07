@@ -159,3 +159,30 @@ func (service *PegawaiServiceImpl) FindAll(ctx context.Context) ([]web.PegawaiRe
 
 	return responses, nil
 }
+
+func (service *PegawaiServiceImpl) FindByKodeOpd(ctx context.Context, kodeOpd string) ([]web.PegawaiResponse, error) {
+	tx, err := service.DB.BeginTx(ctx, nil)
+	if err != nil {
+		return []web.PegawaiResponse{}, err
+	}
+	defer helper.CommitOrRollback(tx)
+
+	pegawaiList, err := service.PegawaiRepository.FindByKodeOpd(ctx, tx, kodeOpd)
+	if err != nil {
+		return []web.PegawaiResponse{}, err
+	}
+
+	var responses []web.PegawaiResponse
+	for _, pegawai := range pegawaiList {
+		responses = append(responses, web.PegawaiResponse{
+			Id:      pegawai.Id,
+			Nama:    pegawai.Nama,
+			Nip:     pegawai.Nip,
+			Jabatan: pegawai.Jabatan,
+			KodeOpd: pegawai.KodeOpd,
+			NamaOpd: pegawai.NamaOpd,
+		})
+	}
+
+	return responses, nil
+}
