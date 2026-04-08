@@ -1,11 +1,13 @@
 package controller
 
 import (
+	"errors"
 	"kupang-service/helper"
 	"kupang-service/model/web"
 	"kupang-service/service"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/labstack/echo/v4"
 )
@@ -349,6 +351,50 @@ func (controller *PegawaiControllerImpl) FindAll(c echo.Context) error {
 	})
 }
 
+// @Summary Search Pegawai
+// @Description Search pegawai by nama or nip (partial, case-insensitive)
+// @Tags Pegawai
+// @Produce json
+// @Param nama query string false "Nama"
+// @Param nip query string false "NIP"
+// @Success 200 {object} web.WebResponse{data=[]web.PegawaiResponse} "OK"
+// @Failure 400 {object} web.WebResponse "Bad Request"
+// @Failure 500 {object} web.WebResponse "Internal Server Error"
+// @Router /pegawais/search [get]
+func (controller *PegawaiControllerImpl) Search(c echo.Context) error {
+	nama := strings.TrimSpace(c.QueryParam("nama"))
+	nip := strings.TrimSpace(c.QueryParam("nip"))
+
+	if nama == "" && nip == "" {
+		return c.JSON(http.StatusBadRequest, web.WebResponse{
+			Code:   http.StatusBadRequest,
+			Status: "BAD_REQUEST",
+			Data:   "nama atau nip wajib diisi",
+		})
+	}
+
+	pegawaiResponses, err := controller.PegawaiService.Search(c.Request().Context(), toPtr(nama), toPtr(nip))
+	if err != nil {
+		if errors.Is(err, service.ErrSearchMissingParams) {
+			return c.JSON(http.StatusBadRequest, web.WebResponse{
+				Code:   http.StatusBadRequest,
+				Status: "BAD_REQUEST",
+				Data:   err.Error(),
+			})
+		}
+		return c.JSON(http.StatusInternalServerError, web.WebResponse{
+			Code:   http.StatusInternalServerError,
+			Status: "INTERNAL_SERVER_ERROR",
+		})
+	}
+
+	return c.JSON(http.StatusOK, web.WebResponse{
+		Code:   http.StatusOK,
+		Status: "OK",
+		Data:   pegawaiResponses,
+	})
+}
+
 // @Summary Get Pegawai by Kode OPD
 // @Description Get list of Pegawai by kode_opd
 // @Tags Pegawai
@@ -373,4 +419,13 @@ func (controller *PegawaiControllerImpl) FindByKodeOpd(c echo.Context) error {
 		Status: "OK",
 		Data:   pegawaiResponses,
 	})
+}
+
+func toPtr(value string) *string {
+	if value == "" {
+		return nil
+	}
+
+	v := value
+	return &v
 }

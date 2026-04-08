@@ -65,6 +65,7 @@ func NewRouter(lembagaController controller.LembagaController, opdController con
 	e.PUT(pegawaiBase+"/jabatan/:id", pegawaiController.UpdateJabatan)
 	e.GET(pegawaiBase+"/jabatan", pegawaiController.FindAllJabatan)
 	e.DELETE(pegawaiBase+"/:id", pegawaiController.Delete)
+	e.GET(pegawaiBase+"/search", pegawaiController.Search)
 	e.GET(pegawaiBase+"/opd/:kode_opd", pegawaiController.FindByKodeOpd)
 	e.GET(pegawaiBase+"/:id", pegawaiController.FindById)
 	e.GET(pegawaiBase, pegawaiController.FindAll)

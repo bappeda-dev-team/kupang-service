@@ -2190,6 +2190,67 @@ const docTemplate = `{
                 }
             }
         },
+        "/pegawais/search": {
+            "get": {
+                "description": "Search pegawai by nama or nip (partial, case-insensitive)",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pegawai"
+                ],
+                "summary": "Search Pegawai",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Nama",
+                        "name": "nama",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "NIP",
+                        "name": "nip",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/web.PegawaiResponse"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/pegawais/{id}": {
             "get": {
                 "description": "Get Pegawai details by ID",

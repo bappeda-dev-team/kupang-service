@@ -4,7 +4,9 @@ import (
 	"context"
 	"database/sql"
 	"errors"
+	"fmt"
 	"kupang-service/model/domain"
+	"strings"
 )
 
 type PegawaiRepositoryImpl struct {
@@ -120,6 +122,50 @@ func (repository *PegawaiRepositoryImpl) FindAll(ctx context.Context, tx *sql.Tx
 func (repository *PegawaiRepositoryImpl) FindByKodeOpd(ctx context.Context, tx *sql.Tx, kodeOpd string) ([]domain.Pegawai, error) {
 	query := "SELECT p.id, p.nama, p.nip, p.jabatan_id, p.nama_jabatan, p.kode_opd, p.nama_opd, p.jenis_pegawai, j.tahun FROM pegawai p LEFT JOIN jabatan j ON p.jabatan_id = j.id WHERE p.kode_opd = $1 ORDER BY p.id ASC"
 	rows, err := tx.QueryContext(ctx, query, kodeOpd)
+	if err != nil {
+		return []domain.Pegawai{}, err
+	}
+	defer rows.Close()
+
+	var pegawaiList []domain.Pegawai
+	for rows.Next() {
+		var pegawai domain.Pegawai
+		err := rows.Scan(&pegawai.Id, &pegawai.Nama, &pegawai.Nip, &pegawai.JabatanId, &pegawai.NamaJabatan, &pegawai.KodeOpd, &pegawai.NamaOpd, &pegawai.JenisPegawai, &pegawai.TahunJabatan)
+		if err != nil {
+			return []domain.Pegawai{}, err
+		}
+
+		pegawaiList = append(pegawaiList, pegawai)
+	}
+
+	return pegawaiList, nil
+}
+
+func (repository *PegawaiRepositoryImpl) SearchByNamaOrNip(ctx context.Context, tx *sql.Tx, nama, nip *string) ([]domain.Pegawai, error) {
+	query := "SELECT p.id, p.nama, p.nip, p.jabatan_id, p.nama_jabatan, p.kode_opd, p.nama_opd, p.jenis_pegawai, j.tahun FROM pegawai p LEFT JOIN jabatan j ON p.jabatan_id = j.id"
+	var conditions []string
+	var args []interface{}
+	paramIndex := 1
+
+	if nama != nil && *nama != "" {
+		conditions = append(conditions, fmt.Sprintf("LOWER(p.nama) LIKE $%d", paramIndex))
+		args = append(args, fmt.Sprintf("%%%s%%", strings.ToLower(*nama)))
+		paramIndex++
+	}
+
+	if nip != nil && *nip != "" {
+		conditions = append(conditions, fmt.Sprintf("LOWER(p.nip) LIKE $%d", paramIndex))
+		args = append(args, fmt.Sprintf("%%%s%%", strings.ToLower(*nip)))
+		paramIndex++
+	}
+
+	if len(conditions) > 0 {
+		query += " WHERE " + strings.Join(conditions, " AND ")
+	}
+
+	query += " ORDER BY p.id ASC"
+
+	rows, err := tx.QueryContext(ctx, query, args...)
 	if err != nil {
 		return []domain.Pegawai{}, err
 	}

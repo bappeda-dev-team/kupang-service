@@ -8,6 +8,7 @@ import (
 	"kupang-service/model/domain"
 	"kupang-service/model/web"
 	"kupang-service/repository"
+	"strings"
 
 	"github.com/go-playground/validator/v10"
 )
@@ -25,6 +26,8 @@ func NewPegawaiServiceImpl(pegawaiRepository repository.PegawaiRepository, db *s
 		Validator:         validator,
 	}
 }
+
+var ErrSearchMissingParams = errors.New("nama atau nip wajib diisi")
 
 func (service *PegawaiServiceImpl) Create(ctx context.Context, pegawai web.PegawaiCreateRequest) (web.PegawaiResponse, error) {
 	err := service.Validator.Struct(pegawai)
@@ -318,6 +321,43 @@ func (service *PegawaiServiceImpl) FindByKodeOpd(ctx context.Context, kodeOpd st
 	return responses, nil
 }
 
+func (service *PegawaiServiceImpl) Search(ctx context.Context, nama, nip *string) ([]web.PegawaiResponse, error) {
+	namaFilter := normalizeSearchParam(nama)
+	nipFilter := normalizeSearchParam(nip)
+
+	if namaFilter == nil && nipFilter == nil {
+		return []web.PegawaiResponse{}, ErrSearchMissingParams
+	}
+
+	tx, err := service.DB.BeginTx(ctx, nil)
+	if err != nil {
+		return []web.PegawaiResponse{}, err
+	}
+	defer helper.CommitOrRollback(tx)
+
+	pegawaiList, err := service.PegawaiRepository.SearchByNamaOrNip(ctx, tx, namaFilter, nipFilter)
+	if err != nil {
+		return []web.PegawaiResponse{}, err
+	}
+
+	var responses []web.PegawaiResponse
+	for _, pegawai := range pegawaiList {
+		responses = append(responses, web.PegawaiResponse{
+			Id:           pegawai.Id,
+			Nama:         pegawai.Nama,
+			Nip:          pegawai.Nip,
+			JabatanId:    nullIntToPtr(pegawai.JabatanId),
+			NamaJabatan:  nullStringToPtr(pegawai.NamaJabatan),
+			TahunJabatan: nullStringToPtr(pegawai.TahunJabatan),
+			KodeOpd:      pegawai.KodeOpd,
+			NamaOpd:      pegawai.NamaOpd,
+			JenisPegawai: nullStringToPtr(pegawai.JenisPegawai),
+		})
+	}
+
+	return responses, nil
+}
+
 func (service *PegawaiServiceImpl) FindAllJabatan(ctx context.Context) ([]web.JabatanResponse, error) {
 	tx, err := service.DB.BeginTx(ctx, nil)
 	if err != nil {
@@ -388,4 +428,18 @@ func (service *PegawaiServiceImpl) fetchNamaJabatan(ctx context.Context, tx *sql
 	}
 
 	return nama, nil
+}
+
+func normalizeSearchParam(value *string) *string {
+	if value == nil {
+		return nil
+	}
+
+	trimmed := strings.TrimSpace(*value)
+	if trimmed == "" {
+		return nil
+	}
+
+	result := trimmed
+	return &result
 }
