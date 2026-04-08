@@ -78,6 +78,21 @@ func ToPeriodeResponses(periodes []domain.Periode) []web.PeriodeResponse {
 	return responses
 }
 
+func ToRoleResponse(role domain.Role) web.RoleResponse {
+	return web.RoleResponse{
+		Id:   role.Id,
+		Role: role.Role,
+	}
+}
+
+func ToRoleResponses(roles []domain.Role) []web.RoleResponse {
+	var responses []web.RoleResponse
+	for _, role := range roles {
+		responses = append(responses, ToRoleResponse(role))
+	}
+	return responses
+}
+
 func ToIndikatorPokinOpdResponse(indikatorPokinOpd domain.IndikatorPokinOpd) web.IndikatorPokinOpdResponse {
 	return web.IndikatorPokinOpdResponse{
 		Id:            indikatorPokinOpd.Id,

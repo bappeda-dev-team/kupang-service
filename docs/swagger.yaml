@@ -1024,6 +1024,30 @@ definitions:
     required:
     - id
     type: object
+  web.RoleCreateRequest:
+    properties:
+      role:
+        type: string
+    required:
+    - role
+    type: object
+  web.RoleResponse:
+    properties:
+      id:
+        type: integer
+      role:
+        type: string
+    type: object
+  web.RoleUpdateRequest:
+    properties:
+      id:
+        type: integer
+      role:
+        type: string
+    required:
+    - id
+    - role
+    type: object
   web.TargetPokinOpdCreateRequest:
     properties:
       indikator_pokin_opd_id:
@@ -3782,6 +3806,167 @@ paths:
       summary: Update Pokin Opd
       tags:
       - Pokin Opd
+  /roles:
+    get:
+      consumes:
+      - application/json
+      description: Get list of all Role
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/web.RoleResponse'
+                  type: array
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: List All Role
+      tags:
+      - Role
+    post:
+      consumes:
+      - application/json
+      description: Create new Role
+      parameters:
+      - description: Role Create Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.RoleCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.RoleResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Create Role
+      tags:
+      - Role
+  /roles/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete existing Role by ID
+      parameters:
+      - description: Role ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Delete Role
+      tags:
+      - Role
+    get:
+      consumes:
+      - application/json
+      description: Get Role detail by ID
+      parameters:
+      - description: Role ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.RoleResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Get Role by ID
+      tags:
+      - Role
+    put:
+      consumes:
+      - application/json
+      description: Update existing Role by ID
+      parameters:
+      - description: Role ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Role Update Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.RoleUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.RoleResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Update Role
+      tags:
+      - Role
   /target-pokin-opd-operational-ns:
     get:
       consumes:

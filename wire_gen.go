@@ -28,6 +28,9 @@ func InitializedServer() *echo.Echo {
 	periodeRepositoryImpl := repository.NewPeriodeRepositoryImpl()
 	periodeServiceImpl := service.NewPeriodeServiceImpl(periodeRepositoryImpl, db, validate)
 	periodeControllerImpl := controller.NewPeriodeControllerImpl(periodeServiceImpl)
+	roleRepositoryImpl := repository.NewRoleRepositoryImpl()
+	roleServiceImpl := service.NewRoleServiceImpl(roleRepositoryImpl, db, validate)
+	roleControllerImpl := controller.NewRoleControllerImpl(roleServiceImpl)
 	opdRepositoryImpl := repository.NewOpdRepositoryImpl()
 	opdServiceImpl := service.NewOpdServiceImpl(opdRepositoryImpl, db, validate)
 	opdControllerImpl := controller.NewOpdControllerImpl(opdServiceImpl)
@@ -84,7 +87,7 @@ func InitializedServer() *echo.Echo {
 	targetPokinOpdOperationalNControllerImpl := controller.NewTargetPokinOpdOperationalNControllerImpl(targetPokinOpdOperationalNServiceImpl)
 	pohonKinerjaServiceImpl := service.NewPohonKinerjaServiceImpl(pokinOpdRepositoryImpl, tujuanPokinOpdRepositoryImpl, indikatorPokinOpdRepositoryImpl, targetPokinOpdRepositoryImpl, pokinOpdStrategicRepositoryImpl, indikatorPokinOpdStrategicRepositoryImpl, targetPokinOpdStrategicRepositoryImpl, pokinOpdTacticalRepositoryImpl, indikatorPokinOpdTacticalRepositoryImpl, targetPokinOpdTacticalRepositoryImpl, pokinOpdOperationalRepositoryImpl, indikatorPokinOpdOperationalRepositoryImpl, targetPokinOpdOperationalRepositoryImpl, pokinOpdOperationalNRepositoryImpl, indikatorPokinOpdOperationalNRepositoryImpl, targetPokinOpdOperationalNRepositoryImpl, db)
 	pohonKinerjaControllerImpl := controller.NewPohonKinerjaControllerImpl(pohonKinerjaServiceImpl)
-	echoEcho := app.NewRouter(lembagaControllerImpl, periodeControllerImpl, opdControllerImpl, pegawaiControllerImpl, pokinOpdControllerImpl, pokinOpdStrategicControllerImpl, pokinOpdTacticalControllerImpl, pokinOpdOperationalControllerImpl, pokinOpdOperationalNControllerImpl, indikatorPokinOpdControllerImpl, indikatorPokinOpdStrategicControllerImpl, indikatorPokinOpdTacticalControllerImpl, indikatorPokinOpdOperationalControllerImpl, indikatorPokinOpdOperationalNControllerImpl, tujuanPokinOpdControllerImpl, targetPokinOpdControllerImpl, targetPokinOpdStrategicControllerImpl, targetPokinOpdTacticalControllerImpl, targetPokinOpdOperationalControllerImpl, targetPokinOpdOperationalNControllerImpl, pohonKinerjaControllerImpl)
+	echoEcho := app.NewRouter(lembagaControllerImpl, periodeControllerImpl, roleControllerImpl, opdControllerImpl, pegawaiControllerImpl, pokinOpdControllerImpl, pokinOpdStrategicControllerImpl, pokinOpdTacticalControllerImpl, pokinOpdOperationalControllerImpl, pokinOpdOperationalNControllerImpl, indikatorPokinOpdControllerImpl, indikatorPokinOpdStrategicControllerImpl, indikatorPokinOpdTacticalControllerImpl, indikatorPokinOpdOperationalControllerImpl, indikatorPokinOpdOperationalNControllerImpl, tujuanPokinOpdControllerImpl, targetPokinOpdControllerImpl, targetPokinOpdStrategicControllerImpl, targetPokinOpdTacticalControllerImpl, targetPokinOpdOperationalControllerImpl, targetPokinOpdOperationalNControllerImpl, pohonKinerjaControllerImpl)
 	return echoEcho
 }
 
@@ -103,6 +106,8 @@ var pegawaiSet = wire.NewSet(repository.NewPegawaiRepositoryImpl, wire.Bind(new(
 var lembagaSet = wire.NewSet(repository.NewLembagaRepositoryImpl, wire.Bind(new(repository.LembagaRepository), new(*repository.LembagaRepositoryImpl)), service.NewLembagaServiceImpl, wire.Bind(new(service.LembagaService), new(*service.LembagaServiceImpl)), controller.NewLembagaControllerImpl, wire.Bind(new(controller.LembagaController), new(*controller.LembagaControllerImpl)))
 
 var periodeSet = wire.NewSet(repository.NewPeriodeRepositoryImpl, wire.Bind(new(repository.PeriodeRepository), new(*repository.PeriodeRepositoryImpl)), service.NewPeriodeServiceImpl, wire.Bind(new(service.PeriodeService), new(*service.PeriodeServiceImpl)), controller.NewPeriodeControllerImpl, wire.Bind(new(controller.PeriodeController), new(*controller.PeriodeControllerImpl)))
+
+var roleSet = wire.NewSet(repository.NewRoleRepositoryImpl, wire.Bind(new(repository.RoleRepository), new(*repository.RoleRepositoryImpl)), service.NewRoleServiceImpl, wire.Bind(new(service.RoleService), new(*service.RoleServiceImpl)), controller.NewRoleControllerImpl, wire.Bind(new(controller.RoleController), new(*controller.RoleControllerImpl)))
 
 var pokinOpdStrategicSet = wire.NewSet(repository.NewPokinOpdStrategicRepositoryImpl, wire.Bind(new(repository.PokinOpdStrategicRepository), new(*repository.PokinOpdStrategicRepositoryImpl)), service.NewPokinOpdStrategicServiceImpl, wire.Bind(new(service.PokinOpdStrategicService), new(*service.PokinOpdStrategicServiceImpl)), controller.NewPokinOpdStrategicControllerImpl, wire.Bind(new(controller.PokinOpdStrategicController), new(*controller.PokinOpdStrategicControllerImpl)))
 

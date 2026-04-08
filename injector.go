@@ -59,6 +59,15 @@ var periodeSet = wire.NewSet(
 	wire.Bind(new(controller.PeriodeController), new(*controller.PeriodeControllerImpl)),
 )
 
+var roleSet = wire.NewSet(
+	repository.NewRoleRepositoryImpl,
+	wire.Bind(new(repository.RoleRepository), new(*repository.RoleRepositoryImpl)),
+	service.NewRoleServiceImpl,
+	wire.Bind(new(service.RoleService), new(*service.RoleServiceImpl)),
+	controller.NewRoleControllerImpl,
+	wire.Bind(new(controller.RoleController), new(*controller.RoleControllerImpl)),
+)
+
 var pokinOpdStrategicSet = wire.NewSet(
 	repository.NewPokinOpdStrategicRepositoryImpl,
 	wire.Bind(new(repository.PokinOpdStrategicRepository), new(*repository.PokinOpdStrategicRepositoryImpl)),
@@ -207,6 +216,7 @@ func InitializedServer() *echo.Echo {
 		wire.Value([]validator.Option{}),
 		validator.New,
 		periodeSet,
+		roleSet,
 		opdSet,
 		pegawaiSet,
 		lembagaSet,
