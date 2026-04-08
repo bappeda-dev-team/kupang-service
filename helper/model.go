@@ -93,6 +93,79 @@ func ToRoleResponses(roles []domain.Role) []web.RoleResponse {
 	return responses
 }
 
+func ToUserResponse(user domain.User) web.UserResponse {
+	var kodeOpd *string
+	if user.KodeOpd.Valid {
+		val := user.KodeOpd.String
+		kodeOpd = &val
+	}
+
+	var nip *string
+	if user.Nip.Valid {
+		val := user.Nip.String
+		nip = &val
+	}
+
+	var role *string
+	if user.Role.Valid {
+		val := user.Role.String
+		role = &val
+	}
+
+	var opdId *int
+	if user.OpdId.Valid {
+		val := int(user.OpdId.Int64)
+		opdId = &val
+	}
+
+	var pegawaiId *int
+	if user.PegawaiId.Valid {
+		val := int(user.PegawaiId.Int64)
+		pegawaiId = &val
+	}
+
+	var roleId *int
+	if user.RoleId.Valid {
+		val := int(user.RoleId.Int64)
+		roleId = &val
+	}
+
+	var namaOpd *string
+	if user.NamaOpd.Valid {
+		val := user.NamaOpd.String
+		namaOpd = &val
+	}
+
+	var namaPegawai *string
+	if user.NamaPegawai.Valid {
+		val := user.NamaPegawai.String
+		namaPegawai = &val
+	}
+
+	return web.UserResponse{
+		Id:          user.Id,
+		Nama:        user.Nama,
+		Email:       user.Email,
+		Status:      user.Status,
+		Nip:         nip,
+		KodeOpd:     kodeOpd,
+		Role:        role,
+		OpdId:       opdId,
+		PegawaiId:   pegawaiId,
+		RoleId:      roleId,
+		NamaOpd:     namaOpd,
+		NamaPegawai: namaPegawai,
+	}
+}
+
+func ToUserResponses(users []domain.User) []web.UserResponse {
+	var responses []web.UserResponse
+	for _, user := range users {
+		responses = append(responses, ToUserResponse(user))
+	}
+	return responses
+}
+
 func ToIndikatorPokinOpdResponse(indikatorPokinOpd domain.IndikatorPokinOpd) web.IndikatorPokinOpdResponse {
 	return web.IndikatorPokinOpdResponse{
 		Id:            indikatorPokinOpd.Id,

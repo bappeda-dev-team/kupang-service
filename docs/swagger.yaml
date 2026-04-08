@@ -1285,6 +1285,106 @@ definitions:
     - id
     - pokin_opd_id
     type: object
+  web.UserCreateRequest:
+    properties:
+      email:
+        type: string
+      kode_opd:
+        type: string
+      nama:
+        type: string
+      nama_opd:
+        type: string
+      nama_pegawai:
+        type: string
+      nip:
+        type: string
+      opd_id:
+        type: integer
+      pegawai_id:
+        type: integer
+      role:
+        type: string
+      role_id:
+        type: integer
+      status:
+        type: string
+    required:
+    - email
+    - kode_opd
+    - nama
+    - nip
+    - opd_id
+    - pegawai_id
+    - role
+    - role_id
+    - status
+    type: object
+  web.UserResponse:
+    properties:
+      email:
+        type: string
+      id:
+        type: integer
+      kode_opd:
+        type: string
+      nama:
+        type: string
+      nama_opd:
+        type: string
+      nama_pegawai:
+        type: string
+      nip:
+        type: string
+      opd_id:
+        type: integer
+      pegawai_id:
+        type: integer
+      role:
+        type: string
+      role_id:
+        type: integer
+      status:
+        type: string
+    type: object
+  web.UserUpdateRequest:
+    properties:
+      email:
+        type: string
+      id:
+        type: integer
+      kode_opd:
+        type: string
+      nama:
+        type: string
+      nama_opd:
+        type: string
+      nama_pegawai:
+        type: string
+      nip:
+        type: string
+      opd_id:
+        type: integer
+      pegawai_id:
+        type: integer
+      role:
+        type: string
+      role_id:
+        type: integer
+      status:
+        type: string
+    required:
+    - email
+    - id
+    - kode_opd
+    - nama
+    - nip
+    - opd_id
+    - pegawai_id
+    - role
+    - role_id
+    - status
+    type: object
   web.WebResponse:
     description: Web Response
     properties:
@@ -4949,6 +5049,167 @@ paths:
       summary: Tujuan Update Pokin Opd
       tags:
       - Tujuan Pokin Opd
+  /users:
+    get:
+      consumes:
+      - application/json
+      description: Get list of all Users
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/web.UserResponse'
+                  type: array
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: List All Users
+      tags:
+      - User
+    post:
+      consumes:
+      - application/json
+      description: Create new User
+      parameters:
+      - description: User Create Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.UserCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.UserResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Create User
+      tags:
+      - User
+  /users/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete existing User by ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Delete User
+      tags:
+      - User
+    get:
+      consumes:
+      - application/json
+      description: Get User detail by ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.UserResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Get User by ID
+      tags:
+      - User
+    put:
+      consumes:
+      - application/json
+      description: Update existing User by ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: User Update Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.UserUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.UserResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Update User
+      tags:
+      - User
 schemes:
 - http
 - https
