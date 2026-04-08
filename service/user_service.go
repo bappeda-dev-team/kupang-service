@@ -12,4 +12,5 @@ type UserService interface {
 	Delete(ctx context.Context, id int) error
 	FindById(ctx context.Context, id int) (web.UserResponse, error)
 	FindAll(ctx context.Context) ([]web.UserResponse, error)
+	FindByKodeOpd(ctx context.Context, kodeOpd string) ([]web.UserResponse, error)
 }

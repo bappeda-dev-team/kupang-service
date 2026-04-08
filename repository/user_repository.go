@@ -13,4 +13,5 @@ type UserRepository interface {
 	Delete(ctx context.Context, tx *sql.Tx, id int) error
 	FindById(ctx context.Context, tx *sql.Tx, id int) (domain.User, error)
 	FindAll(ctx context.Context, tx *sql.Tx) ([]domain.User, error)
+	FindByKodeOpd(ctx context.Context, tx *sql.Tx, kodeOpd string) ([]domain.User, error)
 }

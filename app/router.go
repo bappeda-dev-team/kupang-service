@@ -71,6 +71,7 @@ func NewRouter(lembagaController controller.LembagaController, periodeController
 	e.POST(userBase, userController.Create)
 	e.PUT(userBase+"/:id", userController.Update)
 	e.DELETE(userBase+"/:id", userController.Delete)
+	e.GET(userBase+"/opd/:kode_opd", userController.FindByKodeOpd)
 	e.GET(userBase+"/:id", userController.FindById)
 	e.GET(userBase, userController.FindAll)
 

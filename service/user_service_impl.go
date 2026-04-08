@@ -139,3 +139,18 @@ func (service *UserServiceImpl) FindAll(ctx context.Context) ([]web.UserResponse
 
 	return helper.ToUserResponses(userDomains), nil
 }
+
+func (service *UserServiceImpl) FindByKodeOpd(ctx context.Context, kodeOpd string) ([]web.UserResponse, error) {
+	tx, err := service.DB.BeginTx(ctx, nil)
+	if err != nil {
+		return []web.UserResponse{}, err
+	}
+	defer helper.CommitOrRollback(tx)
+
+	userDomains, err := service.UserRepository.FindByKodeOpd(ctx, tx, kodeOpd)
+	if err != nil {
+		return []web.UserResponse{}, err
+	}
+
+	return helper.ToUserResponses(userDomains), nil
+}

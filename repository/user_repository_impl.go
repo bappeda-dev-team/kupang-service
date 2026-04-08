@@ -80,3 +80,24 @@ func (repository *UserRepositoryImpl) FindAll(ctx context.Context, tx *sql.Tx) (
 
 	return users, nil
 }
+
+func (repository *UserRepositoryImpl) FindByKodeOpd(ctx context.Context, tx *sql.Tx, kodeOpd string) ([]domain.User, error) {
+	query := `SELECT id, nama, nip, email, status, role, kode_opd, opd_id, nama_opd, pegawai_id, nama_pegawai, role_id FROM "user" WHERE kode_opd = $1 ORDER BY id ASC`
+	rows, err := tx.QueryContext(ctx, query, kodeOpd)
+	if err != nil {
+		return []domain.User{}, err
+	}
+	defer rows.Close()
+
+	var users []domain.User
+	for rows.Next() {
+		var user domain.User
+		err := rows.Scan(&user.Id, &user.Nama, &user.Nip, &user.Email, &user.Status, &user.Role, &user.KodeOpd, &user.OpdId, &user.NamaOpd, &user.PegawaiId, &user.NamaPegawai, &user.RoleId)
+		if err != nil {
+			return []domain.User{}, err
+		}
+		users = append(users, user)
+	}
+
+	return users, nil
+}

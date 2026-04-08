@@ -211,3 +211,29 @@ func (controller *UserControllerImpl) FindAll(c echo.Context) error {
 		Data:   userResponses,
 	})
 }
+
+// @Summary Get Users by Kode OPD
+// @Description Get list of Users by kode_opd
+// @Tags User
+// @Produce json
+// @Param kode_opd path string true "Kode OPD"
+// @Success 200 {object} web.WebResponse{data=[]web.UserResponse} "OK"
+// @Failure 500 {object} web.WebResponse "Internal Server Error"
+// @Router /users/opd/{kode_opd} [get]
+func (controller *UserControllerImpl) FindByKodeOpd(c echo.Context) error {
+	kodeOpd := c.Param("kode_opd")
+
+	userResponses, err := controller.UserService.FindByKodeOpd(c.Request().Context(), kodeOpd)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, web.WebResponse{
+			Code:   http.StatusInternalServerError,
+			Status: "INTERNAL_SERVER_ERROR",
+		})
+	}
+
+	return c.JSON(http.StatusOK, web.WebResponse{
+		Code:   http.StatusOK,
+		Status: "OK",
+		Data:   userResponses,
+	})
+}
