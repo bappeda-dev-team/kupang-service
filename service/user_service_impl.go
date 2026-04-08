@@ -32,6 +32,11 @@ func (service *UserServiceImpl) Create(ctx context.Context, user web.UserCreateR
 		return web.UserResponse{}, err
 	}
 
+	hashedPassword, err := helper.HashPassword(user.Password)
+	if err != nil {
+		return web.UserResponse{}, err
+	}
+
 	tx, err := service.DB.BeginTx(ctx, nil)
 	if err != nil {
 		return web.UserResponse{}, err
@@ -42,6 +47,7 @@ func (service *UserServiceImpl) Create(ctx context.Context, user web.UserCreateR
 		Nama:        user.Nama,
 		Nip:         sql.NullString{String: user.Nip, Valid: true},
 		Email:       user.Email,
+		Password:    hashedPassword,
 		Status:      user.Status,
 		Role:        sql.NullString{String: user.Role, Valid: true},
 		KodeOpd:     sql.NullString{String: user.KodeOpd, Valid: true},

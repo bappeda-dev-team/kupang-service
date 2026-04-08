@@ -8196,6 +8196,7 @@ const docTemplate = `{
                 "nama",
                 "nip",
                 "opd_id",
+                "password",
                 "pegawai_id",
                 "role",
                 "role_id",
@@ -8222,6 +8223,9 @@ const docTemplate = `{
                 },
                 "opd_id": {
                     "type": "integer"
+                },
+                "password": {
+                    "type": "string"
                 },
                 "pegawai_id": {
                     "type": "integer"

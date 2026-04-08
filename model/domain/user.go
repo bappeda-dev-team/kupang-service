@@ -8,6 +8,7 @@ type User struct {
 	Nip         sql.NullString
 	Email       string
 	Status      string
+	Password    string
 	Role        sql.NullString
 	KodeOpd     sql.NullString
 	OpdId       sql.NullInt64

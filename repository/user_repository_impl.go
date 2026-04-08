@@ -15,8 +15,8 @@ func NewUserRepositoryImpl() *UserRepositoryImpl {
 }
 
 func (repository *UserRepositoryImpl) Create(ctx context.Context, tx *sql.Tx, user domain.User) (domain.User, error) {
-	query := `INSERT INTO "user" (nama, nip, email, status, role, kode_opd, opd_id, nama_opd, pegawai_id, nama_pegawai, role_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id`
-	err := tx.QueryRowContext(ctx, query, user.Nama, user.Nip, user.Email, user.Status, user.Role, user.KodeOpd, user.OpdId, user.NamaOpd, user.PegawaiId, user.NamaPegawai, user.RoleId).Scan(&user.Id)
+	query := `INSERT INTO "user" (nama, nip, email, password, status, role, kode_opd, opd_id, nama_opd, pegawai_id, nama_pegawai, role_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING id`
+	err := tx.QueryRowContext(ctx, query, user.Nama, user.Nip, user.Email, user.Password, user.Status, user.Role, user.KodeOpd, user.OpdId, user.NamaOpd, user.PegawaiId, user.NamaPegawai, user.RoleId).Scan(&user.Id)
 	if err != nil {
 		return domain.User{}, err
 	}
@@ -45,11 +45,11 @@ func (repository *UserRepositoryImpl) Delete(ctx context.Context, tx *sql.Tx, id
 }
 
 func (repository *UserRepositoryImpl) FindById(ctx context.Context, tx *sql.Tx, id int) (domain.User, error) {
-	query := `SELECT id, nama, nip, email, status, role, kode_opd, opd_id, nama_opd, pegawai_id, nama_pegawai, role_id FROM "user" WHERE id = $1`
+	query := `SELECT id, nama, nip, email, password, status, role, kode_opd, opd_id, nama_opd, pegawai_id, nama_pegawai, role_id FROM "user" WHERE id = $1`
 	row := tx.QueryRowContext(ctx, query, id)
 
 	var user domain.User
-	err := row.Scan(&user.Id, &user.Nama, &user.Nip, &user.Email, &user.Status, &user.Role, &user.KodeOpd, &user.OpdId, &user.NamaOpd, &user.PegawaiId, &user.NamaPegawai, &user.RoleId)
+	err := row.Scan(&user.Id, &user.Nama, &user.Nip, &user.Email, &user.Password, &user.Status, &user.Role, &user.KodeOpd, &user.OpdId, &user.NamaOpd, &user.PegawaiId, &user.NamaPegawai, &user.RoleId)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return domain.User{}, errors.New("id tidak ditemukan")
@@ -61,7 +61,7 @@ func (repository *UserRepositoryImpl) FindById(ctx context.Context, tx *sql.Tx, 
 }
 
 func (repository *UserRepositoryImpl) FindAll(ctx context.Context, tx *sql.Tx) ([]domain.User, error) {
-	query := `SELECT id, nama, nip, email, status, role, kode_opd, opd_id, nama_opd, pegawai_id, nama_pegawai, role_id FROM "user" ORDER BY id ASC`
+	query := `SELECT id, nama, nip, email, password, status, role, kode_opd, opd_id, nama_opd, pegawai_id, nama_pegawai, role_id FROM "user" ORDER BY id ASC`
 	rows, err := tx.QueryContext(ctx, query)
 	if err != nil {
 		return []domain.User{}, err
@@ -71,7 +71,7 @@ func (repository *UserRepositoryImpl) FindAll(ctx context.Context, tx *sql.Tx) (
 	var users []domain.User
 	for rows.Next() {
 		var user domain.User
-		err := rows.Scan(&user.Id, &user.Nama, &user.Nip, &user.Email, &user.Status, &user.Role, &user.KodeOpd, &user.OpdId, &user.NamaOpd, &user.PegawaiId, &user.NamaPegawai, &user.RoleId)
+		err := rows.Scan(&user.Id, &user.Nama, &user.Nip, &user.Email, &user.Password, &user.Status, &user.Role, &user.KodeOpd, &user.OpdId, &user.NamaOpd, &user.PegawaiId, &user.NamaPegawai, &user.RoleId)
 		if err != nil {
 			return []domain.User{}, err
 		}
@@ -82,7 +82,7 @@ func (repository *UserRepositoryImpl) FindAll(ctx context.Context, tx *sql.Tx) (
 }
 
 func (repository *UserRepositoryImpl) FindByKodeOpd(ctx context.Context, tx *sql.Tx, kodeOpd string) ([]domain.User, error) {
-	query := `SELECT id, nama, nip, email, status, role, kode_opd, opd_id, nama_opd, pegawai_id, nama_pegawai, role_id FROM "user" WHERE kode_opd = $1 ORDER BY id ASC`
+	query := `SELECT id, nama, nip, email, password, status, role, kode_opd, opd_id, nama_opd, pegawai_id, nama_pegawai, role_id FROM "user" WHERE kode_opd = $1 ORDER BY id ASC`
 	rows, err := tx.QueryContext(ctx, query, kodeOpd)
 	if err != nil {
 		return []domain.User{}, err
@@ -92,7 +92,7 @@ func (repository *UserRepositoryImpl) FindByKodeOpd(ctx context.Context, tx *sql
 	var users []domain.User
 	for rows.Next() {
 		var user domain.User
-		err := rows.Scan(&user.Id, &user.Nama, &user.Nip, &user.Email, &user.Status, &user.Role, &user.KodeOpd, &user.OpdId, &user.NamaOpd, &user.PegawaiId, &user.NamaPegawai, &user.RoleId)
+		err := rows.Scan(&user.Id, &user.Nama, &user.Nip, &user.Email, &user.Password, &user.Status, &user.Role, &user.KodeOpd, &user.OpdId, &user.NamaOpd, &user.PegawaiId, &user.NamaPegawai, &user.RoleId)
 		if err != nil {
 			return []domain.User{}, err
 		}

@@ -1301,6 +1301,8 @@ definitions:
         type: string
       opd_id:
         type: integer
+      password:
+        type: string
       pegawai_id:
         type: integer
       role:
@@ -1315,6 +1317,7 @@ definitions:
     - nama
     - nip
     - opd_id
+    - password
     - pegawai_id
     - role
     - role_id
