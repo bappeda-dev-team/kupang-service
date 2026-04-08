@@ -61,6 +61,23 @@ func ToLembagaResponses(lembagas []domain.Lembaga) []web.LembagaResponse {
 	return responses
 }
 
+func ToPeriodeResponse(periode domain.Periode) web.PeriodeResponse {
+	return web.PeriodeResponse{
+		Id:           periode.Id,
+		TahunAwal:    periode.TahunAwal,
+		TahunAkhir:   periode.TahunAkhir,
+		JenisPeriode: periode.JenisPeriode,
+	}
+}
+
+func ToPeriodeResponses(periodes []domain.Periode) []web.PeriodeResponse {
+	var responses []web.PeriodeResponse
+	for _, periode := range periodes {
+		responses = append(responses, ToPeriodeResponse(periode))
+	}
+	return responses
+}
+
 func ToIndikatorPokinOpdResponse(indikatorPokinOpd domain.IndikatorPokinOpd) web.IndikatorPokinOpdResponse {
 	return web.IndikatorPokinOpdResponse{
 		Id:            indikatorPokinOpd.Id,

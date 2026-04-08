@@ -50,6 +50,15 @@ var lembagaSet = wire.NewSet(
 	wire.Bind(new(controller.LembagaController), new(*controller.LembagaControllerImpl)),
 )
 
+var periodeSet = wire.NewSet(
+	repository.NewPeriodeRepositoryImpl,
+	wire.Bind(new(repository.PeriodeRepository), new(*repository.PeriodeRepositoryImpl)),
+	service.NewPeriodeServiceImpl,
+	wire.Bind(new(service.PeriodeService), new(*service.PeriodeServiceImpl)),
+	controller.NewPeriodeControllerImpl,
+	wire.Bind(new(controller.PeriodeController), new(*controller.PeriodeControllerImpl)),
+)
+
 var pokinOpdStrategicSet = wire.NewSet(
 	repository.NewPokinOpdStrategicRepositoryImpl,
 	wire.Bind(new(repository.PokinOpdStrategicRepository), new(*repository.PokinOpdStrategicRepositoryImpl)),
@@ -98,8 +107,6 @@ var indikatorPokinOpdSet = wire.NewSet(
 var indikatorPokinOpdStrategicSet = wire.NewSet(
 	repository.NewIndikatorPokinOpdStrategicRepositoryImpl,
 	wire.Bind(new(repository.IndikatorPokinOpdStrategicRepository), new(*repository.IndikatorPokinOpdStrategicRepositoryImpl)),
-	repository.NewPokinOpdStrategicRepositoryImpl,
-	wire.Bind(new(repository.PokinOpdStrategicRepository), new(*repository.PokinOpdStrategicRepositoryImpl)),
 	service.NewIndikatorPokinOpdStrategicServiceImpl,
 	wire.Bind(new(service.IndikatorPokinOpdStrategicService), new(*service.IndikatorPokinOpdStrategicServiceImpl)),
 	controller.NewIndikatorPokinOpdStrategicControllerImpl,
@@ -109,8 +116,6 @@ var indikatorPokinOpdStrategicSet = wire.NewSet(
 var indikatorPokinOpdTacticalSet = wire.NewSet(
 	repository.NewIndikatorPokinOpdTacticalRepositoryImpl,
 	wire.Bind(new(repository.IndikatorPokinOpdTacticalRepository), new(*repository.IndikatorPokinOpdTacticalRepositoryImpl)),
-	repository.NewPokinOpdTacticalRepositoryImpl,
-	wire.Bind(new(repository.PokinOpdTacticalRepository), new(*repository.PokinOpdTacticalRepositoryImpl)),
 	service.NewIndikatorPokinOpdTacticalServiceImpl,
 	wire.Bind(new(service.IndikatorPokinOpdTacticalService), new(*service.IndikatorPokinOpdTacticalServiceImpl)),
 	controller.NewIndikatorPokinOpdTacticalControllerImpl,
@@ -138,8 +143,6 @@ var indikatorPokinOpdOperationalNSet = wire.NewSet(
 var tujuanPokinOpdSet = wire.NewSet(
 	repository.NewTujuanPokinOpdRepositoryImpl,
 	wire.Bind(new(repository.TujuanPokinOpdRepository), new(*repository.TujuanPokinOpdRepositoryImpl)),
-	repository.NewPokinOpdRepositoryImpl,
-	wire.Bind(new(repository.PokinOpdRepository), new(*repository.PokinOpdRepositoryImpl)),
 	service.NewTujuanPokinOpdServiceImpl,
 	wire.Bind(new(service.TujuanPokinOpdService), new(*service.TujuanPokinOpdServiceImpl)),
 	controller.NewTujuanPokinOpdControllerImpl,
@@ -201,13 +204,14 @@ var pohonKinerjaSet = wire.NewSet(
 func InitializedServer() *echo.Echo {
 	wire.Build(
 		app.GetConnection,
-	wire.Value([]validator.Option{}),
-	validator.New,
-	opdSet,
-	pegawaiSet,
-	lembagaSet,
-	pokinOpdSet,
-	pokinOpdStrategicSet,
+		wire.Value([]validator.Option{}),
+		validator.New,
+		periodeSet,
+		opdSet,
+		pegawaiSet,
+		lembagaSet,
+		pokinOpdSet,
+		pokinOpdStrategicSet,
 		pokinOpdTacticalSet,
 		pokinOpdOperationalSet,
 		pokinOpdOperationalNSet,

@@ -1,0 +1,5 @@
+./analyze.go
+./copyast.go
+./errors.go
+./parse.go
+./wire.go

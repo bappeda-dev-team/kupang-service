@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS periode (
+    id BIGSERIAL PRIMARY KEY,
+    tahun_awal VARCHAR(255) NOT NULL,
+    tahun_akhir VARCHAR(255) NOT NULL,
+    jenis_periode VARCHAR(255) NOT NULL,
+    created_date TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    last_modified_date TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
+);
