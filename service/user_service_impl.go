@@ -160,3 +160,25 @@ func (service *UserServiceImpl) FindByKodeOpd(ctx context.Context, kodeOpd strin
 
 	return helper.ToUserResponses(userDomains), nil
 }
+
+func (service *UserServiceImpl) Search(ctx context.Context, nama, nip *string) ([]web.UserResponse, error) {
+	namaFilter := normalizeSearchParam(nama)
+	nipFilter := normalizeSearchParam(nip)
+
+	if namaFilter == nil && nipFilter == nil {
+		return []web.UserResponse{}, ErrSearchMissingParams
+	}
+
+	tx, err := service.DB.BeginTx(ctx, nil)
+	if err != nil {
+		return []web.UserResponse{}, err
+	}
+	defer helper.CommitOrRollback(tx)
+
+	userDomains, err := service.UserRepository.SearchByNamaOrNip(ctx, tx, namaFilter, nipFilter)
+	if err != nil {
+		return []web.UserResponse{}, err
+	}
+
+	return helper.ToUserResponses(userDomains), nil
+}

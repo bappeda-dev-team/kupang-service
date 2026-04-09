@@ -9,4 +9,5 @@ type UserController interface {
 	FindById(c echo.Context) error
 	FindAll(c echo.Context) error
 	FindByKodeOpd(c echo.Context) error
+	Search(c echo.Context) error
 }

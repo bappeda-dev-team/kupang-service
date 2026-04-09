@@ -1,8 +1,10 @@
 package controller
 
 import (
+	"errors"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"kupang-service/helper"
 	"kupang-service/model/web"
@@ -199,6 +201,50 @@ func (controller *UserControllerImpl) FindById(c echo.Context) error {
 func (controller *UserControllerImpl) FindAll(c echo.Context) error {
 	userResponses, err := controller.UserService.FindAll(c.Request().Context())
 	if err != nil {
+		return c.JSON(http.StatusInternalServerError, web.WebResponse{
+			Code:   http.StatusInternalServerError,
+			Status: "INTERNAL_SERVER_ERROR",
+		})
+	}
+
+	return c.JSON(http.StatusOK, web.WebResponse{
+		Code:   http.StatusOK,
+		Status: "OK",
+		Data:   userResponses,
+	})
+}
+
+// @Summary Search Users
+// @Description Search user by nama or nip (partial, case-insensitive)
+// @Tags User
+// @Produce json
+// @Param nama query string false "Nama"
+// @Param nip query string false "NIP"
+// @Success 200 {object} web.WebResponse{data=[]web.UserResponse} "OK"
+// @Failure 400 {object} web.WebResponse "Bad Request"
+// @Failure 500 {object} web.WebResponse "Internal Server Error"
+// @Router /users/search [get]
+func (controller *UserControllerImpl) Search(c echo.Context) error {
+	nama := strings.TrimSpace(c.QueryParam("nama"))
+	nip := strings.TrimSpace(c.QueryParam("nip"))
+
+	if nama == "" && nip == "" {
+		return c.JSON(http.StatusBadRequest, web.WebResponse{
+			Code:   http.StatusBadRequest,
+			Status: "BAD_REQUEST",
+			Data:   "nama atau nip wajib diisi",
+		})
+	}
+
+	userResponses, err := controller.UserService.Search(c.Request().Context(), toPtr(nama), toPtr(nip))
+	if err != nil {
+		if errors.Is(err, service.ErrSearchMissingParams) {
+			return c.JSON(http.StatusBadRequest, web.WebResponse{
+				Code:   http.StatusBadRequest,
+				Status: "BAD_REQUEST",
+				Data:   err.Error(),
+			})
+		}
 		return c.JSON(http.StatusInternalServerError, web.WebResponse{
 			Code:   http.StatusInternalServerError,
 			Status: "INTERNAL_SERVER_ERROR",

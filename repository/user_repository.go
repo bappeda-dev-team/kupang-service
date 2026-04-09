@@ -14,4 +14,5 @@ type UserRepository interface {
 	FindById(ctx context.Context, tx *sql.Tx, id int) (domain.User, error)
 	FindAll(ctx context.Context, tx *sql.Tx) ([]domain.User, error)
 	FindByKodeOpd(ctx context.Context, tx *sql.Tx, kodeOpd string) ([]domain.User, error)
+	SearchByNamaOrNip(ctx context.Context, tx *sql.Tx, nama, nip *string) ([]domain.User, error)
 }

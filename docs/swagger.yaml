@@ -5243,6 +5243,43 @@ paths:
       summary: Get Users by Kode OPD
       tags:
       - User
+  /users/search:
+    get:
+      description: Search user by nama or nip (partial, case-insensitive)
+      parameters:
+      - description: Nama
+        in: query
+        name: nama
+        type: string
+      - description: NIP
+        in: query
+        name: nip
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/web.UserResponse'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Search Users
+      tags:
+      - User
 schemes:
 - http
 - https

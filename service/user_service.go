@@ -13,4 +13,5 @@ type UserService interface {
 	FindById(ctx context.Context, id int) (web.UserResponse, error)
 	FindAll(ctx context.Context) ([]web.UserResponse, error)
 	FindByKodeOpd(ctx context.Context, kodeOpd string) ([]web.UserResponse, error)
+	Search(ctx context.Context, nama, nip *string) ([]web.UserResponse, error)
 }

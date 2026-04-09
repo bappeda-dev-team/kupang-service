@@ -4,6 +4,8 @@ import (
 	"context"
 	"database/sql"
 	"errors"
+	"fmt"
+	"strings"
 
 	"kupang-service/model/domain"
 )
@@ -84,6 +86,49 @@ func (repository *UserRepositoryImpl) FindAll(ctx context.Context, tx *sql.Tx) (
 func (repository *UserRepositoryImpl) FindByKodeOpd(ctx context.Context, tx *sql.Tx, kodeOpd string) ([]domain.User, error) {
 	query := `SELECT id, nama, nip, email, password, status, role, kode_opd, opd_id, nama_opd, pegawai_id, nama_pegawai, role_id FROM "user" WHERE kode_opd = $1 ORDER BY id ASC`
 	rows, err := tx.QueryContext(ctx, query, kodeOpd)
+	if err != nil {
+		return []domain.User{}, err
+	}
+	defer rows.Close()
+
+	var users []domain.User
+	for rows.Next() {
+		var user domain.User
+		err := rows.Scan(&user.Id, &user.Nama, &user.Nip, &user.Email, &user.Password, &user.Status, &user.Role, &user.KodeOpd, &user.OpdId, &user.NamaOpd, &user.PegawaiId, &user.NamaPegawai, &user.RoleId)
+		if err != nil {
+			return []domain.User{}, err
+		}
+		users = append(users, user)
+	}
+
+	return users, nil
+}
+
+func (repository *UserRepositoryImpl) SearchByNamaOrNip(ctx context.Context, tx *sql.Tx, nama, nip *string) ([]domain.User, error) {
+	query := `SELECT id, nama, nip, email, password, status, role, kode_opd, opd_id, nama_opd, pegawai_id, nama_pegawai, role_id FROM "user"`
+	var conditions []string
+	var args []interface{}
+	paramIndex := 1
+
+	if nama != nil && *nama != "" {
+		conditions = append(conditions, fmt.Sprintf("LOWER(nama) LIKE $%d", paramIndex))
+		args = append(args, fmt.Sprintf("%%%s%%", strings.ToLower(*nama)))
+		paramIndex++
+	}
+
+	if nip != nil && *nip != "" {
+		conditions = append(conditions, fmt.Sprintf("LOWER(nip) LIKE $%d", paramIndex))
+		args = append(args, fmt.Sprintf("%%%s%%", strings.ToLower(*nip)))
+		paramIndex++
+	}
+
+	if len(conditions) > 0 {
+		query += " WHERE " + strings.Join(conditions, " AND ")
+	}
+
+	query += " ORDER BY id ASC"
+
+	rows, err := tx.QueryContext(ctx, query, args...)
 	if err != nil {
 		return []domain.User{}, err
 	}
