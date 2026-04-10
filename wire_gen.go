@@ -31,6 +31,9 @@ func InitializedServer() *echo.Echo {
 	roleRepositoryImpl := repository.NewRoleRepositoryImpl()
 	roleServiceImpl := service.NewRoleServiceImpl(roleRepositoryImpl, db, validate)
 	roleControllerImpl := controller.NewRoleControllerImpl(roleServiceImpl)
+	musrenbangRepositoryImpl := repository.NewMusrenbangRepositoryImpl()
+	musrenbangServiceImpl := service.NewMusrenbangServiceImpl(musrenbangRepositoryImpl, db, validate)
+	musrenbangControllerImpl := controller.NewMusrenbangControllerImpl(musrenbangServiceImpl)
 	userRepositoryImpl := repository.NewUserRepositoryImpl()
 	userServiceImpl := service.NewUserServiceImpl(userRepositoryImpl, db, validate)
 	userControllerImpl := controller.NewUserControllerImpl(userServiceImpl)
@@ -90,7 +93,7 @@ func InitializedServer() *echo.Echo {
 	targetPokinOpdOperationalNControllerImpl := controller.NewTargetPokinOpdOperationalNControllerImpl(targetPokinOpdOperationalNServiceImpl)
 	pohonKinerjaServiceImpl := service.NewPohonKinerjaServiceImpl(pokinOpdRepositoryImpl, tujuanPokinOpdRepositoryImpl, indikatorPokinOpdRepositoryImpl, targetPokinOpdRepositoryImpl, pokinOpdStrategicRepositoryImpl, indikatorPokinOpdStrategicRepositoryImpl, targetPokinOpdStrategicRepositoryImpl, pokinOpdTacticalRepositoryImpl, indikatorPokinOpdTacticalRepositoryImpl, targetPokinOpdTacticalRepositoryImpl, pokinOpdOperationalRepositoryImpl, indikatorPokinOpdOperationalRepositoryImpl, targetPokinOpdOperationalRepositoryImpl, pokinOpdOperationalNRepositoryImpl, indikatorPokinOpdOperationalNRepositoryImpl, targetPokinOpdOperationalNRepositoryImpl, db)
 	pohonKinerjaControllerImpl := controller.NewPohonKinerjaControllerImpl(pohonKinerjaServiceImpl)
-	echoEcho := app.NewRouter(lembagaControllerImpl, periodeControllerImpl, roleControllerImpl, userControllerImpl, opdControllerImpl, pegawaiControllerImpl, pokinOpdControllerImpl, pokinOpdStrategicControllerImpl, pokinOpdTacticalControllerImpl, pokinOpdOperationalControllerImpl, pokinOpdOperationalNControllerImpl, indikatorPokinOpdControllerImpl, indikatorPokinOpdStrategicControllerImpl, indikatorPokinOpdTacticalControllerImpl, indikatorPokinOpdOperationalControllerImpl, indikatorPokinOpdOperationalNControllerImpl, tujuanPokinOpdControllerImpl, targetPokinOpdControllerImpl, targetPokinOpdStrategicControllerImpl, targetPokinOpdTacticalControllerImpl, targetPokinOpdOperationalControllerImpl, targetPokinOpdOperationalNControllerImpl, pohonKinerjaControllerImpl)
+	echoEcho := app.NewRouter(lembagaControllerImpl, periodeControllerImpl, roleControllerImpl, musrenbangControllerImpl, userControllerImpl, opdControllerImpl, pegawaiControllerImpl, pokinOpdControllerImpl, pokinOpdStrategicControllerImpl, pokinOpdTacticalControllerImpl, pokinOpdOperationalControllerImpl, pokinOpdOperationalNControllerImpl, indikatorPokinOpdControllerImpl, indikatorPokinOpdStrategicControllerImpl, indikatorPokinOpdTacticalControllerImpl, indikatorPokinOpdOperationalControllerImpl, indikatorPokinOpdOperationalNControllerImpl, tujuanPokinOpdControllerImpl, targetPokinOpdControllerImpl, targetPokinOpdStrategicControllerImpl, targetPokinOpdTacticalControllerImpl, targetPokinOpdOperationalControllerImpl, targetPokinOpdOperationalNControllerImpl, pohonKinerjaControllerImpl)
 	return echoEcho
 }
 
@@ -111,6 +114,8 @@ var lembagaSet = wire.NewSet(repository.NewLembagaRepositoryImpl, wire.Bind(new(
 var periodeSet = wire.NewSet(repository.NewPeriodeRepositoryImpl, wire.Bind(new(repository.PeriodeRepository), new(*repository.PeriodeRepositoryImpl)), service.NewPeriodeServiceImpl, wire.Bind(new(service.PeriodeService), new(*service.PeriodeServiceImpl)), controller.NewPeriodeControllerImpl, wire.Bind(new(controller.PeriodeController), new(*controller.PeriodeControllerImpl)))
 
 var roleSet = wire.NewSet(repository.NewRoleRepositoryImpl, wire.Bind(new(repository.RoleRepository), new(*repository.RoleRepositoryImpl)), service.NewRoleServiceImpl, wire.Bind(new(service.RoleService), new(*service.RoleServiceImpl)), controller.NewRoleControllerImpl, wire.Bind(new(controller.RoleController), new(*controller.RoleControllerImpl)))
+
+var musrenbangSet = wire.NewSet(repository.NewMusrenbangRepositoryImpl, wire.Bind(new(repository.MusrenbangRepository), new(*repository.MusrenbangRepositoryImpl)), service.NewMusrenbangServiceImpl, wire.Bind(new(service.MusrenbangService), new(*service.MusrenbangServiceImpl)), controller.NewMusrenbangControllerImpl, wire.Bind(new(controller.MusrenbangController), new(*controller.MusrenbangControllerImpl)))
 
 var userSet = wire.NewSet(repository.NewUserRepositoryImpl, wire.Bind(new(repository.UserRepository), new(*repository.UserRepositoryImpl)), service.NewUserServiceImpl, wire.Bind(new(service.UserService), new(*service.UserServiceImpl)), controller.NewUserControllerImpl, wire.Bind(new(controller.UserController), new(*controller.UserControllerImpl)))
 

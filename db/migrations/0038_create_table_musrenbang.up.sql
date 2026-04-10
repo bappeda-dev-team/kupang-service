@@ -1,0 +1,12 @@
+CREATE TABLE IF NOT EXISTS "musrenbang" (
+    id BIGSERIAL PRIMARY KEY,
+    usulan VARCHAR(255) NOT NULL,
+    alamat VARCHAR(255) NOT NULL,
+    uraian VARCHAR(255) NOT NULL,
+    tahun VARCHAR(255) NOT NULL,
+    kode_opd VARCHAR(255) NOT NULL,
+    nama_opd VARCHAR(255) NOT NULL,
+    status VARCHAR(255) NOT NULL,
+    created_date TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    last_modified_date TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
+);

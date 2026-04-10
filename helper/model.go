@@ -93,6 +93,27 @@ func ToRoleResponses(roles []domain.Role) []web.RoleResponse {
 	return responses
 }
 
+func ToMusrenbangResponse(musrenbang domain.Musrenbang) web.MusrenbangResponse {
+	return web.MusrenbangResponse{
+		Id:      musrenbang.Id,
+		Usulan:  musrenbang.Usulan,
+		Alamat:  musrenbang.Alamat,
+		Uraian:  musrenbang.Uraian,
+		Tahun:   musrenbang.Tahun,
+		KodeOpd: musrenbang.KodeOpd,
+		NamaOpd: musrenbang.NamaOpd,
+		Status:  musrenbang.Status,
+	}
+}
+
+func ToMusrenbangResponses(musrenbangs []domain.Musrenbang) []web.MusrenbangResponse {
+	var responses []web.MusrenbangResponse
+	for _, musrenbang := range musrenbangs {
+		responses = append(responses, ToMusrenbangResponse(musrenbang))
+	}
+	return responses
+}
+
 func ToUserResponse(user domain.User) web.UserResponse {
 	var kodeOpd *string
 	if user.KodeOpd.Valid {
