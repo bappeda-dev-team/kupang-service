@@ -126,6 +126,39 @@ func ToMusrenbangResponses(musrenbangs []domain.Musrenbang) []web.MusrenbangResp
 	return responses
 }
 
+func ToPokokPikiranResponse(pokokPikiran domain.PokokPikiran) web.PokokPikiranResponse {
+	var tahun *string
+	if pokokPikiran.Tahun.Valid {
+		val := pokokPikiran.Tahun.String
+		tahun = &val
+	}
+
+	var status *string
+	if pokokPikiran.Status.Valid {
+		val := pokokPikiran.Status.String
+		status = &val
+	}
+
+	return web.PokokPikiranResponse{
+		Id:      pokokPikiran.Id,
+		Usulan:  pokokPikiran.Usulan,
+		Alamat:  pokokPikiran.Alamat,
+		Uraian:  pokokPikiran.Uraian,
+		Tahun:   tahun,
+		KodeOpd: pokokPikiran.KodeOpd,
+		NamaOpd: pokokPikiran.NamaOpd,
+		Status:  status,
+	}
+}
+
+func ToPokokPikiranResponses(pokokPikirans []domain.PokokPikiran) []web.PokokPikiranResponse {
+	var responses []web.PokokPikiranResponse
+	for _, pokokPikiran := range pokokPikirans {
+		responses = append(responses, ToPokokPikiranResponse(pokokPikiran))
+	}
+	return responses
+}
+
 func ToUserResponse(user domain.User) web.UserResponse {
 	var kodeOpd *string
 	if user.KodeOpd.Valid {

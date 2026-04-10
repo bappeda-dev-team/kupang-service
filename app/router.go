@@ -7,13 +7,14 @@ import (
 	"kupang-service/controller"
 )
 
-func NewRouter(lembagaController controller.LembagaController, periodeController controller.PeriodeController, roleController controller.RoleController, musrenbangController controller.MusrenbangController, userController controller.UserController, opdController controller.OpdController, pegawaiController controller.PegawaiController, pokinOpdController controller.PokinOpdController, pokinOpdStrategicController controller.PokinOpdStrategicController, pokinOpdTacticalController controller.PokinOpdTacticalController, pokinOpdOperationalController controller.PokinOpdOperationalController, pokinOpdOperationalNController controller.PokinOpdOperationalNController, indikatorPokinOpdController controller.IndikatorPokinOpdController, indikatorPokinOpdStrategicController controller.IndikatorPokinOpdStrategicController, indikatorPokinOpdTacticalController controller.IndikatorPokinOpdTacticalController, indikatorPokinOpdOperationalController controller.IndikatorPokinOpdOperationalController, indikatorPokinOpdOperationalNController controller.IndikatorPokinOpdOperationalNController, tujuanPokinOpdController controller.TujuanPokinOpdController, targetPokinOpdController controller.TargetPokinOpdController, targetPokinOpdStrategicController controller.TargetPokinOpdStrategicController, targetPokinOpdTacticalController controller.TargetPokinOpdTacticalController, targetPokinOpdOperationalController controller.TargetPokinOpdOperationalController, targetPokinOpdOperationalNController controller.TargetPokinOpdOperationalNController, pohonKinerjaController controller.PohonKinerjaController) *echo.Echo {
+func NewRouter(lembagaController controller.LembagaController, periodeController controller.PeriodeController, roleController controller.RoleController, musrenbangController controller.MusrenbangController, pokokPikiranController controller.PokokPikiranController, userController controller.UserController, opdController controller.OpdController, pegawaiController controller.PegawaiController, pokinOpdController controller.PokinOpdController, pokinOpdStrategicController controller.PokinOpdStrategicController, pokinOpdTacticalController controller.PokinOpdTacticalController, pokinOpdOperationalController controller.PokinOpdOperationalController, pokinOpdOperationalNController controller.PokinOpdOperationalNController, indikatorPokinOpdController controller.IndikatorPokinOpdController, indikatorPokinOpdStrategicController controller.IndikatorPokinOpdStrategicController, indikatorPokinOpdTacticalController controller.IndikatorPokinOpdTacticalController, indikatorPokinOpdOperationalController controller.IndikatorPokinOpdOperationalController, indikatorPokinOpdOperationalNController controller.IndikatorPokinOpdOperationalNController, tujuanPokinOpdController controller.TujuanPokinOpdController, targetPokinOpdController controller.TargetPokinOpdController, targetPokinOpdStrategicController controller.TargetPokinOpdStrategicController, targetPokinOpdTacticalController controller.TargetPokinOpdTacticalController, targetPokinOpdOperationalController controller.TargetPokinOpdOperationalController, targetPokinOpdOperationalNController controller.TargetPokinOpdOperationalNController, pohonKinerjaController controller.PohonKinerjaController) *echo.Echo {
 	e := echo.New()
 
 	const lembagaBase = "/lembagas"
 	const periodeBase = "/periodes"
 	const roleBase = "/roles"
 	const musrenbangBase = "/musrenbangs"
+	const pokokPikiranBase = "/pokok-pikirans"
 	const userBase = "/users"
 	const opdBase = "/opds"
 	const pegawaiBase = "/pegawais"
@@ -75,6 +76,13 @@ func NewRouter(lembagaController controller.LembagaController, periodeController
 	e.GET(musrenbangBase+"/:id", musrenbangController.FindById)
 	e.GET(musrenbangBase, musrenbangController.FindAll)
 	e.GET(musrenbangBase+"/opd/:kode_opd", musrenbangController.FindByKodeOpd)
+
+	e.POST(pokokPikiranBase, pokokPikiranController.Create)
+	e.PUT(pokokPikiranBase+"/:id", pokokPikiranController.Update)
+	e.DELETE(pokokPikiranBase+"/:id", pokokPikiranController.Delete)
+	e.GET(pokokPikiranBase+"/:id", pokokPikiranController.FindById)
+	e.GET(pokokPikiranBase, pokokPikiranController.FindAll)
+	e.GET(pokokPikiranBase+"/opd/:kode_opd", pokokPikiranController.FindByKodeOpd)
 
 	e.POST(userBase, userController.Create)
 	e.PUT(userBase+"/:id", userController.Update)

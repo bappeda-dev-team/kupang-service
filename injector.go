@@ -77,6 +77,15 @@ var musrenbangSet = wire.NewSet(
 	wire.Bind(new(controller.MusrenbangController), new(*controller.MusrenbangControllerImpl)),
 )
 
+var pokokPikiranSet = wire.NewSet(
+	repository.NewPokokPikiranRepositoryImpl,
+	wire.Bind(new(repository.PokokPikiranRepository), new(*repository.PokokPikiranRepositoryImpl)),
+	service.NewPokokPikiranServiceImpl,
+	wire.Bind(new(service.PokokPikiranService), new(*service.PokokPikiranServiceImpl)),
+	controller.NewPokokPikiranControllerImpl,
+	wire.Bind(new(controller.PokokPikiranController), new(*controller.PokokPikiranControllerImpl)),
+)
+
 var userSet = wire.NewSet(
 	repository.NewUserRepositoryImpl,
 	wire.Bind(new(repository.UserRepository), new(*repository.UserRepositoryImpl)),
@@ -236,6 +245,7 @@ func InitializedServer() *echo.Echo {
 		periodeSet,
 		roleSet,
 		musrenbangSet,
+		pokokPikiranSet,
 		userSet,
 		opdSet,
 		pegawaiSet,
