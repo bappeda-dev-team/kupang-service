@@ -41,10 +41,10 @@ func (service *MusrenbangServiceImpl) Create(ctx context.Context, musrenbang web
 		Usulan:  musrenbang.Usulan,
 		Alamat:  musrenbang.Alamat,
 		Uraian:  musrenbang.Uraian,
-		Tahun:   musrenbang.Tahun,
+		Tahun:   toNullString(musrenbang.Tahun),
 		KodeOpd: musrenbang.KodeOpd,
 		NamaOpd: musrenbang.NamaOpd,
-		Status:  musrenbang.Status,
+		Status:  toNullString(musrenbang.Status),
 	}
 
 	musrenbangDomain, err = service.MusrenbangRepository.Create(ctx, tx, musrenbangDomain)
@@ -53,6 +53,16 @@ func (service *MusrenbangServiceImpl) Create(ctx context.Context, musrenbang web
 	}
 
 	return helper.ToMusrenbangResponse(musrenbangDomain), nil
+}
+
+func toNullString(value *string) sql.NullString {
+	if value == nil {
+		return sql.NullString{}
+	}
+	return sql.NullString{
+		String: *value,
+		Valid:  true,
+	}
 }
 
 func (service *MusrenbangServiceImpl) Update(ctx context.Context, musrenbang web.MusrenbangUpdateRequest) (web.MusrenbangResponse, error) {
@@ -72,10 +82,10 @@ func (service *MusrenbangServiceImpl) Update(ctx context.Context, musrenbang web
 		Usulan:  musrenbang.Usulan,
 		Alamat:  musrenbang.Alamat,
 		Uraian:  musrenbang.Uraian,
-		Tahun:   musrenbang.Tahun,
+		Tahun:   toNullString(musrenbang.Tahun),
 		KodeOpd: musrenbang.KodeOpd,
 		NamaOpd: musrenbang.NamaOpd,
-		Status:  musrenbang.Status,
+		Status:  toNullString(musrenbang.Status),
 	}
 
 	musrenbangDomain, err = service.MusrenbangRepository.Update(ctx, tx, musrenbangDomain)

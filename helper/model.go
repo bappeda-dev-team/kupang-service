@@ -94,15 +94,27 @@ func ToRoleResponses(roles []domain.Role) []web.RoleResponse {
 }
 
 func ToMusrenbangResponse(musrenbang domain.Musrenbang) web.MusrenbangResponse {
+	var tahun *string
+	if musrenbang.Tahun.Valid {
+		val := musrenbang.Tahun.String
+		tahun = &val
+	}
+
+	var status *string
+	if musrenbang.Status.Valid {
+		val := musrenbang.Status.String
+		status = &val
+	}
+
 	return web.MusrenbangResponse{
 		Id:      musrenbang.Id,
 		Usulan:  musrenbang.Usulan,
 		Alamat:  musrenbang.Alamat,
 		Uraian:  musrenbang.Uraian,
-		Tahun:   musrenbang.Tahun,
+		Tahun:   tahun,
 		KodeOpd: musrenbang.KodeOpd,
 		NamaOpd: musrenbang.NamaOpd,
-		Status:  musrenbang.Status,
+		Status:  status,
 	}
 }
 

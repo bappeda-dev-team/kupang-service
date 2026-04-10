@@ -1,16 +1,19 @@
 package domain
 
-import "time"
+import (
+	"database/sql"
+	"time"
+)
 
 type Musrenbang struct {
 	Id               int
 	Usulan           string
 	Alamat           string
 	Uraian           string
-	Tahun            string
+	Tahun            sql.NullString
 	KodeOpd          string
 	NamaOpd          string
-	Status           string
+	Status           sql.NullString
 	CreatedDate      time.Time
 	LastModifiedDate time.Time
 }

@@ -6977,8 +6977,6 @@ const docTemplate = `{
                 "alamat",
                 "kode_opd",
                 "nama_opd",
-                "status",
-                "tahun",
                 "uraian",
                 "usulan"
             ],
@@ -7042,8 +7040,6 @@ const docTemplate = `{
                 "id",
                 "kode_opd",
                 "nama_opd",
-                "status",
-                "tahun",
                 "uraian",
                 "usulan"
             ],

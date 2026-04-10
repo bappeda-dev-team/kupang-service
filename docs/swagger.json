@@ -6974,8 +6974,6 @@
                 "alamat",
                 "kode_opd",
                 "nama_opd",
-                "status",
-                "tahun",
                 "uraian",
                 "usulan"
             ],
@@ -7039,8 +7037,6 @@
                 "id",
                 "kode_opd",
                 "nama_opd",
-                "status",
-                "tahun",
                 "uraian",
                 "usulan"
             ],

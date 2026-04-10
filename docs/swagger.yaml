@@ -234,8 +234,6 @@ definitions:
     - alamat
     - kode_opd
     - nama_opd
-    - status
-    - tahun
     - uraian
     - usulan
     type: object
@@ -281,8 +279,6 @@ definitions:
     - id
     - kode_opd
     - nama_opd
-    - status
-    - tahun
     - uraian
     - usulan
     type: object
