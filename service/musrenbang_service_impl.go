@@ -55,16 +55,6 @@ func (service *MusrenbangServiceImpl) Create(ctx context.Context, musrenbang web
 	return helper.ToMusrenbangResponse(musrenbangDomain), nil
 }
 
-func toNullString(value *string) sql.NullString {
-	if value == nil {
-		return sql.NullString{}
-	}
-	return sql.NullString{
-		String: *value,
-		Valid:  true,
-	}
-}
-
 func (service *MusrenbangServiceImpl) Update(ctx context.Context, musrenbang web.MusrenbangUpdateRequest) (web.MusrenbangResponse, error) {
 	err := service.Validator.Struct(musrenbang)
 	if err != nil {

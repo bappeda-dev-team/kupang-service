@@ -1160,6 +1160,78 @@ definitions:
     - uraian
     - usulan
     type: object
+  web.ProgramPrioritasDaerahCreateRequest:
+    properties:
+      is_active:
+        type: string
+      keterangan:
+        type: string
+      kode_program_prioritas_daerah:
+        type: string
+      nama_program_prioritas_daerah:
+        type: string
+      rencana_implementasi:
+        type: string
+      tahun_akhir:
+        type: string
+      tahun_awal:
+        type: string
+    required:
+    - is_active
+    - keterangan
+    - kode_program_prioritas_daerah
+    - nama_program_prioritas_daerah
+    - rencana_implementasi
+    - tahun_akhir
+    - tahun_awal
+    type: object
+  web.ProgramPrioritasDaerahResponse:
+    properties:
+      id:
+        type: integer
+      is_active:
+        type: string
+      keterangan:
+        type: string
+      kode_program_prioritas_daerah:
+        type: string
+      nama_program_prioritas_daerah:
+        type: string
+      rencana_implementasi:
+        type: string
+      tahun_akhir:
+        type: string
+      tahun_awal:
+        type: string
+    type: object
+  web.ProgramPrioritasDaerahUpdateRequest:
+    properties:
+      id:
+        type: integer
+      is_active:
+        type: string
+      keterangan:
+        type: string
+      kode_program_prioritas_daerah:
+        type: string
+      nama_program_prioritas_daerah:
+        type: string
+      rencana_implementasi:
+        type: string
+      tahun_akhir:
+        type: string
+      tahun_awal:
+        type: string
+    required:
+    - id
+    - is_active
+    - keterangan
+    - kode_program_prioritas_daerah
+    - nama_program_prioritas_daerah
+    - rencana_implementasi
+    - tahun_akhir
+    - tahun_awal
+    type: object
   web.RoleCreateRequest:
     properties:
       role:
@@ -4439,6 +4511,208 @@ paths:
       summary: Get Pokok Pikiran by Kode OPD
       tags:
       - Pokok Pikiran
+  /program-prioritas-daerahs:
+    get:
+      consumes:
+      - application/json
+      description: Get list of all Program Prioritas Daerahs
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/web.ProgramPrioritasDaerahResponse'
+                  type: array
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: List All Program Prioritas Daerah
+      tags:
+      - Program Prioritas Daerah
+    post:
+      consumes:
+      - application/json
+      description: Create new Program Prioritas Daerah
+      parameters:
+      - description: Program Prioritas Daerah Create Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.ProgramPrioritasDaerahCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.ProgramPrioritasDaerahResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Create Program Prioritas Daerah
+      tags:
+      - Program Prioritas Daerah
+  /program-prioritas-daerahs/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete existing Program Prioritas Daerah by ID
+      parameters:
+      - description: Program Prioritas Daerah ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Delete Program Prioritas Daerah
+      tags:
+      - Program Prioritas Daerah
+    get:
+      consumes:
+      - application/json
+      description: Get Program Prioritas Daerah detail by ID
+      parameters:
+      - description: Program Prioritas Daerah ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.ProgramPrioritasDaerahResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Get Program Prioritas Daerah by ID
+      tags:
+      - Program Prioritas Daerah
+    put:
+      consumes:
+      - application/json
+      description: Update existing Program Prioritas Daerah by ID
+      parameters:
+      - description: Program Prioritas Daerah ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Program Prioritas Daerah Update Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.ProgramPrioritasDaerahUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.ProgramPrioritasDaerahResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Update Program Prioritas Daerah
+      tags:
+      - Program Prioritas Daerah
+  /program-prioritas-daerahs/tahun/{tahun_awal}/{tahun_akhir}:
+    get:
+      consumes:
+      - application/json
+      description: Get Program Prioritas Daerah list filtered by tahun_awal and tahun_akhir
+      parameters:
+      - description: Tahun Awal
+        in: path
+        name: tahun_awal
+        required: true
+        type: string
+      - description: Tahun Akhir
+        in: path
+        name: tahun_akhir
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/web.ProgramPrioritasDaerahResponse'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Get Program Prioritas Daerah by Tahun Range
+      tags:
+      - Program Prioritas Daerah
   /roles:
     get:
       consumes:

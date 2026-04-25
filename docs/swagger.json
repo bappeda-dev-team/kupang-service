@@ -4742,6 +4742,333 @@
                 }
             }
         },
+        "/program-prioritas-daerahs": {
+            "get": {
+                "description": "Get list of all Program Prioritas Daerahs",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Program Prioritas Daerah"
+                ],
+                "summary": "List All Program Prioritas Daerah",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/web.ProgramPrioritasDaerahResponse"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create new Program Prioritas Daerah",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Program Prioritas Daerah"
+                ],
+                "summary": "Create Program Prioritas Daerah",
+                "parameters": [
+                    {
+                        "description": "Program Prioritas Daerah Create Request",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/web.ProgramPrioritasDaerahCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.ProgramPrioritasDaerahResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/program-prioritas-daerahs/tahun/{tahun_awal}/{tahun_akhir}": {
+            "get": {
+                "description": "Get Program Prioritas Daerah list filtered by tahun_awal and tahun_akhir",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Program Prioritas Daerah"
+                ],
+                "summary": "Get Program Prioritas Daerah by Tahun Range",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Tahun Awal",
+                        "name": "tahun_awal",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Tahun Akhir",
+                        "name": "tahun_akhir",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/web.ProgramPrioritasDaerahResponse"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/program-prioritas-daerahs/{id}": {
+            "get": {
+                "description": "Get Program Prioritas Daerah detail by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Program Prioritas Daerah"
+                ],
+                "summary": "Get Program Prioritas Daerah by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Program Prioritas Daerah ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.ProgramPrioritasDaerahResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update existing Program Prioritas Daerah by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Program Prioritas Daerah"
+                ],
+                "summary": "Update Program Prioritas Daerah",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Program Prioritas Daerah ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Program Prioritas Daerah Update Request",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/web.ProgramPrioritasDaerahUpdateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.ProgramPrioritasDaerahResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete existing Program Prioritas Daerah by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Program Prioritas Daerah"
+                ],
+                "summary": "Delete Program Prioritas Daerah",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Program Prioritas Daerah ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/roles": {
             "get": {
                 "description": "Get list of all Role",
@@ -8690,6 +9017,109 @@
                     "type": "string"
                 },
                 "usulan": {
+                    "type": "string"
+                }
+            }
+        },
+        "web.ProgramPrioritasDaerahCreateRequest": {
+            "type": "object",
+            "required": [
+                "is_active",
+                "keterangan",
+                "kode_program_prioritas_daerah",
+                "nama_program_prioritas_daerah",
+                "rencana_implementasi",
+                "tahun_akhir",
+                "tahun_awal"
+            ],
+            "properties": {
+                "is_active": {
+                    "type": "string"
+                },
+                "keterangan": {
+                    "type": "string"
+                },
+                "kode_program_prioritas_daerah": {
+                    "type": "string"
+                },
+                "nama_program_prioritas_daerah": {
+                    "type": "string"
+                },
+                "rencana_implementasi": {
+                    "type": "string"
+                },
+                "tahun_akhir": {
+                    "type": "string"
+                },
+                "tahun_awal": {
+                    "type": "string"
+                }
+            }
+        },
+        "web.ProgramPrioritasDaerahResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "is_active": {
+                    "type": "string"
+                },
+                "keterangan": {
+                    "type": "string"
+                },
+                "kode_program_prioritas_daerah": {
+                    "type": "string"
+                },
+                "nama_program_prioritas_daerah": {
+                    "type": "string"
+                },
+                "rencana_implementasi": {
+                    "type": "string"
+                },
+                "tahun_akhir": {
+                    "type": "string"
+                },
+                "tahun_awal": {
+                    "type": "string"
+                }
+            }
+        },
+        "web.ProgramPrioritasDaerahUpdateRequest": {
+            "type": "object",
+            "required": [
+                "id",
+                "is_active",
+                "keterangan",
+                "kode_program_prioritas_daerah",
+                "nama_program_prioritas_daerah",
+                "rencana_implementasi",
+                "tahun_akhir",
+                "tahun_awal"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "is_active": {
+                    "type": "string"
+                },
+                "keterangan": {
+                    "type": "string"
+                },
+                "kode_program_prioritas_daerah": {
+                    "type": "string"
+                },
+                "nama_program_prioritas_daerah": {
+                    "type": "string"
+                },
+                "rencana_implementasi": {
+                    "type": "string"
+                },
+                "tahun_akhir": {
+                    "type": "string"
+                },
+                "tahun_awal": {
                     "type": "string"
                 }
             }

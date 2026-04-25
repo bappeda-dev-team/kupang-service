@@ -126,6 +126,27 @@ func ToMusrenbangResponses(musrenbangs []domain.Musrenbang) []web.MusrenbangResp
 	return responses
 }
 
+func ToProgramPrioritasDaerahResponse(program domain.ProgramPrioritasDaerah) web.ProgramPrioritasDaerahResponse {
+	return web.ProgramPrioritasDaerahResponse{
+		Id:                         program.Id,
+		KodeProgramPrioritasDaerah: program.KodeProgramPrioritasDaerah,
+		NamaProgramPrioritasDaerah: program.NamaProgramPrioritasDaerah,
+		RencanaImplementasi:        program.RencanaImplementasi,
+		Keterangan:                 program.Keterangan,
+		TahunAwal:                  program.TahunAwal,
+		TahunAkhir:                 program.TahunAkhir,
+		IsActive:                   program.IsActive,
+	}
+}
+
+func ToProgramPrioritasDaerahResponses(programs []domain.ProgramPrioritasDaerah) []web.ProgramPrioritasDaerahResponse {
+	var responses []web.ProgramPrioritasDaerahResponse
+	for _, program := range programs {
+		responses = append(responses, ToProgramPrioritasDaerahResponse(program))
+	}
+	return responses
+}
+
 func ToPokokPikiranResponse(pokokPikiran domain.PokokPikiran) web.PokokPikiranResponse {
 	var tahun *string
 	if pokokPikiran.Tahun.Valid {
