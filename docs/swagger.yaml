@@ -1163,7 +1163,7 @@ definitions:
   web.ProgramPrioritasDaerahCreateRequest:
     properties:
       is_active:
-        type: string
+        type: boolean
       keterangan:
         type: string
       kode_program_prioritas_daerah:
@@ -1190,7 +1190,7 @@ definitions:
       id:
         type: integer
       is_active:
-        type: string
+        type: boolean
       keterangan:
         type: string
       kode_program_prioritas_daerah:
@@ -1209,7 +1209,7 @@ definitions:
       id:
         type: integer
       is_active:
-        type: string
+        type: boolean
       keterangan:
         type: string
       kode_program_prioritas_daerah:

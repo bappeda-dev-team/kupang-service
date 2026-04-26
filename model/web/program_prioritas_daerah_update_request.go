@@ -8,5 +8,5 @@ type ProgramPrioritasDaerahUpdateRequest struct {
 	Keterangan                 string `json:"keterangan" validate:"required"`
 	TahunAwal                  string `json:"tahun_awal" validate:"required"`
 	TahunAkhir                 string `json:"tahun_akhir" validate:"required"`
-	IsActive                   string `json:"is_active" validate:"required"`
+	IsActive                   bool   `json:"is_active" validate:"required"`
 }

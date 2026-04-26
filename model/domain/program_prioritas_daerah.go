@@ -10,7 +10,7 @@ type ProgramPrioritasDaerah struct {
 	Keterangan                 string
 	TahunAwal                  string
 	TahunAkhir                 string
-	IsActive                   string
+	IsActive                   bool
 	CreatedDate                time.Time
 	LastModifiedDate           time.Time
 }

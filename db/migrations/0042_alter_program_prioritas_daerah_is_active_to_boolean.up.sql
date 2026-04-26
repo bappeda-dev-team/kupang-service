@@ -1,0 +1,1 @@
+ALTER TABLE "program_prioritas_daerah" ALTER COLUMN is_active TYPE BOOLEAN USING is_active::BOOLEAN;

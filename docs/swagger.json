@@ -9034,7 +9034,7 @@
             ],
             "properties": {
                 "is_active": {
-                    "type": "string"
+                    "type": "boolean"
                 },
                 "keterangan": {
                     "type": "string"
@@ -9063,7 +9063,7 @@
                     "type": "integer"
                 },
                 "is_active": {
-                    "type": "string"
+                    "type": "boolean"
                 },
                 "keterangan": {
                     "type": "string"
@@ -9102,7 +9102,7 @@
                     "type": "integer"
                 },
                 "is_active": {
-                    "type": "string"
+                    "type": "boolean"
                 },
                 "keterangan": {
                     "type": "string"

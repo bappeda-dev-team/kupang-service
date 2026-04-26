@@ -9037,7 +9037,7 @@ const docTemplate = `{
             ],
             "properties": {
                 "is_active": {
-                    "type": "string"
+                    "type": "boolean"
                 },
                 "keterangan": {
                     "type": "string"
@@ -9066,7 +9066,7 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "is_active": {
-                    "type": "string"
+                    "type": "boolean"
                 },
                 "keterangan": {
                     "type": "string"
@@ -9105,7 +9105,7 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "is_active": {
-                    "type": "string"
+                    "type": "boolean"
                 },
                 "keterangan": {
                     "type": "string"

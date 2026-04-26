@@ -8,5 +8,5 @@ type ProgramPrioritasDaerahResponse struct {
 	Keterangan                 string `json:"keterangan"`
 	TahunAwal                  string `json:"tahun_awal"`
 	TahunAkhir                 string `json:"tahun_akhir"`
-	IsActive                   string `json:"is_active"`
+	IsActive                   bool   `json:"is_active"`
 }
