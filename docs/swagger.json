@@ -22,6 +22,279 @@
     "host": "${PROD_HOSTNAME}",
     "basePath": "/",
     "paths": {
+        "/bidang-urusans": {
+            "get": {
+                "description": "Get list of all Bidang Urusan",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Bidang Urusan"
+                ],
+                "summary": "List All Bidang Urusan",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/web.BidangUrusanResponse"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create new Bidang Urusan",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Bidang Urusan"
+                ],
+                "summary": "Create Bidang Urusan",
+                "parameters": [
+                    {
+                        "description": "Bidang Urusan Create Request",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/web.BidangUrusanCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.BidangUrusanResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/bidang-urusans/{id}": {
+            "get": {
+                "description": "Get Bidang Urusan detail by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Bidang Urusan"
+                ],
+                "summary": "Get Bidang Urusan by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Bidang Urusan ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.BidangUrusanResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update existing Bidang Urusan by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Bidang Urusan"
+                ],
+                "summary": "Update Bidang Urusan",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Bidang Urusan ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Bidang Urusan Update Request",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/web.BidangUrusanUpdateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.BidangUrusanResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete existing Bidang Urusan by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Bidang Urusan"
+                ],
+                "summary": "Delete Bidang Urusan",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Bidang Urusan ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.BidangUrusanResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/indikator-pokin-opd-operational-ns": {
             "get": {
                 "description": "Get list of all Indikator Pokin OPD Operational N",
@@ -7294,6 +7567,53 @@
         }
     },
     "definitions": {
+        "web.BidangUrusanCreateRequest": {
+            "type": "object",
+            "required": [
+                "kode_urusan",
+                "nama_urusan"
+            ],
+            "properties": {
+                "kode_urusan": {
+                    "type": "string"
+                },
+                "nama_urusan": {
+                    "type": "string"
+                }
+            }
+        },
+        "web.BidangUrusanResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "kode_urusan": {
+                    "type": "string"
+                },
+                "nama_urusan": {
+                    "type": "string"
+                }
+            }
+        },
+        "web.BidangUrusanUpdateRequest": {
+            "type": "object",
+            "required": [
+                "kode_urusan",
+                "nama_urusan"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "kode_urusan": {
+                    "type": "string"
+                },
+                "nama_urusan": {
+                    "type": "string"
+                }
+            }
+        },
         "web.IndikatorPokinOpdCreateRequest": {
             "type": "object",
             "properties": {

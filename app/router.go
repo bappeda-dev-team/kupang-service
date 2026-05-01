@@ -7,7 +7,7 @@ import (
 	"kupang-service/controller"
 )
 
-func NewRouter(lembagaController controller.LembagaController, periodeController controller.PeriodeController, roleController controller.RoleController, musrenbangController controller.MusrenbangController, programPrioritasDaerahController controller.ProgramPrioritasDaerahController, pokokPikiranController controller.PokokPikiranController, userController controller.UserController, opdController controller.OpdController, pegawaiController controller.PegawaiController, pokinOpdController controller.PokinOpdController, pokinOpdStrategicController controller.PokinOpdStrategicController, pokinOpdTacticalController controller.PokinOpdTacticalController, pokinOpdOperationalController controller.PokinOpdOperationalController, pokinOpdOperationalNController controller.PokinOpdOperationalNController, indikatorPokinOpdController controller.IndikatorPokinOpdController, indikatorPokinOpdStrategicController controller.IndikatorPokinOpdStrategicController, indikatorPokinOpdTacticalController controller.IndikatorPokinOpdTacticalController, indikatorPokinOpdOperationalController controller.IndikatorPokinOpdOperationalController, indikatorPokinOpdOperationalNController controller.IndikatorPokinOpdOperationalNController, tujuanPokinOpdController controller.TujuanPokinOpdController, targetPokinOpdController controller.TargetPokinOpdController, targetPokinOpdStrategicController controller.TargetPokinOpdStrategicController, targetPokinOpdTacticalController controller.TargetPokinOpdTacticalController, targetPokinOpdOperationalController controller.TargetPokinOpdOperationalController, targetPokinOpdOperationalNController controller.TargetPokinOpdOperationalNController, pohonKinerjaController controller.PohonKinerjaController) *echo.Echo {
+func NewRouter(lembagaController controller.LembagaController, periodeController controller.PeriodeController, roleController controller.RoleController, musrenbangController controller.MusrenbangController, programPrioritasDaerahController controller.ProgramPrioritasDaerahController, pokokPikiranController controller.PokokPikiranController, userController controller.UserController, opdController controller.OpdController, pegawaiController controller.PegawaiController, pokinOpdController controller.PokinOpdController, pokinOpdStrategicController controller.PokinOpdStrategicController, pokinOpdTacticalController controller.PokinOpdTacticalController, pokinOpdOperationalController controller.PokinOpdOperationalController, pokinOpdOperationalNController controller.PokinOpdOperationalNController, indikatorPokinOpdController controller.IndikatorPokinOpdController, indikatorPokinOpdStrategicController controller.IndikatorPokinOpdStrategicController, indikatorPokinOpdTacticalController controller.IndikatorPokinOpdTacticalController, indikatorPokinOpdOperationalController controller.IndikatorPokinOpdOperationalController, indikatorPokinOpdOperationalNController controller.IndikatorPokinOpdOperationalNController, tujuanPokinOpdController controller.TujuanPokinOpdController, targetPokinOpdController controller.TargetPokinOpdController, targetPokinOpdStrategicController controller.TargetPokinOpdStrategicController, targetPokinOpdTacticalController controller.TargetPokinOpdTacticalController, targetPokinOpdOperationalController controller.TargetPokinOpdOperationalController, targetPokinOpdOperationalNController controller.TargetPokinOpdOperationalNController, bidangUrusanController controller.BidangUrusanController, pohonKinerjaController controller.PohonKinerjaController) *echo.Echo {
 	e := echo.New()
 
 	const lembagaBase = "/lembagas"
@@ -35,6 +35,7 @@ func NewRouter(lembagaController controller.LembagaController, periodeController
 	const targetPokinOpdTacticalBase = "/target-pokin-opd-tacticals"
 	const targetPokinOpdOperationalBase = "/target-pokin-opd-operationals"
 	const targetPokinOpdOperationalNBase = "/target-pokin-opd-operational-ns"
+	const bidangUrusanBase = "/bidang-urusans"
 	const pohonKinerjaBase = "/pohon-kinerja-opds"
 
 	e.Use(middleware.Logger())
@@ -212,6 +213,12 @@ func NewRouter(lembagaController controller.LembagaController, periodeController
 	e.DELETE(targetPokinOpdOperationalNBase+"/:id", targetPokinOpdOperationalNController.Delete)
 	e.GET(targetPokinOpdOperationalNBase+"/:id", targetPokinOpdOperationalNController.FindById)
 	e.GET(targetPokinOpdOperationalNBase, targetPokinOpdOperationalNController.FindAll)
+
+	e.POST(bidangUrusanBase, bidangUrusanController.Create)
+	e.PUT(bidangUrusanBase+"/:id", bidangUrusanController.Update)
+	e.DELETE(bidangUrusanBase+"/:id", bidangUrusanController.Delete)
+	e.GET(bidangUrusanBase+"/:id", bidangUrusanController.FindById)
+	e.GET(bidangUrusanBase, bidangUrusanController.FindAll)
 
 	e.GET(pohonKinerjaBase+"/:kode_opd/:tahun", pohonKinerjaController.FindByKodeOpdAndTahun)
 

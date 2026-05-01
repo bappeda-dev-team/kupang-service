@@ -239,6 +239,15 @@ var targetPokinOpdOperationalNSet = wire.NewSet(
 	wire.Bind(new(controller.TargetPokinOpdOperationalNController), new(*controller.TargetPokinOpdOperationalNControllerImpl)),
 )
 
+var bidangUrusanSet = wire.NewSet(
+	repository.NewBidangUrusanRepositoryImpl,
+	wire.Bind(new(repository.BidangUrusanRepository), new(*repository.BidangUrusanRepositoryImpl)),
+	service.NewBidangUrusanServiceImpl,
+	wire.Bind(new(service.BidangUrusanService), new(*service.BidangUrusanServiceImpl)),
+	controller.NewBidangUrusanControllerImpl,
+	wire.Bind(new(controller.BidangUrusanController), new(*controller.BidangUrusanControllerImpl)),
+)
+
 var pohonKinerjaSet = wire.NewSet(
 	service.NewPohonKinerjaServiceImpl,
 	wire.Bind(new(service.PohonKinerjaService), new(*service.PohonKinerjaServiceImpl)),
@@ -276,6 +285,7 @@ func InitializedServer() *echo.Echo {
 		targetPokinOpdTacticalSet,
 		targetPokinOpdOperationalSet,
 		targetPokinOpdOperationalNSet,
+		bidangUrusanSet,
 		pohonKinerjaSet,
 		app.NewRouter,
 	)

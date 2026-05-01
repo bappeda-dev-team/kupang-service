@@ -1,5 +1,36 @@
 basePath: /
 definitions:
+  web.BidangUrusanCreateRequest:
+    properties:
+      kode_urusan:
+        type: string
+      nama_urusan:
+        type: string
+    required:
+    - kode_urusan
+    - nama_urusan
+    type: object
+  web.BidangUrusanResponse:
+    properties:
+      id:
+        type: integer
+      kode_urusan:
+        type: string
+      nama_urusan:
+        type: string
+    type: object
+  web.BidangUrusanUpdateRequest:
+    properties:
+      id:
+        type: integer
+      kode_urusan:
+        type: string
+      nama_urusan:
+        type: string
+    required:
+    - kode_urusan
+    - nama_urusan
+    type: object
   web.IndikatorPokinOpdCreateRequest:
     properties:
       indikator:
@@ -1619,6 +1650,172 @@ info:
   title: Alur Kerja Service API
   version: "1.0"
 paths:
+  /bidang-urusans:
+    get:
+      consumes:
+      - application/json
+      description: Get list of all Bidang Urusan
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/web.BidangUrusanResponse'
+                  type: array
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: List All Bidang Urusan
+      tags:
+      - Bidang Urusan
+    post:
+      consumes:
+      - application/json
+      description: Create new Bidang Urusan
+      parameters:
+      - description: Bidang Urusan Create Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.BidangUrusanCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.BidangUrusanResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Create Bidang Urusan
+      tags:
+      - Bidang Urusan
+  /bidang-urusans/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete existing Bidang Urusan by ID
+      parameters:
+      - description: Bidang Urusan ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.BidangUrusanResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Delete Bidang Urusan
+      tags:
+      - Bidang Urusan
+    get:
+      consumes:
+      - application/json
+      description: Get Bidang Urusan detail by ID
+      parameters:
+      - description: Bidang Urusan ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.BidangUrusanResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Get Bidang Urusan by ID
+      tags:
+      - Bidang Urusan
+    put:
+      consumes:
+      - application/json
+      description: Update existing Bidang Urusan by ID
+      parameters:
+      - description: Bidang Urusan ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Bidang Urusan Update Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.BidangUrusanUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.BidangUrusanResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Update Bidang Urusan
+      tags:
+      - Bidang Urusan
   /indikator-pokin-opd-operational-ns:
     get:
       consumes:

@@ -435,3 +435,19 @@ func ToTargetPokinOpdOperationalNResponses(targets []domain.TargetPokinOpdOperat
 	}
 	return responses
 }
+
+func ToBidangUrusanResponse(bidangUrusan domain.BidangUrusan) web.BidangUrusanResponse {
+	return web.BidangUrusanResponse{
+		Id:         bidangUrusan.Id,
+		KodeUrusan: bidangUrusan.KodeUrusan,
+		NamaUrusan: bidangUrusan.NamaUrusan,
+	}
+}
+
+func ToBidangUrusanResponses(bidangUrusans []domain.BidangUrusan) []web.BidangUrusanResponse {
+	var responses []web.BidangUrusanResponse
+	for _, bidangUrusan := range bidangUrusans {
+		responses = append(responses, ToBidangUrusanResponse(bidangUrusan))
+	}
+	return responses
+}
