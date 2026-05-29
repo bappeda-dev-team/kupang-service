@@ -1373,6 +1373,45 @@ definitions:
     - id
     - role
     type: object
+  web.SubkegiatanCreateRequest:
+    properties:
+      kode_subkegiatan:
+        type: string
+      nama_subkegiatan:
+        type: string
+      tahun:
+        type: string
+    required:
+    - kode_subkegiatan
+    - nama_subkegiatan
+    - tahun
+    type: object
+  web.SubkegiatanResponse:
+    properties:
+      id:
+        type: integer
+      kode_subkegiatan:
+        type: string
+      nama_subkegiatan:
+        type: string
+      tahun:
+        type: string
+    type: object
+  web.SubkegiatanUpdateRequest:
+    properties:
+      id:
+        type: integer
+      kode_subkegiatan:
+        type: string
+      nama_subkegiatan:
+        type: string
+      tahun:
+        type: string
+    required:
+    - kode_subkegiatan
+    - nama_subkegiatan
+    - tahun
+    type: object
   web.TargetPokinOpdCreateRequest:
     properties:
       indikator_pokin_opd_id:
@@ -5528,6 +5567,172 @@ paths:
       summary: Update Role
       tags:
       - Role
+  /subkegiatans:
+    get:
+      consumes:
+      - application/json
+      description: Get list of all Subkegiatan
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/web.SubkegiatanResponse'
+                  type: array
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: List All Subkegiatan
+      tags:
+      - Subkegiatan
+    post:
+      consumes:
+      - application/json
+      description: Create new Subkegiatan
+      parameters:
+      - description: Subkegiatan Create Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.SubkegiatanCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.SubkegiatanResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Create Subkegiatan
+      tags:
+      - Subkegiatan
+  /subkegiatans/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete existing Subkegiatan by ID
+      parameters:
+      - description: Subkegiatan ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.SubkegiatanResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Delete Subkegiatan
+      tags:
+      - Subkegiatan
+    get:
+      consumes:
+      - application/json
+      description: Get Subkegiatan detail by ID
+      parameters:
+      - description: Subkegiatan ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.SubkegiatanResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Get Subkegiatan by ID
+      tags:
+      - Subkegiatan
+    put:
+      consumes:
+      - application/json
+      description: Update existing Subkegiatan by ID
+      parameters:
+      - description: Subkegiatan ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Subkegiatan Update Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.SubkegiatanUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.SubkegiatanResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Update Subkegiatan
+      tags:
+      - Subkegiatan
   /target-pokin-opd-operational-ns:
     get:
       consumes:

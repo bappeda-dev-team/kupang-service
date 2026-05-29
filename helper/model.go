@@ -503,3 +503,20 @@ func ToKegiatanResponses(kegiatans []domain.Kegiatan) []web.KegiatanResponse {
 	}
 	return responses
 }
+
+func ToSubkegiatanResponse(subkegiatan domain.Subkegiatan) web.SubkegiatanResponse {
+	return web.SubkegiatanResponse{
+		Id:              subkegiatan.Id,
+		KodeSubkegiatan: subkegiatan.KodeSubkegiatan,
+		NamaSubkegiatan: subkegiatan.NamaSubkegiatan,
+		Tahun:           subkegiatan.Tahun,
+	}
+}
+
+func ToSubkegiatanResponses(subkegiatans []domain.Subkegiatan) []web.SubkegiatanResponse {
+	var responses []web.SubkegiatanResponse
+	for _, subkegiatan := range subkegiatans {
+		responses = append(responses, ToSubkegiatanResponse(subkegiatan))
+	}
+	return responses
+}
