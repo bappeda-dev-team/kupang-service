@@ -108,7 +108,10 @@ func InitializedServer() *echo.Echo {
 	programRepositoryImpl := repository.NewProgramRepositoryImpl()
 	programServiceImpl := service.NewProgramServiceImpl(programRepositoryImpl, db, validate)
 	programControllerImpl := controller.NewProgramControllerImpl(programServiceImpl)
-	echoEcho := app.NewRouter(lembagaControllerImpl, periodeControllerImpl, roleControllerImpl, musrenbangControllerImpl, programPrioritasDaerahControllerImpl, pokokPikiranControllerImpl, userControllerImpl, opdControllerImpl, pegawaiControllerImpl, pokinOpdControllerImpl, pokinOpdStrategicControllerImpl, pokinOpdTacticalControllerImpl, pokinOpdOperationalControllerImpl, pokinOpdOperationalNControllerImpl, indikatorPokinOpdControllerImpl, indikatorPokinOpdStrategicControllerImpl, indikatorPokinOpdTacticalControllerImpl, indikatorPokinOpdOperationalControllerImpl, indikatorPokinOpdOperationalNControllerImpl, tujuanPokinOpdControllerImpl, targetPokinOpdControllerImpl, targetPokinOpdStrategicControllerImpl, targetPokinOpdTacticalControllerImpl, targetPokinOpdOperationalControllerImpl, targetPokinOpdOperationalNControllerImpl, bidangUrusanControllerImpl, urusanControllerImpl, pohonKinerjaControllerImpl, programControllerImpl)
+	kegiatanRepositoryImpl := repository.NewKegiatanRepositoryImpl()
+	kegiatanServiceImpl := service.NewKegiatanServiceImpl(kegiatanRepositoryImpl, db, validate)
+	kegiatanControllerImpl := controller.NewKegiatanControllerImpl(kegiatanServiceImpl)
+	echoEcho := app.NewRouter(lembagaControllerImpl, periodeControllerImpl, roleControllerImpl, musrenbangControllerImpl, programPrioritasDaerahControllerImpl, pokokPikiranControllerImpl, userControllerImpl, opdControllerImpl, pegawaiControllerImpl, pokinOpdControllerImpl, pokinOpdStrategicControllerImpl, pokinOpdTacticalControllerImpl, pokinOpdOperationalControllerImpl, pokinOpdOperationalNControllerImpl, indikatorPokinOpdControllerImpl, indikatorPokinOpdStrategicControllerImpl, indikatorPokinOpdTacticalControllerImpl, indikatorPokinOpdOperationalControllerImpl, indikatorPokinOpdOperationalNControllerImpl, tujuanPokinOpdControllerImpl, targetPokinOpdControllerImpl, targetPokinOpdStrategicControllerImpl, targetPokinOpdTacticalControllerImpl, targetPokinOpdOperationalControllerImpl, targetPokinOpdOperationalNControllerImpl, bidangUrusanControllerImpl, urusanControllerImpl, pohonKinerjaControllerImpl, programControllerImpl, kegiatanControllerImpl)
 	return echoEcho
 }
 
@@ -171,6 +174,8 @@ var targetPokinOpdOperationalNSet = wire.NewSet(repository.NewTargetPokinOpdOper
 var bidangUrusanSet = wire.NewSet(repository.NewBidangUrusanRepositoryImpl, wire.Bind(new(repository.BidangUrusanRepository), new(*repository.BidangUrusanRepositoryImpl)), service.NewBidangUrusanServiceImpl, wire.Bind(new(service.BidangUrusanService), new(*service.BidangUrusanServiceImpl)), controller.NewBidangUrusanControllerImpl, wire.Bind(new(controller.BidangUrusanController), new(*controller.BidangUrusanControllerImpl)))
 
 var urusanSet = wire.NewSet(repository.NewUrusanRepositoryImpl, wire.Bind(new(repository.UrusanRepository), new(*repository.UrusanRepositoryImpl)), service.NewUrusanServiceImpl, wire.Bind(new(service.UrusanService), new(*service.UrusanServiceImpl)), controller.NewUrusanControllerImpl, wire.Bind(new(controller.UrusanController), new(*controller.UrusanControllerImpl)))
+
+var kegiatanSet = wire.NewSet(repository.NewKegiatanRepositoryImpl, wire.Bind(new(repository.KegiatanRepository), new(*repository.KegiatanRepositoryImpl)), service.NewKegiatanServiceImpl, wire.Bind(new(service.KegiatanService), new(*service.KegiatanServiceImpl)), controller.NewKegiatanControllerImpl, wire.Bind(new(controller.KegiatanController), new(*controller.KegiatanControllerImpl)))
 
 var programSet = wire.NewSet(repository.NewProgramRepositoryImpl, wire.Bind(new(repository.ProgramRepository), new(*repository.ProgramRepositoryImpl)), service.NewProgramServiceImpl, wire.Bind(new(service.ProgramService), new(*service.ProgramServiceImpl)), controller.NewProgramControllerImpl, wire.Bind(new(controller.ProgramController), new(*controller.ProgramControllerImpl)))
 

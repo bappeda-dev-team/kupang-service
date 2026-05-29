@@ -486,3 +486,20 @@ func ToProgramResponses(programs []domain.Program) []web.ProgramResponse {
 	}
 	return responses
 }
+
+func ToKegiatanResponse(kegiatan domain.Kegiatan) web.KegiatanResponse {
+	return web.KegiatanResponse{
+		Id:           kegiatan.Id,
+		KodeKegiatan: kegiatan.KodeKegiatan,
+		NamaKegiatan: kegiatan.NamaKegiatan,
+		Tahun:        kegiatan.Tahun,
+	}
+}
+
+func ToKegiatanResponses(kegiatans []domain.Kegiatan) []web.KegiatanResponse {
+	var responses []web.KegiatanResponse
+	for _, kegiatan := range kegiatans {
+		responses = append(responses, ToKegiatanResponse(kegiatan))
+	}
+	return responses
+}

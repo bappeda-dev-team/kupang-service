@@ -197,6 +197,45 @@ definitions:
         example: "2024"
         type: string
     type: object
+  web.KegiatanCreateRequest:
+    properties:
+      kode_kegiatan:
+        type: string
+      nama_kegiatan:
+        type: string
+      tahun:
+        type: string
+    required:
+    - kode_kegiatan
+    - nama_kegiatan
+    - tahun
+    type: object
+  web.KegiatanResponse:
+    properties:
+      id:
+        type: integer
+      kode_kegiatan:
+        type: string
+      nama_kegiatan:
+        type: string
+      tahun:
+        type: string
+    type: object
+  web.KegiatanUpdateRequest:
+    properties:
+      id:
+        type: integer
+      kode_kegiatan:
+        type: string
+      nama_kegiatan:
+        type: string
+      tahun:
+        type: string
+    required:
+    - kode_kegiatan
+    - nama_kegiatan
+    - tahun
+    type: object
   web.LembagaCreateRequest:
     properties:
       jabatan_kepala_lembaga:
@@ -2712,6 +2751,172 @@ paths:
       summary: Update Indikator Pokin Opd
       tags:
       - Indikator Pokin Opd
+  /kegiatans:
+    get:
+      consumes:
+      - application/json
+      description: Get list of all Kegiatan
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/web.KegiatanResponse'
+                  type: array
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: List All Kegiatan
+      tags:
+      - Kegiatan
+    post:
+      consumes:
+      - application/json
+      description: Create new Kegiatan
+      parameters:
+      - description: Kegiatan Create Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.KegiatanCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.KegiatanResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Create Kegiatan
+      tags:
+      - Kegiatan
+  /kegiatans/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete existing Kegiatan by ID
+      parameters:
+      - description: Kegiatan ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.KegiatanResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Delete Kegiatan
+      tags:
+      - Kegiatan
+    get:
+      consumes:
+      - application/json
+      description: Get Kegiatan detail by ID
+      parameters:
+      - description: Kegiatan ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.KegiatanResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Get Kegiatan by ID
+      tags:
+      - Kegiatan
+    put:
+      consumes:
+      - application/json
+      description: Update existing Kegiatan by ID
+      parameters:
+      - description: Kegiatan ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Kegiatan Update Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.KegiatanUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.KegiatanResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Update Kegiatan
+      tags:
+      - Kegiatan
   /lembagas:
     get:
       consumes:
