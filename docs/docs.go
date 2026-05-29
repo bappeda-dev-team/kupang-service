@@ -7196,6 +7196,279 @@ const docTemplate = `{
                 }
             }
         },
+        "/urusans": {
+            "get": {
+                "description": "Get list of all Urusan",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Urusan"
+                ],
+                "summary": "List All Urusan",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/web.UrusanResponse"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create new Urusan",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Urusan"
+                ],
+                "summary": "Create Urusan",
+                "parameters": [
+                    {
+                        "description": "Urusan Create Request",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/web.UrusanCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.UrusanResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/urusans/{id}": {
+            "get": {
+                "description": "Get Urusan detail by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Urusan"
+                ],
+                "summary": "Get Urusan by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Urusan ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.UrusanResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update existing Urusan by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Urusan"
+                ],
+                "summary": "Update Urusan",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Urusan ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Urusan Update Request",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/web.UrusanUpdateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.UrusanResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete existing Urusan by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Urusan"
+                ],
+                "summary": "Delete Urusan",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Urusan ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.UrusanResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/users": {
             "get": {
                 "description": "Get list of all Users",
@@ -7573,14 +7846,14 @@ const docTemplate = `{
         "web.BidangUrusanCreateRequest": {
             "type": "object",
             "required": [
-                "kode_urusan",
-                "nama_urusan"
+                "kode_bidang_urusan",
+                "nama_bidang_urusan"
             ],
             "properties": {
-                "kode_urusan": {
+                "kode_bidang_urusan": {
                     "type": "string"
                 },
-                "nama_urusan": {
+                "nama_bidang_urusan": {
                     "type": "string"
                 }
             }
@@ -7588,13 +7861,19 @@ const docTemplate = `{
         "web.BidangUrusanResponse": {
             "type": "object",
             "properties": {
+                "created_date": {
+                    "type": "string"
+                },
                 "id": {
                     "type": "integer"
                 },
-                "kode_urusan": {
+                "kode_bidang_urusan": {
                     "type": "string"
                 },
-                "nama_urusan": {
+                "last_modified_date": {
+                    "type": "string"
+                },
+                "nama_bidang_urusan": {
                     "type": "string"
                 }
             }
@@ -7602,17 +7881,17 @@ const docTemplate = `{
         "web.BidangUrusanUpdateRequest": {
             "type": "object",
             "required": [
-                "kode_urusan",
-                "nama_urusan"
+                "kode_bidang_urusan",
+                "nama_bidang_urusan"
             ],
             "properties": {
                 "id": {
                     "type": "integer"
                 },
-                "kode_urusan": {
+                "kode_bidang_urusan": {
                     "type": "string"
                 },
-                "nama_urusan": {
+                "nama_bidang_urusan": {
                     "type": "string"
                 }
             }
@@ -9838,6 +10117,59 @@ const docTemplate = `{
                 }
             }
         },
+        "web.UrusanCreateRequest": {
+            "type": "object",
+            "required": [
+                "kode_urusan",
+                "nama_urusan"
+            ],
+            "properties": {
+                "kode_urusan": {
+                    "type": "string"
+                },
+                "nama_urusan": {
+                    "type": "string"
+                }
+            }
+        },
+        "web.UrusanResponse": {
+            "type": "object",
+            "properties": {
+                "created_date": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "kode_urusan": {
+                    "type": "string"
+                },
+                "last_modified_date": {
+                    "type": "string"
+                },
+                "nama_urusan": {
+                    "type": "string"
+                }
+            }
+        },
+        "web.UrusanUpdateRequest": {
+            "type": "object",
+            "required": [
+                "kode_urusan",
+                "nama_urusan"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "kode_urusan": {
+                    "type": "string"
+                },
+                "nama_urusan": {
+                    "type": "string"
+                }
+            }
+        },
         "web.UserCreateRequest": {
             "type": "object",
             "required": [
@@ -10007,8 +10339,8 @@ var SwaggerInfo = &swag.Spec{
 	Host:             "${PROD_HOSTNAME}",
 	BasePath:         "/",
 	Schemes:          []string{"http", "https"},
-	Title:            "Alur Kerja Service API",
-	Description:      "API For Alur Kerja Services",
+	Title:            "Kertas Kerja Kupang Service API",
+	Description:      "API For Kertas Kerja Kupang Services",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 }

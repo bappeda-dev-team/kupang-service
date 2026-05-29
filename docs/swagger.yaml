@@ -2,34 +2,38 @@ basePath: /
 definitions:
   web.BidangUrusanCreateRequest:
     properties:
-      kode_urusan:
+      kode_bidang_urusan:
         type: string
-      nama_urusan:
+      nama_bidang_urusan:
         type: string
     required:
-    - kode_urusan
-    - nama_urusan
+    - kode_bidang_urusan
+    - nama_bidang_urusan
     type: object
   web.BidangUrusanResponse:
     properties:
+      created_date:
+        type: string
       id:
         type: integer
-      kode_urusan:
+      kode_bidang_urusan:
         type: string
-      nama_urusan:
+      last_modified_date:
+        type: string
+      nama_bidang_urusan:
         type: string
     type: object
   web.BidangUrusanUpdateRequest:
     properties:
       id:
         type: integer
-      kode_urusan:
+      kode_bidang_urusan:
         type: string
-      nama_urusan:
+      nama_bidang_urusan:
         type: string
     required:
-    - kode_urusan
-    - nama_urusan
+    - kode_bidang_urusan
+    - nama_bidang_urusan
     type: object
   web.IndikatorPokinOpdCreateRequest:
     properties:
@@ -1523,6 +1527,41 @@ definitions:
     required:
     - id
     - pokin_opd_id
+    type: object
+  web.UrusanCreateRequest:
+    properties:
+      kode_urusan:
+        type: string
+      nama_urusan:
+        type: string
+    required:
+    - kode_urusan
+    - nama_urusan
+    type: object
+  web.UrusanResponse:
+    properties:
+      created_date:
+        type: string
+      id:
+        type: integer
+      kode_urusan:
+        type: string
+      last_modified_date:
+        type: string
+      nama_urusan:
+        type: string
+    type: object
+  web.UrusanUpdateRequest:
+    properties:
+      id:
+        type: integer
+      kode_urusan:
+        type: string
+      nama_urusan:
+        type: string
+    required:
+    - kode_urusan
+    - nama_urusan
     type: object
   web.UserCreateRequest:
     properties:
@@ -6053,6 +6092,172 @@ paths:
       summary: Tujuan Update Pokin Opd
       tags:
       - Tujuan Pokin Opd
+  /urusans:
+    get:
+      consumes:
+      - application/json
+      description: Get list of all Urusan
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/web.UrusanResponse'
+                  type: array
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: List All Urusan
+      tags:
+      - Urusan
+    post:
+      consumes:
+      - application/json
+      description: Create new Urusan
+      parameters:
+      - description: Urusan Create Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.UrusanCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.UrusanResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Create Urusan
+      tags:
+      - Urusan
+  /urusans/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete existing Urusan by ID
+      parameters:
+      - description: Urusan ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.UrusanResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Delete Urusan
+      tags:
+      - Urusan
+    get:
+      consumes:
+      - application/json
+      description: Get Urusan detail by ID
+      parameters:
+      - description: Urusan ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.UrusanResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Get Urusan by ID
+      tags:
+      - Urusan
+    put:
+      consumes:
+      - application/json
+      description: Update existing Urusan by ID
+      parameters:
+      - description: Urusan ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Urusan Update Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.UrusanUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.UrusanResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Update Urusan
+      tags:
+      - Urusan
   /users:
     get:
       consumes:

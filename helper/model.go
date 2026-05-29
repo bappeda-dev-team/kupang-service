@@ -436,11 +436,31 @@ func ToTargetPokinOpdOperationalNResponses(targets []domain.TargetPokinOpdOperat
 	return responses
 }
 
+func ToUrusanResponse(urusan domain.Urusan) web.UrusanResponse {
+	return web.UrusanResponse{
+		Id:               urusan.Id,
+		KodeUrusan:       urusan.KodeUrusan,
+		NamaUrusan:       urusan.NamaUrusan,
+		CreatedDate:      urusan.CreatedDate.Format("2006-01-02 15:04:05"),
+		LastModifiedDate: urusan.LastModifiedDate.Format("2006-01-02 15:04:05"),
+	}
+}
+
+func ToUrusanResponses(urusans []domain.Urusan) []web.UrusanResponse {
+	var responses []web.UrusanResponse
+	for _, urusan := range urusans {
+		responses = append(responses, ToUrusanResponse(urusan))
+	}
+	return responses
+}
+
 func ToBidangUrusanResponse(bidangUrusan domain.BidangUrusan) web.BidangUrusanResponse {
 	return web.BidangUrusanResponse{
-		Id:         bidangUrusan.Id,
-		KodeUrusan: bidangUrusan.KodeUrusan,
-		NamaUrusan: bidangUrusan.NamaUrusan,
+		Id:               bidangUrusan.Id,
+		KodeBidangUrusan: bidangUrusan.KodeBidangUrusan,
+		NamaBidangUrusan: bidangUrusan.NamaBidangUrusan,
+		CreatedDate:      bidangUrusan.CreatedDate.Format("2006-01-02 15:04:05"),
+		LastModifiedDate: bidangUrusan.LastModifiedDate.Format("2006-01-02 15:04:05"),
 	}
 }
 

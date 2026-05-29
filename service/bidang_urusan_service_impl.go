@@ -39,8 +39,8 @@ func (service *BidangUrusanServiceImpl) Create(ctx context.Context, bidangUrusan
 	defer helper.CommitOrRollback(tx)
 
 	bidangUrusanDomain := domain.BidangUrusan{
-		KodeUrusan: bidangUrusan.KodeUrusan,
-		NamaUrusan: bidangUrusan.NamaUrusan,
+		KodeBidangUrusan: bidangUrusan.KodeBidangUrusan,
+		NamaBidangUrusan: bidangUrusan.NamaBidangUrusan,
 	}
 
 	bidangUrusanDomain, err = service.BidangUrusanRepository.Create(ctx, tx, bidangUrusanDomain)
@@ -48,11 +48,7 @@ func (service *BidangUrusanServiceImpl) Create(ctx context.Context, bidangUrusan
 		return web.BidangUrusanResponse{}, err
 	}
 
-	return web.BidangUrusanResponse{
-		Id:         bidangUrusanDomain.Id,
-		KodeUrusan: bidangUrusanDomain.KodeUrusan,
-		NamaUrusan: bidangUrusanDomain.NamaUrusan,
-	}, nil
+	return helper.ToBidangUrusanResponse(bidangUrusanDomain), nil
 }
 
 func (service *BidangUrusanServiceImpl) Update(ctx context.Context, bidangUrusanData web.BidangUrusanUpdateRequest) (web.BidangUrusanResponse, error) {
@@ -69,8 +65,8 @@ func (service *BidangUrusanServiceImpl) Update(ctx context.Context, bidangUrusan
 
 	bidangUrusanDomain := domain.BidangUrusan{
 		Id:         bidangUrusanData.Id,
-		KodeUrusan: bidangUrusanData.KodeUrusan,
-		NamaUrusan: bidangUrusanData.NamaUrusan,
+		KodeBidangUrusan: bidangUrusanData.KodeBidangUrusan,
+		NamaBidangUrusan: bidangUrusanData.NamaBidangUrusan,
 	}
 
 	bidangUrusanDomain, err = service.BidangUrusanRepository.Update(ctx, tx, bidangUrusanDomain)
@@ -78,11 +74,7 @@ func (service *BidangUrusanServiceImpl) Update(ctx context.Context, bidangUrusan
 		return web.BidangUrusanResponse{}, err
 	}
 
-	return web.BidangUrusanResponse{
-		Id:         bidangUrusanDomain.Id,
-		KodeUrusan: bidangUrusanDomain.KodeUrusan,
-		NamaUrusan: bidangUrusanDomain.NamaUrusan,
-	}, nil
+	return helper.ToBidangUrusanResponse(bidangUrusanDomain), nil
 }
 
 func (service *BidangUrusanServiceImpl) Delete(ctx context.Context, id int) error {
@@ -112,11 +104,7 @@ func (service *BidangUrusanServiceImpl) FindById(ctx context.Context, id int) (w
 		return web.BidangUrusanResponse{}, errors.New("id tidak ditemukan")
 	}
 
-	return web.BidangUrusanResponse{
-		Id:         bidangUrusanDomain.Id,
-		KodeUrusan: bidangUrusanDomain.KodeUrusan,
-		NamaUrusan: bidangUrusanDomain.NamaUrusan,
-	}, nil
+	return helper.ToBidangUrusanResponse(bidangUrusanDomain), nil
 }
 
 func (service *BidangUrusanServiceImpl) FindAll(ctx context.Context) ([]web.BidangUrusanResponse, error) {

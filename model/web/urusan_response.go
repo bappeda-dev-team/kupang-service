@@ -1,9 +1,9 @@
 package web
 
-type BidangUrusanResponse struct {
+type UrusanResponse struct {
 	Id               int    `json:"id,omitempty"`
-	KodeBidangUrusan string `json:"kode_bidang_urusan"`
-	NamaBidangUrusan string `json:"nama_bidang_urusan"`
+	KodeUrusan       string `json:"kode_urusan"`
+	NamaUrusan       string `json:"nama_urusan"`
 	CreatedDate      string `json:"created_date"`
 	LastModifiedDate string `json:"last_modified_date"`
 }

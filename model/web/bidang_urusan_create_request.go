@@ -1,6 +1,6 @@
 package web
 
 type BidangUrusanCreateRequest struct {
-	KodeUrusan string `json:"kode_urusan" validate:"required"`
-	NamaUrusan string `json:"nama_urusan" validate:"required"`
+	KodeBidangUrusan string `json:"kode_bidang_urusan" validate:"required"`
+	NamaBidangUrusan string `json:"nama_bidang_urusan" validate:"required"`
 }

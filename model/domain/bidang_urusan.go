@@ -1,7 +1,11 @@
 package domain
 
+import "time"
+
 type BidangUrusan struct {
-	Id               int
-	KodeUrusan       string
-	NamaUrusan       string
+	Id                int
+	KodeBidangUrusan  string
+	NamaBidangUrusan  string
+	CreatedDate       time.Time
+	LastModifiedDate  time.Time
 }
