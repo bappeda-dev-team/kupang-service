@@ -7862,16 +7862,10 @@
         "web.BidangUrusanResponse": {
             "type": "object",
             "properties": {
-                "created_date": {
-                    "type": "string"
-                },
                 "id": {
                     "type": "integer"
                 },
                 "kode_bidang_urusan": {
-                    "type": "string"
-                },
-                "last_modified_date": {
                     "type": "string"
                 },
                 "nama_bidang_urusan": {
@@ -10147,16 +10141,10 @@
         "web.UrusanResponse": {
             "type": "object",
             "properties": {
-                "created_date": {
-                    "type": "string"
-                },
                 "id": {
                     "type": "integer"
                 },
                 "kode_urusan": {
-                    "type": "string"
-                },
-                "last_modified_date": {
                     "type": "string"
                 },
                 "nama_urusan": {

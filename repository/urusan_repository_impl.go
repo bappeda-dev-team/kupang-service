@@ -15,8 +15,8 @@ func NewUrusanRepositoryImpl() *UrusanRepositoryImpl {
 }
 
 func (repository *UrusanRepositoryImpl) Create(ctx context.Context, tx *sql.Tx, urusan domain.Urusan) (domain.Urusan, error) {
-	query := "INSERT INTO urusan (kode_urusan, nama_urusan, tahun) VALUES ($1, $2, $3) RETURNING id, created_date, last_modified_date"
-	err := tx.QueryRowContext(ctx, query, urusan.KodeUrusan, urusan.NamaUrusan, urusan.Tahun).Scan(&urusan.Id, &urusan.CreatedDate, &urusan.LastModifiedDate)
+	query := "INSERT INTO urusan (kode_urusan, nama_urusan, tahun) VALUES ($1, $2, $3) RETURNING id"
+	err := tx.QueryRowContext(ctx, query, urusan.KodeUrusan, urusan.NamaUrusan, urusan.Tahun).Scan(&urusan.Id)
 	if err != nil {
 		return domain.Urusan{}, err
 	}
@@ -24,8 +24,8 @@ func (repository *UrusanRepositoryImpl) Create(ctx context.Context, tx *sql.Tx, 
 }
 
 func (repository *UrusanRepositoryImpl) Update(ctx context.Context, tx *sql.Tx, urusan domain.Urusan) (domain.Urusan, error) {
-	query := "UPDATE urusan SET kode_urusan = $1, nama_urusan = $2, tahun = $3, last_modified_date = NOW() WHERE id = $4 RETURNING created_date, last_modified_date"
-	err := tx.QueryRowContext(ctx, query, urusan.KodeUrusan, urusan.NamaUrusan, urusan.Tahun, urusan.Id).Scan(&urusan.CreatedDate, &urusan.LastModifiedDate)
+	query := "UPDATE urusan SET kode_urusan = $1, nama_urusan = $2, tahun = $3 WHERE id = $4 RETURNING id"
+	err := tx.QueryRowContext(ctx, query, urusan.KodeUrusan, urusan.NamaUrusan, urusan.Tahun, urusan.Id).Scan(&urusan.Id)
 	if err != nil {
 		return domain.Urusan{}, err
 	}
@@ -33,10 +33,10 @@ func (repository *UrusanRepositoryImpl) Update(ctx context.Context, tx *sql.Tx, 
 }
 
 func (repository *UrusanRepositoryImpl) FindById(ctx context.Context, tx *sql.Tx, id int) (domain.Urusan, error) {
-	query := "SELECT id, kode_urusan, nama_urusan, tahun, created_date, last_modified_date FROM urusan WHERE id = $1"
+	query := "SELECT id, kode_urusan, nama_urusan, tahun FROM urusan WHERE id = $1"
 	row := tx.QueryRowContext(ctx, query, id)
 	var urusan domain.Urusan
-	err := row.Scan(&urusan.Id, &urusan.KodeUrusan, &urusan.NamaUrusan, &urusan.Tahun, &urusan.CreatedDate, &urusan.LastModifiedDate)
+	err := row.Scan(&urusan.Id, &urusan.KodeUrusan, &urusan.NamaUrusan, &urusan.Tahun)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return domain.Urusan{}, errors.New("id tidak ditemukan")
@@ -47,7 +47,7 @@ func (repository *UrusanRepositoryImpl) FindById(ctx context.Context, tx *sql.Tx
 }
 
 func (repository *UrusanRepositoryImpl) FindAll(ctx context.Context, tx *sql.Tx) ([]domain.Urusan, error) {
-	query := "SELECT id, kode_urusan, nama_urusan, tahun, created_date, last_modified_date FROM urusan ORDER BY id ASC"
+	query := "SELECT id, kode_urusan, nama_urusan, tahun FROM urusan ORDER BY id ASC"
 	rows, err := tx.QueryContext(ctx, query)
 	if err != nil {
 		return []domain.Urusan{}, err
@@ -56,7 +56,7 @@ func (repository *UrusanRepositoryImpl) FindAll(ctx context.Context, tx *sql.Tx)
 	var urusanList []domain.Urusan
 	for rows.Next() {
 		var urusan domain.Urusan
-		err := rows.Scan(&urusan.Id, &urusan.KodeUrusan, &urusan.NamaUrusan, &urusan.Tahun, &urusan.CreatedDate, &urusan.LastModifiedDate)
+		err := rows.Scan(&urusan.Id, &urusan.KodeUrusan, &urusan.NamaUrusan, &urusan.Tahun)
 		if err != nil {
 			return []domain.Urusan{}, err
 		}

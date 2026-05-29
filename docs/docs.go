@@ -7865,16 +7865,10 @@ const docTemplate = `{
         "web.BidangUrusanResponse": {
             "type": "object",
             "properties": {
-                "created_date": {
-                    "type": "string"
-                },
                 "id": {
                     "type": "integer"
                 },
                 "kode_bidang_urusan": {
-                    "type": "string"
-                },
-                "last_modified_date": {
                     "type": "string"
                 },
                 "nama_bidang_urusan": {
@@ -10150,16 +10144,10 @@ const docTemplate = `{
         "web.UrusanResponse": {
             "type": "object",
             "properties": {
-                "created_date": {
-                    "type": "string"
-                },
                 "id": {
                     "type": "integer"
                 },
                 "kode_urusan": {
-                    "type": "string"
-                },
-                "last_modified_date": {
                     "type": "string"
                 },
                 "nama_urusan": {
@@ -10361,8 +10349,8 @@ var SwaggerInfo = &swag.Spec{
 	Host:             "${PROD_HOSTNAME}",
 	BasePath:         "/",
 	Schemes:          []string{"http", "https"},
-	Title:            "Kertas Kerja Kupang Service API",
-	Description:      "API For Kertas Kerja Kupang Services",
+	Title:            "Alur Kerja Service API",
+	Description:      "API For Alur Kerja Services",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 }
