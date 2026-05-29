@@ -257,6 +257,15 @@ var urusanSet = wire.NewSet(
 	wire.Bind(new(controller.UrusanController), new(*controller.UrusanControllerImpl)),
 )
 
+var programSet = wire.NewSet(
+	repository.NewProgramRepositoryImpl,
+	wire.Bind(new(repository.ProgramRepository), new(*repository.ProgramRepositoryImpl)),
+	service.NewProgramServiceImpl,
+	wire.Bind(new(service.ProgramService), new(*service.ProgramServiceImpl)),
+	controller.NewProgramControllerImpl,
+	wire.Bind(new(controller.ProgramController), new(*controller.ProgramControllerImpl)),
+)
+
 var pohonKinerjaSet = wire.NewSet(
 	service.NewPohonKinerjaServiceImpl,
 	wire.Bind(new(service.PohonKinerjaService), new(*service.PohonKinerjaServiceImpl)),
@@ -296,6 +305,7 @@ func InitializedServer() *echo.Echo {
 		targetPokinOpdOperationalNSet,
 		bidangUrusanSet,
 		urusanSet,
+		programSet,
 		pohonKinerjaSet,
 		app.NewRouter,
 	)

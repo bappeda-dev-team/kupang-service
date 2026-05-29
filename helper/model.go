@@ -469,3 +469,20 @@ func ToBidangUrusanResponses(bidangUrusans []domain.BidangUrusan) []web.BidangUr
 	}
 	return responses
 }
+
+func ToProgramResponse(program domain.Program) web.ProgramResponse {
+	return web.ProgramResponse{
+		Id:          program.Id,
+		KodeProgram: program.KodeProgram,
+		NamaProgram: program.NamaProgram,
+		Tahun:       program.Tahun,
+	}
+}
+
+func ToProgramResponses(programs []domain.Program) []web.ProgramResponse {
+	var responses []web.ProgramResponse
+	for _, program := range programs {
+		responses = append(responses, ToProgramResponse(program))
+	}
+	return responses
+}

@@ -5,8 +5,8 @@
     ],
     "swagger": "2.0",
     "info": {
-        "description": "API For Kertas Kerja Kupang Services",
-        "title": "Kertas Kerja Kupang Service API",
+        "description": "API For Alur Kerja Services",
+        "title": "Alur Kerja Service API",
         "termsOfService": "http://swagger.io/terms/",
         "contact": {
             "name": "API Support",
@@ -5342,6 +5342,279 @@
                 }
             }
         },
+        "/programs": {
+            "get": {
+                "description": "Get list of all Program",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Program"
+                ],
+                "summary": "List All Program",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/web.ProgramResponse"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create new Program",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Program"
+                ],
+                "summary": "Create Program",
+                "parameters": [
+                    {
+                        "description": "Program Create Request",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/web.ProgramCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.ProgramResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/programs/{id}": {
+            "get": {
+                "description": "Get Program detail by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Program"
+                ],
+                "summary": "Get Program by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Program ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.ProgramResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update existing Program by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Program"
+                ],
+                "summary": "Update Program",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Program ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Program Update Request",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/web.ProgramUpdateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.ProgramResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete existing Program by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Program"
+                ],
+                "summary": "Delete Program",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Program ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.ProgramResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/roles": {
             "get": {
                 "description": "Get list of all Role",
@@ -9625,6 +9898,25 @@
                 }
             }
         },
+        "web.ProgramCreateRequest": {
+            "type": "object",
+            "required": [
+                "kode_program",
+                "nama_program",
+                "tahun"
+            ],
+            "properties": {
+                "kode_program": {
+                    "type": "string"
+                },
+                "nama_program": {
+                    "type": "string"
+                },
+                "tahun": {
+                    "type": "string"
+                }
+            }
+        },
         "web.ProgramPrioritasDaerahCreateRequest": {
             "type": "object",
             "required": [
@@ -9724,6 +10016,45 @@
                     "type": "string"
                 },
                 "tahun_awal": {
+                    "type": "string"
+                }
+            }
+        },
+        "web.ProgramResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "kode_program": {
+                    "type": "string"
+                },
+                "nama_program": {
+                    "type": "string"
+                },
+                "tahun": {
+                    "type": "string"
+                }
+            }
+        },
+        "web.ProgramUpdateRequest": {
+            "type": "object",
+            "required": [
+                "kode_program",
+                "nama_program",
+                "tahun"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "kode_program": {
+                    "type": "string"
+                },
+                "nama_program": {
+                    "type": "string"
+                },
+                "tahun": {
                     "type": "string"
                 }
             }

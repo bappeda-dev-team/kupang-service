@@ -1199,6 +1199,19 @@ definitions:
     - uraian
     - usulan
     type: object
+  web.ProgramCreateRequest:
+    properties:
+      kode_program:
+        type: string
+      nama_program:
+        type: string
+      tahun:
+        type: string
+    required:
+    - kode_program
+    - nama_program
+    - tahun
+    type: object
   web.ProgramPrioritasDaerahCreateRequest:
     properties:
       is_active:
@@ -1270,6 +1283,32 @@ definitions:
     - rencana_implementasi
     - tahun_akhir
     - tahun_awal
+    type: object
+  web.ProgramResponse:
+    properties:
+      id:
+        type: integer
+      kode_program:
+        type: string
+      nama_program:
+        type: string
+      tahun:
+        type: string
+    type: object
+  web.ProgramUpdateRequest:
+    properties:
+      id:
+        type: integer
+      kode_program:
+        type: string
+      nama_program:
+        type: string
+      tahun:
+        type: string
+    required:
+    - kode_program
+    - nama_program
+    - tahun
     type: object
   web.RoleCreateRequest:
     properties:
@@ -1689,12 +1728,12 @@ info:
     email: support@swagger.io
     name: API Support
     url: http://www.swagger.io/support
-  description: API For Kertas Kerja Kupang Services
+  description: API For Alur Kerja Services
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: http://swagger.io/terms/
-  title: Kertas Kerja Kupang Service API
+  title: Alur Kerja Service API
   version: "1.0"
 paths:
   /bidang-urusans:
@@ -4957,6 +4996,172 @@ paths:
       summary: Get Program Prioritas Daerah by Tahun Range
       tags:
       - Program Prioritas Daerah
+  /programs:
+    get:
+      consumes:
+      - application/json
+      description: Get list of all Program
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/web.ProgramResponse'
+                  type: array
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: List All Program
+      tags:
+      - Program
+    post:
+      consumes:
+      - application/json
+      description: Create new Program
+      parameters:
+      - description: Program Create Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.ProgramCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.ProgramResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Create Program
+      tags:
+      - Program
+  /programs/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete existing Program by ID
+      parameters:
+      - description: Program ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.ProgramResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Delete Program
+      tags:
+      - Program
+    get:
+      consumes:
+      - application/json
+      description: Get Program detail by ID
+      parameters:
+      - description: Program ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.ProgramResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Get Program by ID
+      tags:
+      - Program
+    put:
+      consumes:
+      - application/json
+      description: Update existing Program by ID
+      parameters:
+      - description: Program ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Program Update Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.ProgramUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.ProgramResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Update Program
+      tags:
+      - Program
   /roles:
     get:
       consumes:
