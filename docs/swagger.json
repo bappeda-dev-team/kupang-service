@@ -5,8 +5,8 @@
     ],
     "swagger": "2.0",
     "info": {
-        "description": "API For Alur Kerja Services",
-        "title": "Alur Kerja Service API",
+        "description": "API For Kertas Kerja Kupang Services",
+        "title": "Kertas Kerja Kupang Service API",
         "termsOfService": "http://swagger.io/terms/",
         "contact": {
             "name": "API Support",

@@ -1806,12 +1806,12 @@ info:
     email: support@swagger.io
     name: API Support
     url: http://www.swagger.io/support
-  description: API For Alur Kerja Services
+  description: API For Kertas Kerja Kupang Services
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: http://swagger.io/terms/
-  title: Alur Kerja Service API
+  title: Kertas Kerja Kupang Service API
   version: "1.0"
 paths:
   /bidang-urusans:
