@@ -42,6 +42,7 @@ func (service *KegiatanServiceImpl) Create(ctx context.Context, kegiatan web.Keg
 		KodeKegiatan: kegiatan.KodeKegiatan,
 		NamaKegiatan: kegiatan.NamaKegiatan,
 		Tahun:        kegiatan.Tahun,
+		KodeOpd:      kegiatan.KodeOpd,
 	}
 
 	kegiatanDomain, err = service.KegiatanRepository.Create(ctx, tx, kegiatanDomain)
@@ -69,6 +70,7 @@ func (service *KegiatanServiceImpl) Update(ctx context.Context, kegiatanData web
 		KodeKegiatan: kegiatanData.KodeKegiatan,
 		NamaKegiatan: kegiatanData.NamaKegiatan,
 		Tahun:        kegiatanData.Tahun,
+		KodeOpd:      kegiatanData.KodeOpd,
 	}
 
 	kegiatanDomain, err = service.KegiatanRepository.Update(ctx, tx, kegiatanDomain)

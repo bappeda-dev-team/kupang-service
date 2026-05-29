@@ -5,4 +5,5 @@ type Kegiatan struct {
 	KodeKegiatan string
 	NamaKegiatan string
 	Tahun        string
+	KodeOpd      string
 }

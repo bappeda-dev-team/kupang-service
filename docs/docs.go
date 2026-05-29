@@ -8964,11 +8964,15 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "kode_kegiatan",
+                "kode_opd",
                 "nama_kegiatan",
                 "tahun"
             ],
             "properties": {
                 "kode_kegiatan": {
+                    "type": "string"
+                },
+                "kode_opd": {
                     "type": "string"
                 },
                 "nama_kegiatan": {
@@ -8988,6 +8992,9 @@ const docTemplate = `{
                 "kode_kegiatan": {
                     "type": "string"
                 },
+                "kode_opd": {
+                    "type": "string"
+                },
                 "nama_kegiatan": {
                     "type": "string"
                 },
@@ -9000,6 +9007,7 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "kode_kegiatan",
+                "kode_opd",
                 "nama_kegiatan",
                 "tahun"
             ],
@@ -9008,6 +9016,9 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "kode_kegiatan": {
+                    "type": "string"
+                },
+                "kode_opd": {
                     "type": "string"
                 },
                 "nama_kegiatan": {
@@ -10508,11 +10519,15 @@ const docTemplate = `{
         "web.ProgramCreateRequest": {
             "type": "object",
             "required": [
+                "kode_opd",
                 "kode_program",
                 "nama_program",
                 "tahun"
             ],
             "properties": {
+                "kode_opd": {
+                    "type": "string"
+                },
                 "kode_program": {
                     "type": "string"
                 },
@@ -10633,6 +10648,9 @@ const docTemplate = `{
                 "id": {
                     "type": "integer"
                 },
+                "kode_opd": {
+                    "type": "string"
+                },
                 "kode_program": {
                     "type": "string"
                 },
@@ -10647,6 +10665,7 @@ const docTemplate = `{
         "web.ProgramUpdateRequest": {
             "type": "object",
             "required": [
+                "kode_opd",
                 "kode_program",
                 "nama_program",
                 "tahun"
@@ -10654,6 +10673,9 @@ const docTemplate = `{
             "properties": {
                 "id": {
                     "type": "integer"
+                },
+                "kode_opd": {
+                    "type": "string"
                 },
                 "kode_program": {
                     "type": "string"

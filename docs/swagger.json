@@ -5,8 +5,8 @@
     ],
     "swagger": "2.0",
     "info": {
-        "description": "API For Kertas Kerja Kupang Services",
-        "title": "Kertas Kerja Kupang Service API",
+        "description": "API For Alur Kerja Services",
+        "title": "Alur Kerja Service API",
         "termsOfService": "http://swagger.io/terms/",
         "contact": {
             "name": "API Support",
@@ -8961,11 +8961,15 @@
             "type": "object",
             "required": [
                 "kode_kegiatan",
+                "kode_opd",
                 "nama_kegiatan",
                 "tahun"
             ],
             "properties": {
                 "kode_kegiatan": {
+                    "type": "string"
+                },
+                "kode_opd": {
                     "type": "string"
                 },
                 "nama_kegiatan": {
@@ -8985,6 +8989,9 @@
                 "kode_kegiatan": {
                     "type": "string"
                 },
+                "kode_opd": {
+                    "type": "string"
+                },
                 "nama_kegiatan": {
                     "type": "string"
                 },
@@ -8997,6 +9004,7 @@
             "type": "object",
             "required": [
                 "kode_kegiatan",
+                "kode_opd",
                 "nama_kegiatan",
                 "tahun"
             ],
@@ -9005,6 +9013,9 @@
                     "type": "integer"
                 },
                 "kode_kegiatan": {
+                    "type": "string"
+                },
+                "kode_opd": {
                     "type": "string"
                 },
                 "nama_kegiatan": {
@@ -10505,11 +10516,15 @@
         "web.ProgramCreateRequest": {
             "type": "object",
             "required": [
+                "kode_opd",
                 "kode_program",
                 "nama_program",
                 "tahun"
             ],
             "properties": {
+                "kode_opd": {
+                    "type": "string"
+                },
                 "kode_program": {
                     "type": "string"
                 },
@@ -10630,6 +10645,9 @@
                 "id": {
                     "type": "integer"
                 },
+                "kode_opd": {
+                    "type": "string"
+                },
                 "kode_program": {
                     "type": "string"
                 },
@@ -10644,6 +10662,7 @@
         "web.ProgramUpdateRequest": {
             "type": "object",
             "required": [
+                "kode_opd",
                 "kode_program",
                 "nama_program",
                 "tahun"
@@ -10651,6 +10670,9 @@
             "properties": {
                 "id": {
                     "type": "integer"
+                },
+                "kode_opd": {
+                    "type": "string"
                 },
                 "kode_program": {
                     "type": "string"

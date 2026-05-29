@@ -476,6 +476,7 @@ func ToProgramResponse(program domain.Program) web.ProgramResponse {
 		KodeProgram: program.KodeProgram,
 		NamaProgram: program.NamaProgram,
 		Tahun:       program.Tahun,
+		KodeOpd:     program.KodeOpd,
 	}
 }
 
@@ -493,6 +494,7 @@ func ToKegiatanResponse(kegiatan domain.Kegiatan) web.KegiatanResponse {
 		KodeKegiatan: kegiatan.KodeKegiatan,
 		NamaKegiatan: kegiatan.NamaKegiatan,
 		Tahun:        kegiatan.Tahun,
+		KodeOpd:      kegiatan.KodeOpd,
 	}
 }
 

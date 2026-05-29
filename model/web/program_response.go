@@ -5,4 +5,5 @@ type ProgramResponse struct {
 	KodeProgram string `json:"kode_program"`
 	NamaProgram string `json:"nama_program"`
 	Tahun       string `json:"tahun"`
+	KodeOpd     string `json:"kode_opd"`
 }

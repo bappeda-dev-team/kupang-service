@@ -5,4 +5,5 @@ type Program struct {
 	KodeProgram string
 	NamaProgram string
 	Tahun       string
+	KodeOpd     string
 }

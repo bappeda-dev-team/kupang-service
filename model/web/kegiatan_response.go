@@ -5,4 +5,5 @@ type KegiatanResponse struct {
 	KodeKegiatan string `json:"kode_kegiatan"`
 	NamaKegiatan string `json:"nama_kegiatan"`
 	Tahun        string `json:"tahun"`
+	KodeOpd      string `json:"kode_opd"`
 }

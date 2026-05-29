@@ -42,6 +42,7 @@ func (service *ProgramServiceImpl) Create(ctx context.Context, program web.Progr
 		KodeProgram: program.KodeProgram,
 		NamaProgram: program.NamaProgram,
 		Tahun:       program.Tahun,
+		KodeOpd:     program.KodeOpd,
 	}
 
 	programDomain, err = service.ProgramRepository.Create(ctx, tx, programDomain)
@@ -69,6 +70,7 @@ func (service *ProgramServiceImpl) Update(ctx context.Context, programData web.P
 		KodeProgram: programData.KodeProgram,
 		NamaProgram: programData.NamaProgram,
 		Tahun:       programData.Tahun,
+		KodeOpd:     programData.KodeOpd,
 	}
 
 	programDomain, err = service.ProgramRepository.Update(ctx, tx, programDomain)

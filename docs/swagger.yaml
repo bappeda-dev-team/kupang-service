@@ -201,12 +201,15 @@ definitions:
     properties:
       kode_kegiatan:
         type: string
+      kode_opd:
+        type: string
       nama_kegiatan:
         type: string
       tahun:
         type: string
     required:
     - kode_kegiatan
+    - kode_opd
     - nama_kegiatan
     - tahun
     type: object
@@ -215,6 +218,8 @@ definitions:
       id:
         type: integer
       kode_kegiatan:
+        type: string
+      kode_opd:
         type: string
       nama_kegiatan:
         type: string
@@ -227,12 +232,15 @@ definitions:
         type: integer
       kode_kegiatan:
         type: string
+      kode_opd:
+        type: string
       nama_kegiatan:
         type: string
       tahun:
         type: string
     required:
     - kode_kegiatan
+    - kode_opd
     - nama_kegiatan
     - tahun
     type: object
@@ -1240,6 +1248,8 @@ definitions:
     type: object
   web.ProgramCreateRequest:
     properties:
+      kode_opd:
+        type: string
       kode_program:
         type: string
       nama_program:
@@ -1247,6 +1257,7 @@ definitions:
       tahun:
         type: string
     required:
+    - kode_opd
     - kode_program
     - nama_program
     - tahun
@@ -1327,6 +1338,8 @@ definitions:
     properties:
       id:
         type: integer
+      kode_opd:
+        type: string
       kode_program:
         type: string
       nama_program:
@@ -1338,6 +1351,8 @@ definitions:
     properties:
       id:
         type: integer
+      kode_opd:
+        type: string
       kode_program:
         type: string
       nama_program:
@@ -1345,6 +1360,7 @@ definitions:
       tahun:
         type: string
     required:
+    - kode_opd
     - kode_program
     - nama_program
     - tahun
@@ -1806,12 +1822,12 @@ info:
     email: support@swagger.io
     name: API Support
     url: http://www.swagger.io/support
-  description: API For Kertas Kerja Kupang Services
+  description: API For Alur Kerja Services
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: http://swagger.io/terms/
-  title: Kertas Kerja Kupang Service API
+  title: Alur Kerja Service API
   version: "1.0"
 paths:
   /bidang-urusans:
