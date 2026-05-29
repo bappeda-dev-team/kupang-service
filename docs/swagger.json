@@ -5,8 +5,8 @@
     ],
     "swagger": "2.0",
     "info": {
-        "description": "API For Alur Kerja Services",
-        "title": "Alur Kerja Service API",
+        "description": "API For Kertas Kerja Kupang Services",
+        "title": "Kertas Kerja Kupang Service API",
         "termsOfService": "http://swagger.io/terms/",
         "contact": {
             "name": "API Support",
@@ -7844,13 +7844,17 @@
             "type": "object",
             "required": [
                 "kode_bidang_urusan",
-                "nama_bidang_urusan"
+                "nama_bidang_urusan",
+                "tahun"
             ],
             "properties": {
                 "kode_bidang_urusan": {
                     "type": "string"
                 },
                 "nama_bidang_urusan": {
+                    "type": "string"
+                },
+                "tahun": {
                     "type": "string"
                 }
             }
@@ -7872,6 +7876,9 @@
                 },
                 "nama_bidang_urusan": {
                     "type": "string"
+                },
+                "tahun": {
+                    "type": "string"
                 }
             }
         },
@@ -7879,7 +7886,8 @@
             "type": "object",
             "required": [
                 "kode_bidang_urusan",
-                "nama_bidang_urusan"
+                "nama_bidang_urusan",
+                "tahun"
             ],
             "properties": {
                 "id": {
@@ -7889,6 +7897,9 @@
                     "type": "string"
                 },
                 "nama_bidang_urusan": {
+                    "type": "string"
+                },
+                "tahun": {
                     "type": "string"
                 }
             }
@@ -10118,13 +10129,17 @@
             "type": "object",
             "required": [
                 "kode_urusan",
-                "nama_urusan"
+                "nama_urusan",
+                "tahun"
             ],
             "properties": {
                 "kode_urusan": {
                     "type": "string"
                 },
                 "nama_urusan": {
+                    "type": "string"
+                },
+                "tahun": {
                     "type": "string"
                 }
             }
@@ -10146,6 +10161,9 @@
                 },
                 "nama_urusan": {
                     "type": "string"
+                },
+                "tahun": {
+                    "type": "string"
                 }
             }
         },
@@ -10153,7 +10171,8 @@
             "type": "object",
             "required": [
                 "kode_urusan",
-                "nama_urusan"
+                "nama_urusan",
+                "tahun"
             ],
             "properties": {
                 "id": {
@@ -10163,6 +10182,9 @@
                     "type": "string"
                 },
                 "nama_urusan": {
+                    "type": "string"
+                },
+                "tahun": {
                     "type": "string"
                 }
             }

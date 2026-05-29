@@ -6,9 +6,12 @@ definitions:
         type: string
       nama_bidang_urusan:
         type: string
+      tahun:
+        type: string
     required:
     - kode_bidang_urusan
     - nama_bidang_urusan
+    - tahun
     type: object
   web.BidangUrusanResponse:
     properties:
@@ -22,6 +25,8 @@ definitions:
         type: string
       nama_bidang_urusan:
         type: string
+      tahun:
+        type: string
     type: object
   web.BidangUrusanUpdateRequest:
     properties:
@@ -31,9 +36,12 @@ definitions:
         type: string
       nama_bidang_urusan:
         type: string
+      tahun:
+        type: string
     required:
     - kode_bidang_urusan
     - nama_bidang_urusan
+    - tahun
     type: object
   web.IndikatorPokinOpdCreateRequest:
     properties:
@@ -1534,9 +1542,12 @@ definitions:
         type: string
       nama_urusan:
         type: string
+      tahun:
+        type: string
     required:
     - kode_urusan
     - nama_urusan
+    - tahun
     type: object
   web.UrusanResponse:
     properties:
@@ -1550,6 +1561,8 @@ definitions:
         type: string
       nama_urusan:
         type: string
+      tahun:
+        type: string
     type: object
   web.UrusanUpdateRequest:
     properties:
@@ -1559,9 +1572,12 @@ definitions:
         type: string
       nama_urusan:
         type: string
+      tahun:
+        type: string
     required:
     - kode_urusan
     - nama_urusan
+    - tahun
     type: object
   web.UserCreateRequest:
     properties:

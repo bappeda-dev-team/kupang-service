@@ -39,6 +39,7 @@ func (service *UrusanServiceImpl) Create(ctx context.Context, urusan web.UrusanC
 	urusanDomain := domain.Urusan{
 		KodeUrusan: urusan.KodeUrusan,
 		NamaUrusan: urusan.NamaUrusan,
+		Tahun:      urusan.Tahun,
 	}
 	urusanDomain, err = service.UrusanRepository.Create(ctx, tx, urusanDomain)
 	if err != nil {
@@ -61,6 +62,7 @@ func (service *UrusanServiceImpl) Update(ctx context.Context, urusanData web.Uru
 		Id:         urusanData.Id,
 		KodeUrusan: urusanData.KodeUrusan,
 		NamaUrusan: urusanData.NamaUrusan,
+		Tahun:      urusanData.Tahun,
 	}
 	urusanDomain, err = service.UrusanRepository.Update(ctx, tx, urusanDomain)
 	if err != nil {

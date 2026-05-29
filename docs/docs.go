@@ -7847,13 +7847,17 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "kode_bidang_urusan",
-                "nama_bidang_urusan"
+                "nama_bidang_urusan",
+                "tahun"
             ],
             "properties": {
                 "kode_bidang_urusan": {
                     "type": "string"
                 },
                 "nama_bidang_urusan": {
+                    "type": "string"
+                },
+                "tahun": {
                     "type": "string"
                 }
             }
@@ -7875,6 +7879,9 @@ const docTemplate = `{
                 },
                 "nama_bidang_urusan": {
                     "type": "string"
+                },
+                "tahun": {
+                    "type": "string"
                 }
             }
         },
@@ -7882,7 +7889,8 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "kode_bidang_urusan",
-                "nama_bidang_urusan"
+                "nama_bidang_urusan",
+                "tahun"
             ],
             "properties": {
                 "id": {
@@ -7892,6 +7900,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "nama_bidang_urusan": {
+                    "type": "string"
+                },
+                "tahun": {
                     "type": "string"
                 }
             }
@@ -10121,13 +10132,17 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "kode_urusan",
-                "nama_urusan"
+                "nama_urusan",
+                "tahun"
             ],
             "properties": {
                 "kode_urusan": {
                     "type": "string"
                 },
                 "nama_urusan": {
+                    "type": "string"
+                },
+                "tahun": {
                     "type": "string"
                 }
             }
@@ -10149,6 +10164,9 @@ const docTemplate = `{
                 },
                 "nama_urusan": {
                     "type": "string"
+                },
+                "tahun": {
+                    "type": "string"
                 }
             }
         },
@@ -10156,7 +10174,8 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "kode_urusan",
-                "nama_urusan"
+                "nama_urusan",
+                "tahun"
             ],
             "properties": {
                 "id": {
@@ -10166,6 +10185,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "nama_urusan": {
+                    "type": "string"
+                },
+                "tahun": {
                     "type": "string"
                 }
             }

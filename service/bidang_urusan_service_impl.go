@@ -41,6 +41,7 @@ func (service *BidangUrusanServiceImpl) Create(ctx context.Context, bidangUrusan
 	bidangUrusanDomain := domain.BidangUrusan{
 		KodeBidangUrusan: bidangUrusan.KodeBidangUrusan,
 		NamaBidangUrusan: bidangUrusan.NamaBidangUrusan,
+		Tahun:            bidangUrusan.Tahun,
 	}
 
 	bidangUrusanDomain, err = service.BidangUrusanRepository.Create(ctx, tx, bidangUrusanDomain)
@@ -64,9 +65,10 @@ func (service *BidangUrusanServiceImpl) Update(ctx context.Context, bidangUrusan
 	defer helper.CommitOrRollback(tx)
 
 	bidangUrusanDomain := domain.BidangUrusan{
-		Id:         bidangUrusanData.Id,
+		Id:               bidangUrusanData.Id,
 		KodeBidangUrusan: bidangUrusanData.KodeBidangUrusan,
 		NamaBidangUrusan: bidangUrusanData.NamaBidangUrusan,
+		Tahun:            bidangUrusanData.Tahun,
 	}
 
 	bidangUrusanDomain, err = service.BidangUrusanRepository.Update(ctx, tx, bidangUrusanDomain)

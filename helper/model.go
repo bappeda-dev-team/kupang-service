@@ -441,6 +441,7 @@ func ToUrusanResponse(urusan domain.Urusan) web.UrusanResponse {
 		Id:               urusan.Id,
 		KodeUrusan:       urusan.KodeUrusan,
 		NamaUrusan:       urusan.NamaUrusan,
+		Tahun:            urusan.Tahun,
 		CreatedDate:      urusan.CreatedDate.Format("2006-01-02 15:04:05"),
 		LastModifiedDate: urusan.LastModifiedDate.Format("2006-01-02 15:04:05"),
 	}
@@ -459,6 +460,7 @@ func ToBidangUrusanResponse(bidangUrusan domain.BidangUrusan) web.BidangUrusanRe
 		Id:               bidangUrusan.Id,
 		KodeBidangUrusan: bidangUrusan.KodeBidangUrusan,
 		NamaBidangUrusan: bidangUrusan.NamaBidangUrusan,
+		Tahun:            bidangUrusan.Tahun,
 		CreatedDate:      bidangUrusan.CreatedDate.Format("2006-01-02 15:04:05"),
 		LastModifiedDate: bidangUrusan.LastModifiedDate.Format("2006-01-02 15:04:05"),
 	}
