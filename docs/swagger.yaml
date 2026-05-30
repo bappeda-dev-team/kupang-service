@@ -185,6 +185,53 @@ definitions:
     required:
     - id
     type: object
+  web.JabatanOpdCreateRequest:
+    properties:
+      kode_jabatan:
+        type: string
+      kode_opd:
+        type: string
+      nama_jabatan:
+        type: string
+      tahun:
+        type: string
+    required:
+    - kode_jabatan
+    - kode_opd
+    - nama_jabatan
+    - tahun
+    type: object
+  web.JabatanOpdResponse:
+    properties:
+      id:
+        type: integer
+      kode_jabatan:
+        type: string
+      kode_opd:
+        type: string
+      nama_jabatan:
+        type: string
+      tahun:
+        type: string
+    type: object
+  web.JabatanOpdUpdateRequest:
+    properties:
+      id:
+        type: integer
+      kode_jabatan:
+        type: string
+      kode_opd:
+        type: string
+      nama_jabatan:
+        type: string
+      tahun:
+        type: string
+    required:
+    - kode_jabatan
+    - kode_opd
+    - nama_jabatan
+    - tahun
+    type: object
   web.JabatanResponse:
     properties:
       id:
@@ -2806,6 +2853,172 @@ paths:
       summary: Update Indikator Pokin Opd
       tags:
       - Indikator Pokin Opd
+  /jabatan-opds:
+    get:
+      consumes:
+      - application/json
+      description: Get list of all Jabatan Opd
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/web.JabatanOpdResponse'
+                  type: array
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: List All Jabatan Opd
+      tags:
+      - Jabatan Opd
+    post:
+      consumes:
+      - application/json
+      description: Create new Jabatan Opd
+      parameters:
+      - description: Jabatan Opd Create Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.JabatanOpdCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.JabatanOpdResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Create Jabatan Opd
+      tags:
+      - Jabatan Opd
+  /jabatan-opds/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete existing Jabatan Opd by ID
+      parameters:
+      - description: Jabatan Opd ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.JabatanOpdResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Delete Jabatan Opd
+      tags:
+      - Jabatan Opd
+    get:
+      consumes:
+      - application/json
+      description: Get Jabatan Opd detail by ID
+      parameters:
+      - description: Jabatan Opd ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.JabatanOpdResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Get Jabatan Opd by ID
+      tags:
+      - Jabatan Opd
+    put:
+      consumes:
+      - application/json
+      description: Update existing Jabatan Opd by ID
+      parameters:
+      - description: Jabatan Opd ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Jabatan Opd Update Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/web.JabatanOpdUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/web.JabatanOpdResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Update Jabatan Opd
+      tags:
+      - Jabatan Opd
   /kegiatans:
     get:
       consumes:

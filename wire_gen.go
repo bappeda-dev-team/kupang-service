@@ -108,13 +108,16 @@ func InitializedServer() *echo.Echo {
 	programRepositoryImpl := repository.NewProgramRepositoryImpl()
 	programServiceImpl := service.NewProgramServiceImpl(programRepositoryImpl, db, validate)
 	programControllerImpl := controller.NewProgramControllerImpl(programServiceImpl)
+	jabatanOpdRepositoryImpl := repository.NewJabatanOpdRepositoryImpl()
+	jabatanOpdServiceImpl := service.NewJabatanOpdServiceImpl(jabatanOpdRepositoryImpl, db, validate)
+	jabatanOpdControllerImpl := controller.NewJabatanOpdControllerImpl(jabatanOpdServiceImpl)
 	kegiatanRepositoryImpl := repository.NewKegiatanRepositoryImpl()
 	kegiatanServiceImpl := service.NewKegiatanServiceImpl(kegiatanRepositoryImpl, db, validate)
 	kegiatanControllerImpl := controller.NewKegiatanControllerImpl(kegiatanServiceImpl)
 	subkegiatanRepositoryImpl := repository.NewSubkegiatanRepositoryImpl()
 	subkegiatanServiceImpl := service.NewSubkegiatanServiceImpl(subkegiatanRepositoryImpl, db, validate)
 	subkegiatanControllerImpl := controller.NewSubkegiatanControllerImpl(subkegiatanServiceImpl)
-	echoEcho := app.NewRouter(lembagaControllerImpl, periodeControllerImpl, roleControllerImpl, musrenbangControllerImpl, programPrioritasDaerahControllerImpl, pokokPikiranControllerImpl, userControllerImpl, opdControllerImpl, pegawaiControllerImpl, pokinOpdControllerImpl, pokinOpdStrategicControllerImpl, pokinOpdTacticalControllerImpl, pokinOpdOperationalControllerImpl, pokinOpdOperationalNControllerImpl, indikatorPokinOpdControllerImpl, indikatorPokinOpdStrategicControllerImpl, indikatorPokinOpdTacticalControllerImpl, indikatorPokinOpdOperationalControllerImpl, indikatorPokinOpdOperationalNControllerImpl, tujuanPokinOpdControllerImpl, targetPokinOpdControllerImpl, targetPokinOpdStrategicControllerImpl, targetPokinOpdTacticalControllerImpl, targetPokinOpdOperationalControllerImpl, targetPokinOpdOperationalNControllerImpl, bidangUrusanControllerImpl, urusanControllerImpl, pohonKinerjaControllerImpl, programControllerImpl, kegiatanControllerImpl, subkegiatanControllerImpl)
+	echoEcho := app.NewRouter(lembagaControllerImpl, periodeControllerImpl, roleControllerImpl, musrenbangControllerImpl, programPrioritasDaerahControllerImpl, pokokPikiranControllerImpl, userControllerImpl, opdControllerImpl, pegawaiControllerImpl, pokinOpdControllerImpl, pokinOpdStrategicControllerImpl, pokinOpdTacticalControllerImpl, pokinOpdOperationalControllerImpl, pokinOpdOperationalNControllerImpl, indikatorPokinOpdControllerImpl, indikatorPokinOpdStrategicControllerImpl, indikatorPokinOpdTacticalControllerImpl, indikatorPokinOpdOperationalControllerImpl, indikatorPokinOpdOperationalNControllerImpl, tujuanPokinOpdControllerImpl, targetPokinOpdControllerImpl, targetPokinOpdStrategicControllerImpl, targetPokinOpdTacticalControllerImpl, targetPokinOpdOperationalControllerImpl, targetPokinOpdOperationalNControllerImpl, bidangUrusanControllerImpl, urusanControllerImpl, pohonKinerjaControllerImpl, programControllerImpl, jabatanOpdControllerImpl, kegiatanControllerImpl, subkegiatanControllerImpl)
 	return echoEcho
 }
 
@@ -183,5 +186,7 @@ var kegiatanSet = wire.NewSet(repository.NewKegiatanRepositoryImpl, wire.Bind(ne
 var subkegiatanSet = wire.NewSet(repository.NewSubkegiatanRepositoryImpl, wire.Bind(new(repository.SubkegiatanRepository), new(*repository.SubkegiatanRepositoryImpl)), service.NewSubkegiatanServiceImpl, wire.Bind(new(service.SubkegiatanService), new(*service.SubkegiatanServiceImpl)), controller.NewSubkegiatanControllerImpl, wire.Bind(new(controller.SubkegiatanController), new(*controller.SubkegiatanControllerImpl)))
 
 var programSet = wire.NewSet(repository.NewProgramRepositoryImpl, wire.Bind(new(repository.ProgramRepository), new(*repository.ProgramRepositoryImpl)), service.NewProgramServiceImpl, wire.Bind(new(service.ProgramService), new(*service.ProgramServiceImpl)), controller.NewProgramControllerImpl, wire.Bind(new(controller.ProgramController), new(*controller.ProgramControllerImpl)))
+
+var jabatanOpdSet = wire.NewSet(repository.NewJabatanOpdRepositoryImpl, wire.Bind(new(repository.JabatanOpdRepository), new(*repository.JabatanOpdRepositoryImpl)), service.NewJabatanOpdServiceImpl, wire.Bind(new(service.JabatanOpdService), new(*service.JabatanOpdServiceImpl)), controller.NewJabatanOpdControllerImpl, wire.Bind(new(controller.JabatanOpdController), new(*controller.JabatanOpdControllerImpl)))
 
 var pohonKinerjaSet = wire.NewSet(service.NewPohonKinerjaServiceImpl, wire.Bind(new(service.PohonKinerjaService), new(*service.PohonKinerjaServiceImpl)), controller.NewPohonKinerjaControllerImpl, wire.Bind(new(controller.PohonKinerjaController), new(*controller.PohonKinerjaControllerImpl)))

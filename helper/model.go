@@ -488,6 +488,24 @@ func ToProgramResponses(programs []domain.Program) []web.ProgramResponse {
 	return responses
 }
 
+func ToJabatanOpdResponse(jabatanOpd domain.JabatanOpd) web.JabatanOpdResponse {
+	return web.JabatanOpdResponse{
+		Id:          jabatanOpd.Id,
+		KodeJabatan: jabatanOpd.KodeJabatan,
+		NamaJabatan: jabatanOpd.NamaJabatan,
+		KodeOpd:     jabatanOpd.KodeOpd,
+		Tahun:       jabatanOpd.Tahun,
+	}
+}
+
+func ToJabatanOpdResponses(jabatanOpds []domain.JabatanOpd) []web.JabatanOpdResponse {
+	var responses []web.JabatanOpdResponse
+	for _, jabatanOpd := range jabatanOpds {
+		responses = append(responses, ToJabatanOpdResponse(jabatanOpd))
+	}
+	return responses
+}
+
 func ToKegiatanResponse(kegiatan domain.Kegiatan) web.KegiatanResponse {
 	return web.KegiatanResponse{
 		Id:           kegiatan.Id,

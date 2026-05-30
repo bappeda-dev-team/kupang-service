@@ -7,7 +7,7 @@ import (
 	"kupang-service/controller"
 )
 
-func NewRouter(lembagaController controller.LembagaController, periodeController controller.PeriodeController, roleController controller.RoleController, musrenbangController controller.MusrenbangController, programPrioritasDaerahController controller.ProgramPrioritasDaerahController, pokokPikiranController controller.PokokPikiranController, userController controller.UserController, opdController controller.OpdController, pegawaiController controller.PegawaiController, pokinOpdController controller.PokinOpdController, pokinOpdStrategicController controller.PokinOpdStrategicController, pokinOpdTacticalController controller.PokinOpdTacticalController, pokinOpdOperationalController controller.PokinOpdOperationalController, pokinOpdOperationalNController controller.PokinOpdOperationalNController, indikatorPokinOpdController controller.IndikatorPokinOpdController, indikatorPokinOpdStrategicController controller.IndikatorPokinOpdStrategicController, indikatorPokinOpdTacticalController controller.IndikatorPokinOpdTacticalController, indikatorPokinOpdOperationalController controller.IndikatorPokinOpdOperationalController, indikatorPokinOpdOperationalNController controller.IndikatorPokinOpdOperationalNController, tujuanPokinOpdController controller.TujuanPokinOpdController, targetPokinOpdController controller.TargetPokinOpdController, targetPokinOpdStrategicController controller.TargetPokinOpdStrategicController, targetPokinOpdTacticalController controller.TargetPokinOpdTacticalController, targetPokinOpdOperationalController controller.TargetPokinOpdOperationalController, targetPokinOpdOperationalNController controller.TargetPokinOpdOperationalNController, bidangUrusanController controller.BidangUrusanController, urusanController controller.UrusanController, pohonKinerjaController controller.PohonKinerjaController, programController controller.ProgramController, kegiatanController controller.KegiatanController, subkegiatanController controller.SubkegiatanController) *echo.Echo {
+func NewRouter(lembagaController controller.LembagaController, periodeController controller.PeriodeController, roleController controller.RoleController, musrenbangController controller.MusrenbangController, programPrioritasDaerahController controller.ProgramPrioritasDaerahController, pokokPikiranController controller.PokokPikiranController, userController controller.UserController, opdController controller.OpdController, pegawaiController controller.PegawaiController, pokinOpdController controller.PokinOpdController, pokinOpdStrategicController controller.PokinOpdStrategicController, pokinOpdTacticalController controller.PokinOpdTacticalController, pokinOpdOperationalController controller.PokinOpdOperationalController, pokinOpdOperationalNController controller.PokinOpdOperationalNController, indikatorPokinOpdController controller.IndikatorPokinOpdController, indikatorPokinOpdStrategicController controller.IndikatorPokinOpdStrategicController, indikatorPokinOpdTacticalController controller.IndikatorPokinOpdTacticalController, indikatorPokinOpdOperationalController controller.IndikatorPokinOpdOperationalController, indikatorPokinOpdOperationalNController controller.IndikatorPokinOpdOperationalNController, tujuanPokinOpdController controller.TujuanPokinOpdController, targetPokinOpdController controller.TargetPokinOpdController, targetPokinOpdStrategicController controller.TargetPokinOpdStrategicController, targetPokinOpdTacticalController controller.TargetPokinOpdTacticalController, targetPokinOpdOperationalController controller.TargetPokinOpdOperationalController, targetPokinOpdOperationalNController controller.TargetPokinOpdOperationalNController, bidangUrusanController controller.BidangUrusanController, urusanController controller.UrusanController, pohonKinerjaController controller.PohonKinerjaController, 	programController controller.ProgramController, jabatanOpdController controller.JabatanOpdController, kegiatanController controller.KegiatanController, subkegiatanController controller.SubkegiatanController) *echo.Echo {
 	e := echo.New()
 
 	const lembagaBase = "/lembagas"
@@ -39,6 +39,7 @@ func NewRouter(lembagaController controller.LembagaController, periodeController
 	const urusanBase = "/urusans"
 	const pohonKinerjaBase = "/pohon-kinerja-opds"
 	const programBase = "/programs"
+	const jabatanOpdBase = "/jabatan-opds"
 	const kegiatanBase = "/kegiatans"
 	const subkegiatanBase = "/subkegiatans"
 
@@ -237,6 +238,12 @@ func NewRouter(lembagaController controller.LembagaController, periodeController
 	e.DELETE(programBase+"/:id", programController.Delete)
 	e.GET(programBase+"/:id", programController.FindById)
 	e.GET(programBase, programController.FindAll)
+
+	e.POST(jabatanOpdBase, jabatanOpdController.Create)
+	e.PUT(jabatanOpdBase+"/:id", jabatanOpdController.Update)
+	e.DELETE(jabatanOpdBase+"/:id", jabatanOpdController.Delete)
+	e.GET(jabatanOpdBase+"/:id", jabatanOpdController.FindById)
+	e.GET(jabatanOpdBase, jabatanOpdController.FindAll)
 
 	e.POST(kegiatanBase, kegiatanController.Create)
 	e.PUT(kegiatanBase+"/:id", kegiatanController.Update)

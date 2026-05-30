@@ -1615,6 +1615,279 @@ const docTemplate = `{
                 }
             }
         },
+        "/jabatan-opds": {
+            "get": {
+                "description": "Get list of all JabatanOpd",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "JabatanOpd"
+                ],
+                "summary": "List All JabatanOpd",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/web.JabatanOpdResponse"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create new JabatanOpd",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "JabatanOpd"
+                ],
+                "summary": "Create JabatanOpd",
+                "parameters": [
+                    {
+                        "description": "JabatanOpd Create Request",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/web.JabatanOpdCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.JabatanOpdResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/jabatan-opds/{id}": {
+            "get": {
+                "description": "Get JabatanOpd detail by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "JabatanOpd"
+                ],
+                "summary": "Get JabatanOpd by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "JabatanOpd ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.JabatanOpdResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update existing JabatanOpd by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "JabatanOpd"
+                ],
+                "summary": "Update JabatanOpd",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "JabatanOpd ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "JabatanOpd Update Request",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/web.JabatanOpdUpdateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.JabatanOpdResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete existing JabatanOpd by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "JabatanOpd"
+                ],
+                "summary": "Delete JabatanOpd",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "JabatanOpd ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.WebResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/web.JabatanOpdResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/web.WebResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/kegiatans": {
             "get": {
                 "description": "Get list of all Kegiatan",
@@ -8939,6 +9212,75 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "indikator": {
+                    "type": "string"
+                }
+            }
+        },
+        "web.JabatanOpdCreateRequest": {
+            "type": "object",
+            "required": [
+                "kode_jabatan",
+                "kode_opd",
+                "nama_jabatan",
+                "tahun"
+            ],
+            "properties": {
+                "kode_jabatan": {
+                    "type": "string"
+                },
+                "kode_opd": {
+                    "type": "string"
+                },
+                "nama_jabatan": {
+                    "type": "string"
+                },
+                "tahun": {
+                    "type": "string"
+                }
+            }
+        },
+        "web.JabatanOpdResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "kode_jabatan": {
+                    "type": "string"
+                },
+                "kode_opd": {
+                    "type": "string"
+                },
+                "nama_jabatan": {
+                    "type": "string"
+                },
+                "tahun": {
+                    "type": "string"
+                }
+            }
+        },
+        "web.JabatanOpdUpdateRequest": {
+            "type": "object",
+            "required": [
+                "kode_jabatan",
+                "kode_opd",
+                "nama_jabatan",
+                "tahun"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "kode_jabatan": {
+                    "type": "string"
+                },
+                "kode_opd": {
+                    "type": "string"
+                },
+                "nama_jabatan": {
+                    "type": "string"
+                },
+                "tahun": {
                     "type": "string"
                 }
             }

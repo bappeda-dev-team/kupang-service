@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS "jabatan_opd" (
+    id BIGSERIAL PRIMARY KEY,
+    kode_jabatan VARCHAR(255) NOT NULL,
+    nama_jabatan VARCHAR(255) NOT NULL,
+    kode_opd VARCHAR(255) NOT NULL,
+    tahun VARCHAR(255) NOT NULL,
+    created_date TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    last_modified_date TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
+);
