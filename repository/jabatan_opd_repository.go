@@ -11,5 +11,5 @@ type JabatanOpdRepository interface {
 	Update(ctx context.Context, tx *sql.Tx, jabatanOpd domain.JabatanOpd) (domain.JabatanOpd, error)
 	Delete(ctx context.Context, tx *sql.Tx, id int) error
 	FindById(ctx context.Context, tx *sql.Tx, id int) (domain.JabatanOpd, error)
-	FindAll(ctx context.Context, tx *sql.Tx) ([]domain.JabatanOpd, error)
+	FindByKodeOpd(ctx context.Context, tx *sql.Tx, kodeOpd string) ([]domain.JabatanOpd, error)
 }

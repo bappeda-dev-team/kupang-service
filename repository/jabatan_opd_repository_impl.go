@@ -50,9 +50,9 @@ func (repository *JabatanOpdRepositoryImpl) FindById(ctx context.Context, tx *sq
 	return jabatanOpd, nil
 }
 
-func (repository *JabatanOpdRepositoryImpl) FindAll(ctx context.Context, tx *sql.Tx) ([]domain.JabatanOpd, error) {
-	query := "SELECT id, kode_jabatan, nama_jabatan, kode_opd, tahun FROM jabatan_opd ORDER BY id ASC"
-	rows, err := tx.QueryContext(ctx, query)
+func (repository *JabatanOpdRepositoryImpl) FindByKodeOpd(ctx context.Context, tx *sql.Tx, kodeOpd string) ([]domain.JabatanOpd, error) {
+	query := "SELECT id, kode_jabatan, nama_jabatan, kode_opd, tahun FROM jabatan_opd WHERE kode_opd = $1 ORDER BY id ASC"
+	rows, err := tx.QueryContext(ctx, query, kodeOpd)
 	if err != nil {
 		return []domain.JabatanOpd{}, err
 	}

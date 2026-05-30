@@ -243,7 +243,7 @@ func NewRouter(lembagaController controller.LembagaController, periodeController
 	e.PUT(jabatanOpdBase+"/:id", jabatanOpdController.Update)
 	e.DELETE(jabatanOpdBase+"/:id", jabatanOpdController.Delete)
 	e.GET(jabatanOpdBase+"/:id", jabatanOpdController.FindById)
-	e.GET(jabatanOpdBase, jabatanOpdController.FindAll)
+	e.GET(jabatanOpdBase+"/opd/:kode_opd", jabatanOpdController.FindByKodeOpd)
 
 	e.POST(kegiatanBase, kegiatanController.Create)
 	e.PUT(kegiatanBase+"/:id", kegiatanController.Update)

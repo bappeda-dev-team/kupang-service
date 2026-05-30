@@ -2854,31 +2854,6 @@ paths:
       tags:
       - Indikator Pokin Opd
   /jabatan-opds:
-    get:
-      consumes:
-      - application/json
-      description: Get list of all Jabatan Opd
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            allOf:
-            - $ref: '#/definitions/web.WebResponse'
-            - properties:
-                data:
-                  items:
-                    $ref: '#/definitions/web.JabatanOpdResponse'
-                  type: array
-              type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/web.WebResponse'
-      summary: List All Jabatan Opd
-      tags:
-      - Jabatan Opd
     post:
       consumes:
       - application/json
@@ -2911,6 +2886,38 @@ paths:
           schema:
             $ref: '#/definitions/web.WebResponse'
       summary: Create Jabatan Opd
+      tags:
+      - Jabatan Opd
+  /jabatan-opds/opd/{kode_opd}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of Jabatan Opd by Kode OPD
+      parameters:
+      - description: Kode OPD
+        in: path
+        name: kode_opd
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.WebResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/web.JabatanOpdResponse'
+                  type: array
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.WebResponse'
+      summary: Get Jabatan Opd by Kode OPD
       tags:
       - Jabatan Opd
   /jabatan-opds/{id}:

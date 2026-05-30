@@ -187,16 +187,18 @@ func (controller *JabatanOpdControllerImpl) FindById(c echo.Context) error {
 	})
 }
 
-// @Summary List All JabatanOpd
-// @Description Get list of all JabatanOpd
+// @Summary Get JabatanOpd by Kode OPD
+// @Description Get list of JabatanOpd by Kode OPD
 // @Tags JabatanOpd
 // @Accept json
 // @Produce json
+// @Param kode_opd path string true "Kode OPD"
 // @Success 200 {object} web.WebResponse{data=[]web.JabatanOpdResponse} "OK"
 // @Failure 500 {object} web.WebResponse "Internal Server Error"
-// @Router /jabatan-opds [get]
-func (controller *JabatanOpdControllerImpl) FindAll(c echo.Context) error {
-	jabatanOpdResponses, err := controller.JabatanOpdService.FindAll(c.Request().Context())
+// @Router /jabatan-opds/opd/{kode_opd} [get]
+func (controller *JabatanOpdControllerImpl) FindByKodeOpd(c echo.Context) error {
+	kodeOpd := c.Param("kode_opd")
+	jabatanOpdResponses, err := controller.JabatanOpdService.FindByKodeOpd(c.Request().Context(), kodeOpd)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, web.WebResponse{
 			Code:   http.StatusInternalServerError,

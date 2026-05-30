@@ -111,14 +111,14 @@ func (service *JabatanOpdServiceImpl) FindById(ctx context.Context, id int) (web
 	return helper.ToJabatanOpdResponse(jabatanOpdDomain), nil
 }
 
-func (service *JabatanOpdServiceImpl) FindAll(ctx context.Context) ([]web.JabatanOpdResponse, error) {
+func (service *JabatanOpdServiceImpl) FindByKodeOpd(ctx context.Context, kodeOpd string) ([]web.JabatanOpdResponse, error) {
 	tx, err := service.DB.BeginTx(ctx, nil)
 	if err != nil {
 		return []web.JabatanOpdResponse{}, err
 	}
 	defer helper.CommitOrRollback(tx)
 
-	jabatanOpdDomains, err := service.JabatanOpdRepository.FindAll(ctx, tx)
+	jabatanOpdDomains, err := service.JabatanOpdRepository.FindByKodeOpd(ctx, tx, kodeOpd)
 	if err != nil {
 		return []web.JabatanOpdResponse{}, err
 	}
